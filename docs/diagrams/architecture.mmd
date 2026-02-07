@@ -1,0 +1,51 @@
+graph TD
+    subgraph User
+        A[Telegram Client]
+    end
+
+    subgraph "Docker Environment"
+        subgraph "Agent Service (Node.js)"
+            D{Agent API}
+            E{Agent Main Loop}
+            F[Application Queue]
+            G[EmailReaderSkill]
+            H[JobSearchSkill]
+            I[JobParserSkill]
+            J[DocumentGeneratorSkill]
+            K[EmailSenderSkill]
+        end
+
+        subgraph "Telegram Bridge (Python)"
+            C{Telegram Bridge}
+        end
+
+        subgraph "Browser Service (Selenium)"
+            L{Headless Chrome}
+        end
+    end
+
+    subgraph "External Services"
+        B[Telegram Bot API]
+        M{OpenAI API}
+        N{GitHub API}
+        O[E-Mail Server]
+        P[Job-Portale]
+    end
+
+    A --> B
+    B <--> C
+    C --> D
+    D --> E
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    E --> J
+    E --> K
+    I --> L
+    H --> L
+    J --> M
+    J --> N
+    G --> O
+    K --> O
+    H --> P
