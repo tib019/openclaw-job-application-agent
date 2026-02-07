@@ -1,0 +1,20 @@
+# Log files
+logs/
+
+# Node.js dependencies
+node_modules/
+
+# Configuration files with sensitive information
+config/credentials.json
+
+# Python virtual environment
+.venv/
+venv/
+
+# IDE and editor directories
+.idea/
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
