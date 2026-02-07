@@ -1,0 +1,81 @@
+{
+  "agent": {
+    "name": "JobAgent",
+    "loop_interval_hours": 4,
+    "batch_notification_threshold": 5,
+    "auto_approve": false,
+    "deployment": "local"
+  },
+  "job_search": {
+    "keywords": [
+      "Softwareentwickler",
+      "Junior Developer",
+      "Backend Developer",
+      "Full Stack Developer"
+    ],
+    "locations": [
+      "Hamburg",
+      "Remote"
+    ],
+    "job_portals": {
+      "stepstone": {
+        "enabled": true,
+        "email_alerts": "jobs-noreply@stepstone.de"
+      },
+      "linkedin": {
+        "enabled": true,
+        "easy_apply_only": true
+      },
+      "indeed": {
+        "enabled": false
+      }
+    }
+  },
+  "filtering": {
+    "priority_channels": [
+      "email",
+      "linkedin_easy_apply",
+      "known_ats"
+    ],
+    "known_ats_systems": [
+      "greenhouse",
+      "workday",
+      "lever"
+    ],
+    "exclude_keywords": [
+      "Senior",
+      "Lead",
+      "Manager",
+      "PHP"
+    ]
+  },
+  "user_profile": {
+    "name": "Dein Name",
+    "current_position": "QA Engineer bei Hosenso",
+    "target_position": "Softwareentwickler / Backend Developer",
+    "skills": [
+      "Java",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "MySQL",
+      "Python",
+      "Agile/Scrum"
+    ],
+    "certifications": [
+      "Python Entry Level Certificate",
+      "Agile Scrum Foundation (geplant Sommer 2026)"
+    ],
+    "github": "github.com/tibo47-161"
+  },
+  "follow_up": {
+    "enabled": true,
+    "days_after_application": 10,
+    "max_follow_ups": 1
+  },
+  "reporting": {
+    "weekly_summary": true,
+    "weekly_summary_day": "sunday",
+    "weekly_summary_time": "18:00"
+  }
+}

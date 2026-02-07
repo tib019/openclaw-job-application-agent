@@ -1,78 +1,184 @@
 # OpenClaw Job Application Agent
 
-Ein intelligenter, auf OpenClaw basierender Agent für die teilautomatisierte Suche und Bewerbung auf Entwicklerstellen mit Fokus auf E-Mail- und LinkedIn-basierte Prozesse.
+Ein intelligenter, auf OpenClaw basierender Agent für die **autonome** Suche und Bewerbung auf Entwicklerstellen mit Fokus auf E-Mail- und LinkedIn-basierte Prozesse. Steuerbar über **Telegram** mit Batch-Versand-Funktion.
 
 ## 🌟 Übersicht
 
-Dieses Projekt zielt darauf ab, den Bewerbungsprozess für Softwareentwickler durch den Einsatz eines autonomen KI-Agenten zu optimieren. Der Agent automatisiert die mühsamen und repetitiven Aufgaben der Jobsuche und der Erstellung von Bewerbungsunterlagen, während der Benutzer die volle Kontrolle und die endgültige Entscheidung behält ("Human-in-the-Loop").
+Dieses Projekt revolutioniert den Bewerbungsprozess für Softwareentwickler durch den Einsatz eines vollautonomen KI-Agenten. Der Agent läuft kontinuierlich im Hintergrund, sucht proaktiv nach passenden Stellen, erstellt maßgeschneiderte Bewerbungsunterlagen und sammelt diese in einer Warteschlange. Du behältst die volle Kontrolle durch eine intuitive Telegram-Schnittstelle und gibst gebündelte Bewerbungen mit einem einzigen Befehl frei.
 
 Der strategische Fokus liegt auf der Vermeidung von komplexen Web-Formularen und CAPTCHAs durch die Priorisierung von Bewerbungen per E-Mail und über die "Einfache Bewerbung"-Funktion von LinkedIn.
 
 ## ✨ Features
 
-- **Intelligentes Job Sourcing:** Überwacht Job-Alerts in einem dedizierten E-Mail-Postfach und durchsucht aktiv die LinkedIn-Jobbörse.
-- **Strategische Filterung:** Priorisiert Stellen nach der Einfachheit und Robustheit des Bewerbungskanals (E-Mail > LinkedIn > Bekannte ATS).
-- **Dynamische Dokumentenerstellung:** Generiert maßgeschneiderte Anschreiben und Lebensläufe, die auf die jeweilige Stellenanzeige zugeschnitten sind.
-- **Sicherer "Human-in-the-Loop"-Workflow:** Der Agent bereitet alles vor, aber **versendet nichts** ohne die explizite Freigabe des Benutzers.
-- **Modulare Skill-Architektur:** Nutzt ein erweiterbares System von Skills für verschiedene Aufgaben (E-Mail-Verarbeitung, LinkedIn-Interaktion, ATS-spezifische Automatisierung).
-- **Bewerbungs-Tracking:** Protokolliert alle Aktionen im persistenten Gedächtnis und setzt automatische Erinnerungen zum Nachfassen.
+### Autonomer Betrieb
+- **Kontinuierlicher Loop:** Der Agent läuft automatisch alle 4 Stunden und sucht nach neuen Stellen.
+- **Proaktives Sammeln:** Erstellt Bewerbungsunterlagen automatisch und legt sie zur Überprüfung bereit.
+- **Intelligente Priorisierung:** Fokussiert sich auf die robustesten Bewerbungskanäle (E-Mail > LinkedIn > bekannte ATS).
+
+### Telegram-Steuerung
+- **Fernsteuerung per Messenger:** Steuere den Agenten von überall über einfache Telegram-Befehle.
+- **Batch-Freigabe:** Überprüfe und genehmige mehrere Bewerbungen auf einmal mit `/approve all`.
+- **One-Click-Versand:** Sende alle genehmigten Bewerbungen mit einem einzigen `/send`-Befehl.
+
+**Verfügbare Befehle:**
+
+| Befehl | Beschreibung |
+|:-------|:-------------|
+| `/status` | Zeigt alle Bewerbungen im Status "Pending Review" |
+| `/review <ID>` | Zeigt Details einer spezifischen Bewerbung |
+| `/approve <ID>` | Genehmigt eine einzelne Bewerbung |
+| `/approve all` | Genehmigt alle wartenden Bewerbungen |
+| `/reject <ID>` | Verwirft eine Bewerbung |
+| `/send` | **GO-Befehl:** Versendet alle genehmigten Bewerbungen |
+| `/stats` | Zeigt Statistiken (gesendete Bewerbungen, Antworten etc.) |
+
+### Intelligente Features
+- **Dynamische Dokumentenerstellung:** Maßgeschneiderte Anschreiben und Lebensläufe für jede Stelle.
+- **Firmen-Recherche:** Integriert aktuelle News über die Firma ins Anschreiben für maximale Personalisierung.
+- **Automatisches Follow-up:** Erstellt Nachfass-E-Mails für unbeantwortete Bewerbungen nach 7-10 Tagen.
+- **Wöchentliches Reporting:** Sendet dir jeden Sonntag eine Zusammenfassung deiner Bewerbungsaktivitäten.
+- **Keyword-Trend-Analyse:** Identifiziert die gefragtesten Skills in aktuellen Stellenanzeigen.
+
+### Sicherheit & Kontrolle
+- **Human-in-the-Loop:** Keine Bewerbung wird ohne deine explizite Freigabe versendet.
+- **Dedizierte E-Mail:** Nutzt ein separates E-Mail-Konto zur Isolation von privaten Daten.
+- **Modulare Skill-Architektur:** Erweiterbar und wartbar durch klare Trennung der Funktionen.
 
 ## 🏗️ Architektur-Konzept
 
-Der Agent basiert auf der OpenClaw-Architektur und erweitert diese um eine Reihe von spezialisierten Skills. Das System ist in mehrere logische Komponenten unterteilt:
+Der Agent basiert auf der OpenClaw-Architektur und erweitert diese um eine Telegram-Bot-Schnittstelle und ein Application-Queue-System.
 
-1.  **Core Agent (OpenClaw):** Der zentrale Daemon, der die Skills ausführt, das Gedächtnis verwaltet und die grundlegenden KI-Fähigkeiten bereitstellt.
-2.  **Sourcing Skills:**
-    - `EmailReaderSkill`: Überwacht den Posteingang auf neue Job-Alerts und extrahiert die relevanten Informationen.
-    - `LinkedInSearchSkill`: Führt gezielte Suchen auf LinkedIn durch und identifiziert passende Stellen.
-3.  **Processing Skills:**
-    - `JobParserSkill`: Analysiert eine Stellenanzeige und extrahiert Schlüsselanforderungen, Technologien und die Bewerbungsmethode.
-    - `DocumentGeneratorSkill`: Erstellt Anschreiben und Lebenslauf basierend auf Vorlagen und den extrahierten Job-Details.
-4.  **Execution Skills:**
-    - `EmailSenderSkill`: Interagiert mit einem Mail-Client, um E-Mail-Bewerbungen vorzubereiten und zu versenden (nach Freigabe).
-    - `LinkedInApplierSkill`: Steuert den Browser, um den "Einfache Bewerbung"-Prozess auf LinkedIn auszufüllen.
-    - `AtsGreenhouseSkill`, `AtsWorkdaySkill`, etc.: Modulare, hochspezialisierte Skills zur Interaktion mit bekannten Bewerbermanagementsystemen (ATS).
-5.  **Memory & Tracking:**
-    - Das `MEMORY.md` von OpenClaw wird genutzt, um jede Bewerbung, jeden Kontakt und jede Antwort zu protokollieren.
-    - Der `Scheduler` wird verwendet, um Follow-up-Erinnerungen zu erstellen.
+**Kernkomponenten:**
+
+1. **Core Agent (OpenClaw):** Orchestriert die Skills und verwaltet das Gedächtnis.
+2. **Telegram Bot:** Deine Fernbedienung für den Agenten.
+3. **Application Queue:** Verwaltet Bewerbungen in drei Status: `PENDING_REVIEW`, `APPROVED`, `SENT`.
+4. **Sourcing Skills:** `EmailReaderSkill`, `LinkedInSearchSkill`.
+5. **Processing Skills:** `JobParserSkill`, `DocumentGeneratorSkill`, `CompanyResearchSkill`.
+6. **Execution Skills:** `EmailSenderSkill`, `LinkedInApplierSkill`, modulare `Ats*Skills`.
+
+**Workflow:**
+
+```
+Autonomer Loop (alle 4h)
+    ↓
+Job Sourcing (E-Mail + LinkedIn)
+    ↓
+Job Parsing & Filterung
+    ↓
+Dokumentenerstellung
+    ↓
+→ Application Queue (PENDING_REVIEW)
+    ↓
+Telegram-Benachrichtigung: "5 neue Bewerbungen bereit"
+    ↓
+Du: /approve all
+    ↓
+→ Application Queue (APPROVED)
+    ↓
+Du: /send
+    ↓
+Versand aller genehmigten Bewerbungen
+    ↓
+→ Application Queue (SENT)
+```
 
 ## 🚀 Setup & Installation
 
-*(Detaillierte Anweisungen werden hier hinzugefügt, sobald die grundlegende Implementierung steht.)*
+### Voraussetzungen
+- Node.js 22+
+- Python 3.11+
+- Ein dediziertes E-Mail-Konto (Gmail, Outlook etc.)
+- Ein LinkedIn-Konto
+- Ein Telegram-Konto
 
-1.  **Voraussetzungen:**
-    - Node.js 22+
-    - Python 3.11+
-    - Ein dediziertes E-Mail-Konto (z.B. über Gmail, Outlook)
-    - Ein LinkedIn-Konto
+### Installation
 
-2.  **Installation:**
-    ```bash
-    git clone https://github.com/tibo47-161/openclaw-job-application-agent.git
-    cd openclaw-job-application-agent
-    npm install
-    ```
+1. **Repository klonen:**
+   ```bash
+   git clone https://github.com/tibo47-161/openclaw-job-application-agent.git
+   cd openclaw-job-application-agent
+   ```
 
-3.  **Konfiguration:**
-    - Konfigurieren der Zugangsdaten für das E-Mail- und LinkedIn-Konto in der `config/credentials.json`.
-    - Anpassen der Bewerbungsvorlagen in `src/templates/`.
+2. **Dependencies installieren:**
+   ```bash
+   npm install
+   pip install -r requirements.txt
+   ```
+
+3. **Telegram Bot erstellen:**
+   - Öffne Telegram und suche nach `@BotFather`
+   - Sende `/newbot` und folge den Anweisungen
+   - Kopiere den erhaltenen Bot-Token
+
+4. **Konfiguration:**
+   - Kopiere `config/credentials.example.json` zu `config/credentials.json`
+   - Trage deine Zugangsdaten ein:
+     ```json
+     {
+       "email": {
+         "address": "deine-bewerbungs-email@gmail.com",
+         "password": "dein-app-passwort"
+       },
+       "linkedin": {
+         "email": "dein-linkedin@email.com",
+         "password": "dein-passwort"
+       },
+       "telegram": {
+         "bot_token": "dein-telegram-bot-token",
+         "chat_id": "deine-telegram-chat-id"
+       }
+     }
+     ```
+
+5. **Agent starten:**
+   ```bash
+   npm start
+   ```
+
+6. **Cron-Job einrichten (optional):**
+   ```bash
+   crontab -e
+   # Füge hinzu: 0 */4 * * * cd /pfad/zum/projekt && npm run loop
+   ```
 
 ## 🗺️ Roadmap
 
--   [ ] **Phase 1: Grundgerüst & Sourcing**
-    -   [ ] Implementierung des `EmailReaderSkill`.
-    -   [ ] Implementierung des `LinkedInSearchSkill`.
-    -   [ ] Aufbau der grundlegenden Projektstruktur und Konfiguration.
--   [ ] **Phase 2: Dokumentenerstellung & E-Mail-Versand**
-    -   [ ] Entwicklung des `JobParserSkill`.
-    -   [ ] Entwicklung des `DocumentGeneratorSkill` mit anpassbaren Vorlagen.
-    -   [ ] Implementierung des `EmailSenderSkill` und des Freigabe-Workflows.
--   [ ] **Phase 3: LinkedIn-Integration & ATS-Skills**
-    -   [ ] Entwicklung des `LinkedInApplierSkill`.
-    -   [ ] Entwicklung des ersten modularen ATS-Skills (z.B. `AtsGreenhouseSkill`).
--   [ ] **Phase 4: Testing & Optimierung**
-    -   [ ] Aufbau einer Testsuite.
-    -   [ ] Optimierung der Prompts und der Zuverlässigkeit des Agenten.
+- [x] **Phase 0: Projektsetup**
+  - [x] GitHub-Repository erstellen
+  - [x] Projektstruktur aufbauen
+  - [x] Dokumentation schreiben
+
+- [ ] **Phase 1: Grundgerüst & Sourcing**
+  - [ ] Implementierung des `EmailReaderSkill`
+  - [ ] Implementierung des `LinkedInSearchSkill`
+  - [ ] Aufbau der Application Queue
+
+- [ ] **Phase 2: Dokumentenerstellung & Batch-System**
+  - [ ] Entwicklung des `JobParserSkill`
+  - [ ] Entwicklung des `DocumentGeneratorSkill`
+  - [ ] Implementierung der Queue-Status-Verwaltung
+
+- [ ] **Phase 3: Telegram-Integration**
+  - [ ] Entwicklung des Telegram Bots
+  - [ ] Implementierung aller Befehle (`/status`, `/approve`, `/send` etc.)
+  - [ ] Benachrichtigungssystem
+
+- [ ] **Phase 4: Execution & LinkedIn-Integration**
+  - [ ] Implementierung des `EmailSenderSkill`
+  - [ ] Entwicklung des `LinkedInApplierSkill`
+  - [ ] Entwicklung des ersten modularen ATS-Skills
+
+- [ ] **Phase 5: Advanced Features**
+  - [ ] Wöchentliches Reporting
+  - [ ] Automatisches Follow-up
+  - [ ] Firmen-Recherche-Integration
+  - [ ] Keyword-Trend-Analyse
+
+## 📚 Dokumentation
+
+- [Architektur-Dokumentation](docs/ARCHITECTURE.md)
+- [Konzept V3: Autonomer Betrieb & Telegram-Steuerung](docs/CONCEPT_V3.md)
 
 ## 🤝 Contributing
 
