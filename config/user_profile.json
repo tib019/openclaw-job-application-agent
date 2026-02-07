@@ -1,0 +1,169 @@
+{
+  "name": "Ihr Name",
+  "email": "ihre.email@example.com",
+  "phone": "+49 XXX XXXXXXX",
+  "address": {
+    "street": "Musterstraße XX",
+    "city": "Hamburg",
+    "zipCode": "XXXXX",
+    "country": "Deutschland"
+  },
+  "currentPosition": {
+    "title": "QA Engineer",
+    "company": "Hosenso",
+    "startDate": "2026-01",
+    "location": "Hamburg",
+    "description": "Qualitätssicherung und Testing"
+  },
+  "education": [
+    {
+      "degree": "Umschulung Fachinformatiker für Anwendungsentwicklung (FIAE)",
+      "institution": "IHK Hamburg",
+      "startDate": "2024-01",
+      "endDate": "2026-01",
+      "status": "Abgeschlossen",
+      "description": "Schwerpunkte: Java, Web-Entwicklung, Datenbanken, Agile Methoden"
+    }
+  ],
+  "experience": [
+    {
+      "title": "QA Engineer",
+      "company": "Hosenso",
+      "location": "Hamburg",
+      "startDate": "2026-01",
+      "endDate": null,
+      "current": true,
+      "responsibilities": [
+        "Qualitätssicherung und Testing von Software-Anwendungen",
+        "Erstellung und Durchführung von Testplänen",
+        "Bug-Tracking und Dokumentation",
+        "Zusammenarbeit mit Entwicklungsteams"
+      ]
+    },
+    {
+      "title": "Praktikant IT-Administration",
+      "company": "Argo Aviation GmbH",
+      "location": "Hamburg",
+      "startDate": "2025-05",
+      "endDate": "2025-11",
+      "current": false,
+      "responsibilities": [
+        "IT-Administration und Consulting",
+        "Internal Support und Help Desk",
+        "User Management via Active Directory",
+        "New Employee Onboarding",
+        "Internal IT Infrastructure Management (Setup, Consulting, Purchasing)",
+        "Branch Office Setup/Patching",
+        "Data Center Issue Resolution",
+        "Agile Project Planning"
+      ]
+    }
+  ],
+  "skills": {
+    "programmingLanguages": [
+      {
+        "name": "Java",
+        "level": "Intermediate",
+        "yearsOfExperience": 2
+      },
+      {
+        "name": "Python",
+        "level": "Beginner",
+        "yearsOfExperience": 1
+      },
+      {
+        "name": "JavaScript",
+        "level": "Intermediate",
+        "yearsOfExperience": 2
+      }
+    ],
+    "webTechnologies": [
+      {
+        "name": "HTML",
+        "level": "Intermediate"
+      },
+      {
+        "name": "CSS",
+        "level": "Intermediate"
+      }
+    ],
+    "databases": [
+      {
+        "name": "MySQL",
+        "level": "Beginner"
+      }
+    ],
+    "tools": [
+      "Git",
+      "Active Directory",
+      "Agile/Scrum",
+      "QA Testing Tools"
+    ],
+    "softSkills": [
+      "Teamarbeit",
+      "Problemlösung",
+      "Kommunikation",
+      "Agile Methoden"
+    ]
+  },
+  "certificates": [
+    {
+      "name": "Python Entry Level Certificate",
+      "issuer": "Certification Authority",
+      "date": "2025",
+      "status": "Erhalten"
+    },
+    {
+      "name": "Agile Scrum Foundation",
+      "issuer": "TBD",
+      "date": "2026-07",
+      "status": "Geplant"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Deutsch",
+      "level": "Muttersprache"
+    },
+    {
+      "language": "Englisch",
+      "level": "Fließend"
+    }
+  ],
+  "preferences": {
+    "targetPositions": [
+      "Junior Backend Developer",
+      "Junior Full Stack Developer",
+      "QA Engineer",
+      "Software Developer",
+      "Fachinformatiker Anwendungsentwicklung"
+    ],
+    "preferredLocations": [
+      "Hamburg",
+      "Remote"
+    ],
+    "remotePreference": "hybrid",
+    "salaryExpectation": {
+      "min": 38000,
+      "max": 50000,
+      "currency": "EUR",
+      "period": "annual"
+    },
+    "availableFrom": "sofort"
+  },
+  "github": {
+    "username": "tibo47-161",
+    "profileUrl": "https://github.com/tibo47-161"
+  },
+  "notes": {
+    "doNotMention": [
+      "PHP"
+    ],
+    "emphasize": [
+      "Java",
+      "QA Testing",
+      "Agile/Scrum",
+      "Praktische Erfahrung bei Argo Aviation"
+    ]
+  }
+}

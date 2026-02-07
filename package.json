@@ -1,13 +1,14 @@
 {
   "name": "openclaw-job-application-agent",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Ein intelligenter OpenClaw-basierter Agent für automatisierte Bewerbungen",
-  "main": "src/index.js",
+  "main": "src/agent/MainLoop.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "loop": "node src/loop.js",
-    "test": "jest"
+    "start": "node src/agent/MainLoop.js",
+    "api": "node src/api/AgentAPI.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "dev": "nodemon src/agent/MainLoop.js"
   },
   "keywords": [
     "openclaw",
@@ -23,7 +24,12 @@
     "node-cron": "^3.0.3",
     "selenium-webdriver": "^4.16.0",
     "nodemailer": "^6.9.7",
-    "imap-simple": "^5.2.0",
+    "imap": "^0.8.19",
+    "mailparser": "^3.6.5",
+    "openai": "^4.24.1",
+    "@octokit/rest": "^20.0.2",
+    "pdfkit": "^0.13.0",
+    "node-fetch": "^2.7.0",
     "cheerio": "^1.0.0-rc.12",
     "axios": "^1.6.2"
   },

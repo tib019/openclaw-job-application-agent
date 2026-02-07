@@ -1,0 +1,299 @@
+/**
+ * Agent REST API
+ * 
+ * Provides HTTP endpoints for the Telegram Bot to interact with the agent.
+ * 
+ * Endpoints:
+ * - GET  /api/queue/stats - Get queue statistics
+ * - GET  /api/queue/stats/detailed - Get detailed statistics
+ * - GET  /api/queue/list/:status - List applications by status
+ * - GET  /api/queue/get/:id - Get single application
+ * - POST /api/queue/approve/:id - Approve application
+ * - POST /api/queue/approve-all - Approve all pending
+ * - POST /api/queue/reject/:id - Reject application
+ * - POST /api/queue/send-all - Send all approved applications
+ * - GET  /api/health - Health check
+ * 
+ * @author Manus AI
+ * @date 2026-02-07
+ */
+
+const express = require('express');
+const ApplicationQueue = require('../utils/ApplicationQueue');
+const EmailSenderSkill = require('../skills/EmailSenderSkill');
+
+class AgentAPI {
+    constructor(config) {
+        this.config = config;
+        this.app = express();
+        this.queue = null;
+        this.emailSender = null;
+
+        // Middleware
+        this.app.use(express.json());
+        this.app.use(this._logRequest.bind(this));
+
+        // Initialize routes
+        this._setupRoutes();
+    }
+
+    /**
+     * Initialize the API
+     */
+    async initialize() {
+        // Initialize queue
+        this.queue = new ApplicationQueue('/app/data/application_queue.json');
+        await this.queue.initialize();
+
+        // Initialize email sender
+        this.emailSender = new EmailSenderSkill(this.config.email);
+        await this.emailSender.initialize();
+
+        console.log('✅ Agent API initialized');
+    }
+
+    /**
+     * Setup all routes
+     */
+    _setupRoutes() {
+        // Health check
+        this.app.get('/api/health', this._handleHealth.bind(this));
+
+        // Queue statistics
+        this.app.get('/api/queue/stats', this._handleGetStats.bind(this));
+        this.app.get('/api/queue/stats/detailed', this._handleGetDetailedStats.bind(this));
+
+        // Queue operations
+        this.app.get('/api/queue/list/:status', this._handleListByStatus.bind(this));
+        this.app.get('/api/queue/get/:id', this._handleGetApplication.bind(this));
+        this.app.post('/api/queue/approve/:id', this._handleApprove.bind(this));
+        this.app.post('/api/queue/approve-all', this._handleApproveAll.bind(this));
+        this.app.post('/api/queue/reject/:id', this._handleReject.bind(this));
+        this.app.post('/api/queue/send-all', this._handleSendAll.bind(this));
+    }
+
+    /**
+     * Middleware: Log all requests
+     */
+    _logRequest(req, res, next) {
+        console.log(`📡 ${req.method} ${req.path}`);
+        next();
+    }
+
+    /**
+     * GET /api/health
+     */
+    async _handleHealth(req, res) {
+        res.json({
+            status: 'healthy',
+            timestamp: new Date().toISOString(),
+            version: '0.1.0'
+        });
+    }
+
+    /**
+     * GET /api/queue/stats
+     */
+    async _handleGetStats(req, res) {
+        try {
+            const stats = this.queue.getStats();
+            res.json(stats);
+        } catch (error) {
+            console.error('❌ Error getting stats:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * GET /api/queue/stats/detailed
+     */
+    async _handleGetDetailedStats(req, res) {
+        try {
+            const stats = this.queue.getStats();
+            const recentlySent = this.queue.getRecentlySent(30);
+
+            const total = stats.total;
+            const sent = stats.sent;
+            const failed = stats.failed;
+            const successRate = total > 0 
+                ? Math.round((sent / (sent + failed)) * 100) 
+                : 0;
+
+            res.json({
+                ...stats,
+                sent_last_30_days: recentlySent.length,
+                success_rate: successRate
+            });
+        } catch (error) {
+            console.error('❌ Error getting detailed stats:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * GET /api/queue/list/:status
+     */
+    async _handleListByStatus(req, res) {
+        try {
+            const status = req.params.status.toUpperCase();
+            const applications = this.queue.getByStatus(status);
+            res.json(applications);
+        } catch (error) {
+            console.error('❌ Error listing applications:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * GET /api/queue/get/:id
+     */
+    async _handleGetApplication(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const application = this.queue.get(id);
+
+            if (!application) {
+                return res.status(404).json({ error: 'Application not found' });
+            }
+
+            res.json(application);
+        } catch (error) {
+            console.error('❌ Error getting application:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * POST /api/queue/approve/:id
+     */
+    async _handleApprove(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const success = await this.queue.approve(id);
+
+            if (!success) {
+                return res.status(404).json({ error: 'Application not found' });
+            }
+
+            res.json({ success: true, id });
+        } catch (error) {
+            console.error('❌ Error approving application:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * POST /api/queue/approve-all
+     */
+    async _handleApproveAll(req, res) {
+        try {
+            const count = await this.queue.approveAll();
+            res.json({ success: true, count });
+        } catch (error) {
+            console.error('❌ Error approving all:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * POST /api/queue/reject/:id
+     */
+    async _handleReject(req, res) {
+        try {
+            const id = parseInt(req.params.id);
+            const success = await this.queue.reject(id);
+
+            if (!success) {
+                return res.status(404).json({ error: 'Application not found' });
+            }
+
+            res.json({ success: true, id });
+        } catch (error) {
+            console.error('❌ Error rejecting application:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * POST /api/queue/send-all
+     */
+    async _handleSendAll(req, res) {
+        try {
+            const approved = this.queue.getByStatus('APPROVED');
+            let sent = 0;
+            let failed = 0;
+
+            console.log(`📤 Sending ${approved.length} approved applications...`);
+
+            for (const app of approved) {
+                try {
+                    // Send application
+                    const result = await this.emailSender.sendApplication(app);
+                    
+                    if (result.success) {
+                        await this.queue.markAsSent(app.id, result);
+                        sent++;
+                        console.log(`✅ Sent application #${app.id}`);
+                    } else {
+                        await this.queue.markAsFailed(app.id, result.error);
+                        failed++;
+                        console.error(`❌ Failed to send application #${app.id}: ${result.error}`);
+                    }
+                } catch (error) {
+                    await this.queue.markAsFailed(app.id, error.message);
+                    failed++;
+                    console.error(`❌ Error sending application #${app.id}:`, error);
+                }
+            }
+
+            console.log(`📊 Send complete: ${sent} sent, ${failed} failed`);
+
+            res.json({
+                success: true,
+                sent,
+                failed,
+                total: approved.length
+            });
+        } catch (error) {
+            console.error('❌ Error in send-all:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+
+    /**
+     * Start the API server
+     */
+    async start(port = 3000) {
+        await this.initialize();
+
+        this.app.listen(port, '0.0.0.0', () => {
+            console.log(`🚀 Agent API listening on port ${port}`);
+        });
+    }
+}
+
+module.exports = AgentAPI;
+
+// Start server if run directly
+if (require.main === module) {
+    const config = {
+        email: {
+            smtp: {
+                host: process.env.SMTP_HOST,
+                port: parseInt(process.env.SMTP_PORT) || 587,
+                secure: process.env.SMTP_SECURE === 'true',
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS
+                }
+            },
+            from: {
+                name: process.env.EMAIL_FROM_NAME || 'Applicant',
+                address: process.env.EMAIL_FROM_ADDRESS
+            }
+        }
+    };
+
+    const api = new AgentAPI(config);
+    api.start(3000);
+}
