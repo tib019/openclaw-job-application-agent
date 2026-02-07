@@ -1,7 +1,5 @@
 # 🤖 OpenClaw Job Application Agent
 
-> **Privates Entwicklungsprojekt** zur Automatisierung von Bewerbungsprozessen, inspiriert durch mein IHK-Abschlussprojekt.
-
 Ein intelligenter, autonomer Agent, der passende Stellen sucht, individuelle Bewerbungen erstellt und den gesamten Prozess über Telegram steuerbar macht.
 
 ## 📋 Projektübersicht
@@ -150,13 +148,7 @@ Die vollständige Projektdokumentation befindet sich im `docs/` Ordner und umfas
 
 ## 🤝 Über das Projekt
 
-Dieses Projekt ist eine private Initiative, inspiriert durch mein **IHK-Abschlussprojekt (ArgoTicketTool)**. Es dient der Vertiefung meiner Kenntnisse in den Bereichen KI, Automatisierung und System-Architektur.
-
-### Zeitraum
-
-*   **Entwicklungsstart**: 07. Februar 2026
-*   **MVP-Fertigstellung**: 07. Februar 2026
-*   **Production-Ready**: 07. Februar 2026
+Dieses Projekt ist eine private Initiative zur Vertiefung meiner Kenntnisse in den Bereichen KI, Automatisierung und System-Architektur.
 
 ## 👨‍💻 Entwickler
 
