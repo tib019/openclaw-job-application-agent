@@ -61,6 +61,8 @@ class ApplicationQueue {
      * @param {string} application.source - Source (email, linkedin, etc.)
      * @param {Object} application.documents - Generated documents
      * @param {Object} application.metadata - Additional metadata
+     * @param {Object} application.features - ML features (for training data)
+     * @param {number} application.matchScore - Match score (0-100)
      * @returns {number} Application ID
      */
     async add(application) {
@@ -73,7 +75,10 @@ class ApplicationQueue {
             status: 'PENDING_REVIEW',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-            ...application
+            decision: null, // Will be set when user approves/rejects
+            ...application,
+            // Ensure features exist for ML training
+            features: application.features || {}
         };
 
         this.queue.push(newApplication);
@@ -134,7 +139,7 @@ class ApplicationQueue {
      * @returns {boolean} Success
      */
     async approve(id) {
-        return await this.updateStatus(id, 'APPROVED');
+        return await this.updateStatus(id, 'APPROVED', { decision: 'approved' });
     }
 
     /**
@@ -163,7 +168,7 @@ class ApplicationQueue {
      * @returns {boolean} Success
      */
     async reject(id) {
-        return await this.updateStatus(id, 'REJECTED');
+        return await this.updateStatus(id, 'REJECTED', { decision: 'rejected' });
     }
 
     /**

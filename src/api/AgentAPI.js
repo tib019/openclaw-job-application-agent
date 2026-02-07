@@ -70,6 +70,17 @@ class AgentAPI {
         this.app.post('/api/queue/approve-all', this._handleApproveAll.bind(this));
         this.app.post('/api/queue/reject/:id', this._handleReject.bind(this));
         this.app.post('/api/queue/send-all', this._handleSendAll.bind(this));
+        
+        // Batch operations (for LLM Function Calling)
+        this.app.post('/api/queue/reject-batch', this._handleRejectBatch.bind(this));
+        this.app.post('/api/queue/approve-batch', this._handleApproveBatch.bind(this));
+        this.app.get('/api/queue/list-filtered', this._handleListFiltered.bind(this));
+        
+        // ML training data export
+        this.app.get('/api/ml/export-training-data', this._handleExportTrainingData.bind(this));
+        
+        // Prompt processing (LLM Function Calling)
+        this.app.post('/api/prompt/process', this._handleProcessPrompt.bind(this));
     }
 
     /**
@@ -297,3 +308,213 @@ if (require.main === module) {
     const api = new AgentAPI(config);
     api.start(3000);
 }
+
+    /**
+     * Handle: POST /api/queue/reject-batch
+     * Reject multiple applications based on filter criteria
+     */
+    async _handleRejectBatch(req, res) {
+        try {
+            const { filter } = req.body;
+            
+            if (!filter) {
+                return res.status(400).json({ error: 'Filter criteria required' });
+            }
+
+            const applications = this.queue.getByStatus('PENDING_REVIEW');
+            let rejectedCount = 0;
+
+            for (const app of applications) {
+                let shouldReject = false;
+
+                // Filter by match score
+                if (filter.maxScore !== undefined && app.matchScore <= filter.maxScore) {
+                    shouldReject = true;
+                }
+
+                // Filter by company size
+                if (filter.maxCompanySize !== undefined && 
+                    app.features?.companySize <= filter.maxCompanySize) {
+                    shouldReject = true;
+                }
+
+                // Filter by keywords in position
+                if (filter.excludeKeywords && Array.isArray(filter.excludeKeywords)) {
+                    const positionLower = app.position.toLowerCase();
+                    if (filter.excludeKeywords.some(keyword => 
+                        positionLower.includes(keyword.toLowerCase()))) {
+                        shouldReject = true;
+                    }
+                }
+
+                if (shouldReject) {
+                    await this.queue.reject(app.id);
+                    rejectedCount++;
+                }
+            }
+
+            res.json({
+                success: true,
+                rejectedCount,
+                message: `Rejected ${rejectedCount} applications`
+            });
+        } catch (error) {
+            console.error('❌ Error in reject-batch:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    /**
+     * Handle: POST /api/queue/approve-batch
+     * Approve multiple applications based on filter criteria
+     */
+    async _handleApproveBatch(req, res) {
+        try {
+            const { filter } = req.body;
+            
+            if (!filter) {
+                return res.status(400).json({ error: 'Filter criteria required' });
+            }
+
+            const applications = this.queue.getByStatus('PENDING_REVIEW');
+            let approvedCount = 0;
+
+            for (const app of applications) {
+                let shouldApprove = false;
+
+                // Filter by match score
+                if (filter.minScore !== undefined && app.matchScore >= filter.minScore) {
+                    shouldApprove = true;
+                }
+
+                // Filter by keywords in position
+                if (filter.includeKeywords && Array.isArray(filter.includeKeywords)) {
+                    const positionLower = app.position.toLowerCase();
+                    if (filter.includeKeywords.some(keyword => 
+                        positionLower.includes(keyword.toLowerCase()))) {
+                        shouldApprove = true;
+                    }
+                }
+
+                // Filter by remote option
+                if (filter.remoteOnly && app.features?.remote === 'remote') {
+                    shouldApprove = true;
+                }
+
+                if (shouldApprove) {
+                    await this.queue.approve(app.id);
+                    approvedCount++;
+                }
+            }
+
+            res.json({
+                success: true,
+                approvedCount,
+                message: `Approved ${approvedCount} applications`
+            });
+        } catch (error) {
+            console.error('❌ Error in approve-batch:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    /**
+     * Handle: GET /api/queue/list-filtered
+     * List applications with advanced filtering
+     */
+    async _handleListFiltered(req, res) {
+        try {
+            const { minScore, maxScore, status, keywords } = req.query;
+            
+            let applications = status 
+                ? this.queue.getByStatus(status)
+                : this.queue.queue;
+
+            // Filter by score
+            if (minScore !== undefined) {
+                applications = applications.filter(app => 
+                    app.matchScore >= parseInt(minScore));
+            }
+            if (maxScore !== undefined) {
+                applications = applications.filter(app => 
+                    app.matchScore <= parseInt(maxScore));
+            }
+
+            // Filter by keywords
+            if (keywords) {
+                const keywordList = keywords.split(',').map(k => k.trim().toLowerCase());
+                applications = applications.filter(app => {
+                    const positionLower = app.position.toLowerCase();
+                    return keywordList.some(keyword => positionLower.includes(keyword));
+                });
+            }
+
+            res.json({
+                success: true,
+                count: applications.length,
+                applications
+            });
+        } catch (error) {
+            console.error('❌ Error in list-filtered:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    /**
+     * Handle: GET /api/ml/export-training-data
+     * Export training data for ML model
+     */
+    async _handleExportTrainingData(req, res) {
+        try {
+            // Get all applications with decisions
+            const trainingData = this.queue.queue
+                .filter(app => app.decision !== null)
+                .map(app => ({
+                    features: app.features,
+                    matchScore: app.matchScore,
+                    decision: app.decision,
+                    position: app.position,
+                    company: app.company
+                }));
+
+            res.json({
+                success: true,
+                count: trainingData.length,
+                data: trainingData
+            });
+        } catch (error) {
+            console.error('❌ Error in export-training-data:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    /**
+     * Handle: POST /api/prompt/process
+     * Process natural language prompt via LLM Function Calling
+     */
+    async _handleProcessPrompt(req, res) {
+        try {
+            const { prompt } = req.body;
+            
+            if (!prompt) {
+                return res.status(400).json({ error: 'Prompt required' });
+            }
+
+            // Initialize PromptService if not already done
+            if (!this.promptService) {
+                const PromptService = require('../services/PromptService');
+                this.promptService = new PromptService({
+                    openaiApiKey: process.env.OPENAI_API_KEY,
+                    apiBaseUrl: 'http://localhost:3000'
+                });
+            }
+
+            // Process the prompt
+            const result = await this.promptService.processPrompt(prompt);
+
+            res.json(result);
+        } catch (error) {
+            console.error('❌ Error in process-prompt:', error);
+            res.status(500).json({ error: error.message });
+        }
+    }

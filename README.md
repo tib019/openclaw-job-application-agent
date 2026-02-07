@@ -33,6 +33,21 @@ Der strategische Fokus liegt auf der Vermeidung von komplexen Web-Formularen und
 | `/reject <ID>` | Verwirft eine Bewerbung |
 | `/send` | **GO-Befehl:** Versendet alle genehmigten Bewerbungen |
 | `/stats` | Zeigt Statistiken (gesendete Bewerbungen, Antworten etc.) |
+| `/prompt <anweisung>` | **NEU:** Steuere den Agenten mit natürlicher Sprache |
+
+### LLM-Steuerung (NEU in v1.2.0)
+- **Natural Language Control:** Steuere den Agenten mit natürlicher Sprache statt fester Befehle.
+- **Batch-Operationen:** "Lehne alle mit Score unter 60 ab" - ein Befehl, mehrere Aktionen.
+- **Intelligente Filterung:** Das LLM versteht komplexe Anweisungen und führt sie aus.
+- **Datensammlung für ML:** Passives Tracking deiner Entscheidungen für zukünftiges ML-Modell.
+
+**Beispiele:**
+```
+/prompt zeige alle bewerbungen mit score über 70
+/prompt lehne alle bewerbungen mit score unter 60 ab
+/prompt genehmige alle remote jobs
+/prompt sende alle genehmigten bewerbungen
+```
 
 ### Intelligente Features
 - **Dynamische Dokumentenerstellung:** Maßgeschneiderte Anschreiben und Lebensläufe für jede Stelle.

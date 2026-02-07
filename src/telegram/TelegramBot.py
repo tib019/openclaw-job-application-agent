@@ -67,6 +67,7 @@ class JobApplicationBot:
         self.application.add_handler(CommandHandler("send", self.cmd_send))
         self.application.add_handler(CommandHandler("stats", self.cmd_stats))
         self.application.add_handler(CommandHandler("help", self.cmd_help))
+        self.application.add_handler(CommandHandler("prompt", self.cmd_prompt))
         
         # Callback query handler for inline buttons
         self.application.add_handler(CallbackQueryHandler(self.handle_callback))
@@ -366,6 +367,112 @@ Nutze /list pending um ausstehende Bewerbungen zu sehen.
         elif data == 'cancel_send':
             await query.answer("Abgebrochen")
             await query.edit_message_text("❌ Versand abgebrochen.")
+
+    async def cmd_prompt(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Process natural language prompt via LLM"""
+        if not context.args:
+            await update.message.reply_text(
+                "❌ Bitte gib eine Anweisung an.\n\n"
+                "Beispiele:\n"
+                "• `/prompt zeige alle bewerbungen mit score über 70`\n"
+                "• `/prompt lehne alle bewerbungen mit score unter 60 ab`\n"
+                "• `/prompt genehmige alle remote jobs`\n"
+                "• `/prompt sende alle genehmigten bewerbungen`"
+            )
+            return
+
+        prompt = ' '.join(context.args)
+        
+        await update.message.reply_text(f"🤖 Verarbeite: \"{prompt}\"...")
+
+        try:
+            # Call Prompt Service API (will be added to Agent API)
+            response = requests.post(
+                f'{AGENT_API_URL}/api/prompt/process',
+                json={'prompt': prompt},
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                
+                if result.get('success'):
+                    # Format response based on action
+                    action = result.get('action', 'unknown')
+                    data = result.get('result', {})
+                    
+                    if action == 'listApplicationsFiltered':
+                        applications = data.get('applications', [])
+                        count = data.get('count', 0)
+                        
+                        if count == 0:
+                            await update.message.reply_text("📋 Keine passenden Bewerbungen gefunden.")
+                        else:
+                            text = f"📋 **{count} Bewerbungen gefunden:**\n\n"
+                            for app in applications[:10]:  # Limit to 10
+                                text += f"#{app['id']} - {app['company']} - {app['position']} (Score: {app.get('matchScore', 'N/A')})\n"
+                            
+                            if count > 10:
+                                text += f"\n... und {count - 10} weitere"
+                            
+                            await update.message.reply_text(text, parse_mode='Markdown')
+                    
+                    elif action == 'approveBatch':
+                        approved = data.get('approvedCount', 0)
+                        await update.message.reply_text(f"✅ {approved} Bewerbungen genehmigt!")
+                    
+                    elif action == 'rejectBatch':
+                        rejected = data.get('rejectedCount', 0)
+                        await update.message.reply_text(f"🚫 {rejected} Bewerbungen abgelehnt!")
+                    
+                    elif action == 'sendAllApplications':
+                        sent = data.get('sent', 0)
+                        failed = data.get('failed', 0)
+                        await update.message.reply_text(
+                            f"✅ {sent} Bewerbungen versendet!\n"
+                            f"❌ {failed} fehlgeschlagen."
+                        )
+                    
+                    elif action == 'getStatistics':
+                        stats = data.get('stats', {})
+                        await update.message.reply_text(
+                            f"📊 **Statistiken:**\n\n"
+                            f"⏳ Pending: {stats.get('PENDING_REVIEW', 0)}\n"
+                            f"✅ Approved: {stats.get('APPROVED', 0)}\n"
+                            f"📤 Sent: {stats.get('SENT', 0)}\n"
+                            f"🚫 Rejected: {stats.get('REJECTED', 0)}\n"
+                            f"❌ Failed: {stats.get('FAILED', 0)}",
+                            parse_mode='Markdown'
+                        )
+                    
+                    elif action == 'approveApplication' or action == 'rejectApplication':
+                        message = data.get('message', 'Aktion erfolgreich')
+                        await update.message.reply_text(f"✅ {message}")
+                    
+                    else:
+                        # Generic response
+                        message = result.get('message', 'Aktion erfolgreich ausgeführt')
+                        await update.message.reply_text(f"✅ {message}")
+                else:
+                    error = result.get('error', 'Unbekannter Fehler')
+                    await update.message.reply_text(f"❌ Fehler: {error}")
+            else:
+                await update.message.reply_text(
+                    f"❌ API-Fehler: {response.status_code}\n"
+                    "Bitte versuche es später erneut."
+                )
+        
+        except requests.exceptions.Timeout:
+            await update.message.reply_text(
+                "⏱️ Zeitüberschreitung. Die Anfrage dauert zu lange.\n"
+                "Bitte versuche es mit einer einfacheren Anweisung."
+            )
+        except Exception as e:
+            logger.error(f"Error in cmd_prompt: {e}")
+            await update.message.reply_text(
+                f"❌ Fehler bei der Verarbeitung: {str(e)}\n\n"
+                "Bitte versuche es erneut oder nutze die Standard-Befehle."
+            )
 
     def run(self):
         """Start the bot"""
