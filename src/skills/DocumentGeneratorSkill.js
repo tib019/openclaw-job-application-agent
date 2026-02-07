@@ -16,8 +16,8 @@
 const fs = require('fs').promises;
 const path = require('path');
 const { OpenAI } = require('openai');
-const { Octokit } = require('@octokit/rest');
 const PDFDocument = require('pdfkit');
+const GitHubService = require('../services/GitHubService');
 
 class DocumentGeneratorSkill {
     constructor(config) {
@@ -25,9 +25,7 @@ class DocumentGeneratorSkill {
         this.openai = new OpenAI({
             apiKey: process.env.OPENAI_API_KEY
         });
-        this.octokit = new Octokit({
-            auth: process.env.GITHUB_TOKEN
-        });
+        this.githubService = null;
         this.userProfile = null;
     }
 
@@ -40,7 +38,14 @@ class DocumentGeneratorSkill {
         const profileData = await fs.readFile(profilePath, 'utf8');
         this.userProfile = JSON.parse(profileData);
         
-        console.log(`✅ Loaded user profile: ${this.userProfile.name}`);
+        // Initialize GitHub Service
+        this.githubService = new GitHubService({
+            githubUsername: this.userProfile.github?.username || this.userProfile.personal?.github || 'tibo47-161',
+            githubToken: process.env.GITHUB_TOKEN
+        });
+        await this.githubService.initialize();
+        
+        console.log(`✅ Loaded user profile: ${this.userProfile.personal?.name || this.userProfile.name}`);
     }
 
     /**
@@ -90,72 +95,60 @@ class DocumentGeneratorSkill {
         console.log('🔍 Analyzing GitHub repositories...');
 
         try {
-            // Fetch all repos for user tibo47-161
-            const { data: repos } = await this.octokit.repos.listForUser({
-                username: 'tibo47-161',
-                sort: 'updated',
-                per_page: 100
-            });
+            // Use GitHubService to find matching projects
+            const jobRequirements = {
+                skills: jobData.requiredSkills || [],
+                position: jobData.position || '',
+                description: jobData.description || ''
+            };
 
-            // Filter out forks and empty repos
-            const ownRepos = repos.filter(r => !r.fork && r.size > 0);
+            // Get top 3 matching projects
+            const maxProjects = this.userProfile.github?.maxProjectsPerApplication || 3;
+            const matchingProjects = await this.githubService.findMatchingProjects(
+                jobRequirements,
+                maxProjects
+            );
 
-            // Create prompt for LLM to select best project
-            const repoSummaries = ownRepos.map(r => ({
-                name: r.name,
-                description: r.description || 'No description',
-                language: r.language,
-                topics: r.topics || [],
-                stars: r.stargazers_count,
-                url: r.html_url
-            }));
+            if (matchingProjects.length === 0) {
+                console.warn('⚠️  No matching projects found, using fallback');
+                return {
+                    name: 'automated-trading-system',
+                    reason: 'Fallback project - demonstrates coding skills',
+                    highlightPoints: ['Demonstrates coding skills', 'Shows problem-solving ability'],
+                    url: 'https://github.com/tibo47-161/automated-trading-system',
+                    matchScore: 0
+                };
+            }
 
-            const prompt = `Given this job posting and these GitHub projects, select the BEST project to highlight in the application.
-
-Job Details:
-- Company: ${jobData.company}
-- Position: ${jobData.position}
-- Required Skills: ${jobData.requiredSkills?.join(', ') || 'Not specified'}
-- Key Responsibilities: ${jobData.keyResponsibilities?.join(', ') || 'Not specified'}
-
-GitHub Projects:
-${JSON.stringify(repoSummaries, null, 2)}
-
-Return JSON:
-{
-  "selectedProject": "project-name",
-  "reason": "Why this project is the best match",
-  "highlightPoints": ["point1", "point2", "point3"]
-}`;
-
-            const response = await this.openai.chat.completions.create({
-                model: 'gpt-4.1-mini',
-                messages: [
-                    { role: 'system', content: 'You are an expert at matching projects to job requirements.' },
-                    { role: 'user', content: prompt }
-                ],
-                temperature: 0.3,
-                max_tokens: 500
-            });
-
-            const selection = JSON.parse(response.choices[0].message.content);
-            const selectedRepo = ownRepos.find(r => r.name === selection.selectedProject);
-
-            console.log(`✅ Selected project: ${selection.selectedProject}`);
+            // Return the best matching project
+            const bestProject = matchingProjects[0];
+            
+            console.log(`✅ Selected project: ${bestProject.name} (Score: ${bestProject.matchScore})`);
 
             return {
-                ...selection,
-                url: selectedRepo?.html_url,
-                language: selectedRepo?.language
+                name: bestProject.name,
+                description: bestProject.description,
+                url: bestProject.url,
+                language: bestProject.language,
+                technologies: bestProject.technologies,
+                matchScore: bestProject.matchScore,
+                reason: `Best match with score ${bestProject.matchScore}/100`,
+                highlightPoints: [
+                    `Uses ${bestProject.language} and ${bestProject.technologies.slice(0, 2).join(', ')}`,
+                    bestProject.description || 'Demonstrates practical coding skills',
+                    `${bestProject.stars} stars on GitHub`
+                ].filter(Boolean),
+                allMatchingProjects: matchingProjects // Include all for reference
             };
 
         } catch (error) {
             console.error('⚠️  GitHub analysis failed:', error.message);
             return {
-                selectedProject: 'automated-trading-system',
-                reason: 'Fallback project',
+                name: 'automated-trading-system',
+                reason: 'Fallback project - error during analysis',
                 highlightPoints: ['Demonstrates coding skills'],
-                url: 'https://github.com/tibo47-161/automated-trading-system'
+                url: 'https://github.com/tibo47-161/automated-trading-system',
+                matchScore: 0
             };
         }
     }

@@ -1,0 +1,92 @@
+{
+  "personal": {
+    "name": "Dein Name",
+    "email": "deine-bewerbungs-email@example.com",
+    "phone": "+49 123 456789",
+    "location": "Hamburg, Deutschland",
+    "github": "tibo47-161",
+    "linkedin": "https://linkedin.com/in/dein-profil"
+  },
+  "professional": {
+    "title": "QA Engineer / Junior Backend Developer",
+    "summary": "Fachinformatiker für Anwendungsentwicklung mit Fokus auf Backend-Entwicklung und Qualitätssicherung. Erfahrung in Java, Python, JavaScript und modernen Testing-Frameworks.",
+    "experience": [
+      {
+        "company": "Hosenso",
+        "position": "QA Engineer",
+        "location": "Hamburg",
+        "startDate": "2026-01",
+        "endDate": null,
+        "current": true,
+        "description": "Qualitätssicherung für Softwareprojekte, Testautomatisierung, Bug-Tracking und Zusammenarbeit mit Entwicklungsteams."
+      },
+      {
+        "company": "Argo Aviation",
+        "position": "IT-Administration Praktikant",
+        "location": "Hamburg",
+        "startDate": "2025-06",
+        "endDate": "2025-12",
+        "current": false,
+        "description": "IT-Administration, Active Directory, Netzwerkverwaltung, Agile Scrum-Methodik."
+      }
+    ],
+    "education": [
+      {
+        "institution": "Bildungsträger",
+        "degree": "Fachinformatiker für Anwendungsentwicklung (FIAE)",
+        "location": "Hamburg",
+        "startDate": "2024-01",
+        "endDate": "2025-12",
+        "completed": true
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Python Entry Level Certificate",
+        "issuer": "Python Institute",
+        "date": "2025-03",
+        "url": ""
+      },
+      {
+        "name": "Agile Scrum Foundation",
+        "issuer": "Scrum.org",
+        "date": "2026-02",
+        "url": "",
+        "planned": true
+      }
+    ]
+  },
+  "skills": {
+    "languages": ["Java", "Python", "JavaScript", "HTML", "CSS", "SQL"],
+    "frameworks": ["Spring", "React", "Node.js", "Express"],
+    "databases": ["MySQL", "PostgreSQL", "MongoDB"],
+    "tools": ["Git", "Docker", "Jenkins", "Selenium", "Postman"],
+    "methodologies": ["Agile", "Scrum", "Test-Driven Development"],
+    "soft_skills": ["Teamarbeit", "Problemlösung", "Kommunikation", "Selbstständigkeit"]
+  },
+  "preferences": {
+    "positions": [
+      "Backend Developer",
+      "Full Stack Developer",
+      "QA Engineer",
+      "Software Developer",
+      "Junior Developer"
+    ],
+    "locations": ["Hamburg", "Remote", "Hybrid"],
+    "salary": {
+      "min": 45000,
+      "max": 65000,
+      "currency": "EUR"
+    },
+    "workType": ["full-time", "permanent"],
+    "remote": ["hybrid", "remote", "on-site"],
+    "companySize": ["startup", "small", "medium", "large"],
+    "industries": ["Software", "IT", "Tech", "E-Commerce", "Finance"]
+  },
+  "github": {
+    "username": "tibo47-161",
+    "highlightProjects": true,
+    "maxProjectsPerApplication": 3,
+    "excludeProjects": []
+  }
+}
