@@ -1,0 +1,11 @@
+# Telegram Bot
+python-telegram-bot==20.7
+
+# HTTP Client
+requests==2.31.0
+
+# Configuration
+python-dotenv==1.0.0
+
+# Logging
+colorlog==6.8.0

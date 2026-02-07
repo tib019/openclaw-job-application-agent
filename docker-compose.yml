@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  agent-service:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.agent
+    container_name: job-agent-core
+    environment:
+      - LOOP_INTERVAL_HOURS=4
+      - BROWSER_SERVICE_URL=http://browser-service:4444
+      - NODE_ENV=production
+    volumes:
+      # Internal application data
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config:ro
+      - ./src:/app/src:ro
+      
+      # Host filesystem access for applications
+      - ~/Bewerbungen:/host/bewerbungen
+      - ~/Dokumente/Bewerbung:/host/dokumente:ro
+      - ~/Downloads:/host/downloads:ro
+    networks:
+      - job-agent-network
+    depends_on:
+      - browser-service
+    restart: unless-stopped
+    command: npm start
+
+  telegram-bridge:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.telegram
+    container_name: job-agent-telegram
+    environment:
+      - AGENT_API_URL=http://agent-service:8080
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./config:/app/config:ro
+      - ./logs:/app/logs
+    networks:
+      - job-agent-network
+    depends_on:
+      - agent-service
+    restart: unless-stopped
+    command: python bot.py
+
+  browser-service:
+    image: selenium/standalone-chrome:latest
+    container_name: job-agent-browser
+    shm_size: 2g
+    ports:
+      - "4444:4444"  # Optional: Für Debugging von außen zugänglich
+      - "7900:7900"  # VNC-Server für visuelle Überwachung
+    environment:
+      - SE_NODE_MAX_SESSIONS=5
+      - SE_NODE_SESSION_TIMEOUT=300
+    networks:
+      - job-agent-network
+    restart: unless-stopped
+
+networks:
+  job-agent-network:
+    driver: bridge
