@@ -12,6 +12,8 @@ Der strategische Fokus liegt auf der Vermeidung von komplexen Web-Formularen und
 
 ### Autonomer Betrieb
 - **Kontinuierlicher Loop:** Der Agent läuft automatisch alle 4 Stunden und sucht nach neuen Stellen.
+- **Aktive Portal-Suche:** Durchsucht StepStone, Indeed, get-in-it.de und it-jobs.de proaktiv (bis zu 80 Stellen pro Durchlauf).
+- **E-Mail-Monitoring:** Überwacht dedizierte Bewerbungs-E-Mail auf Job-Alerts.
 - **Proaktives Sammeln:** Erstellt Bewerbungsunterlagen automatisch und legt sie zur Überprüfung bereit.
 - **Intelligente Priorisierung:** Fokussiert sich auf die robustesten Bewerbungskanäle (E-Mail > LinkedIn > bekannte ATS).
 

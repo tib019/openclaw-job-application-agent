@@ -3,11 +3,12 @@
  * 
  * The orchestrator that coordinates all skills and runs the complete workflow:
  * 1. Check email for new job alerts (EmailReaderSkill)
- * 2. Parse job postings (JobParserSkill)
- * 3. Filter by match score and application method
- * 4. Generate application documents (DocumentGeneratorSkill)
- * 5. Add to queue with PENDING_REVIEW status
- * 6. Send Telegram notification
+ * 2. Actively search job portals (JobSearchSkill)
+ * 3. Parse job postings (JobParserSkill)
+ * 4. Filter by match score and application method
+ * 5. Generate application documents (DocumentGeneratorSkill)
+ * 6. Add to queue with PENDING_REVIEW status
+ * 7. Send Telegram notification
  * 
  * Runs periodically (default: every 4 hours) or can be triggered manually.
  * 
@@ -16,6 +17,7 @@
  */
 
 const EmailReaderSkill = require('../skills/EmailReaderSkill');
+const JobSearchSkill = require('../skills/JobSearchSkill');
 const JobParserSkill = require('../skills/JobParserSkill');
 const DocumentGeneratorSkill = require('../skills/DocumentGeneratorSkill');
 const ApplicationQueue = require('../utils/ApplicationQueue');
@@ -25,6 +27,7 @@ class AgentMainLoop {
     constructor(config) {
         this.config = config;
         this.emailReader = null;
+        this.jobSearch = null;
         this.jobParser = null;
         this.documentGenerator = null;
         this.queue = null;
@@ -50,6 +53,12 @@ class AgentMainLoop {
             imapPort: this.config.email.imapPort
         });
         await this.emailReader.initialize();
+
+        // Initialize JobSearchSkill
+        this.jobSearch = new JobSearchSkill({
+            browserServiceUrl: this.config.browserServiceUrl
+        });
+        await this.jobSearch.initialize();
 
         // Initialize JobParserSkill
         this.jobParser = new JobParserSkill({
@@ -81,16 +90,30 @@ class AgentMainLoop {
 
             // Step 1: Check for new job alert emails
             console.log('📧 Step 1: Checking for new job alerts...');
-            const jobPostings = await this.emailReader.checkForNewEmails();
-            console.log(`✅ Found ${jobPostings.length} new job postings`);
+            const emailJobs = await this.emailReader.checkForNewEmails();
+            console.log(`✅ Found ${emailJobs.length} new job postings from emails`);
+
+            // Step 2: Actively search job portals
+            console.log('🔍 Step 2: Actively searching job portals...');
+            const searchCriteria = this.config.searchCriteria || {
+                keywords: ['Junior Backend Developer', 'Software Developer', 'Fachinformatiker Anwendungsentwicklung'],
+                location: 'Hamburg'
+            };
+            const portalJobs = await this.jobSearch.searchAll(searchCriteria);
+            console.log(`✅ Found ${portalJobs.length} new job postings from portals`);
+
+            // Combine and deduplicate
+            const allJobs = [...emailJobs, ...portalJobs];
+            const jobPostings = this.jobSearch.removeDuplicates(allJobs);
+            console.log(`✅ Total unique jobs: ${jobPostings.length}`);
 
             if (jobPostings.length === 0) {
                 console.log('📭 No new jobs found, ending iteration');
                 return;
             }
 
-            // Step 2: Parse each job posting
-            console.log('🔍 Step 2: Parsing job postings...');
+            // Step 3: Parse each job posting
+            console.log('🔍 Step 3: Parsing job postings...');
             const parsedJobs = [];
             for (const job of jobPostings) {
                 try {
@@ -102,8 +125,8 @@ class AgentMainLoop {
             }
             console.log(`✅ Successfully parsed ${parsedJobs.length} jobs`);
 
-            // Step 3: Filter jobs
-            console.log('🎯 Step 3: Filtering jobs...');
+            // Step 4: Filter jobs
+            console.log('🎯 Step 4: Filtering jobs...');
             const filteredJobs = this._filterJobs(parsedJobs);
             console.log(`✅ ${filteredJobs.length} jobs passed filters`);
 
@@ -112,8 +135,8 @@ class AgentMainLoop {
                 return;
             }
 
-            // Step 4: Generate application documents
-            console.log('📝 Step 4: Generating application documents...');
+            // Step 5: Generate application documents
+            console.log('📝 Step 5: Generating application documents...');
             let generatedCount = 0;
             for (const job of filteredJobs) {
                 try {
@@ -135,7 +158,7 @@ class AgentMainLoop {
 
             console.log(`✅ Generated ${generatedCount} applications`);
 
-            // Step 5: Send Telegram notification
+            // Step 6: Send Telegram notification
             if (generatedCount > 0) {
                 await this._sendTelegramNotification(generatedCount);
             }
@@ -254,6 +277,9 @@ class AgentMainLoop {
         
         if (this.emailReader) {
             await this.emailReader.close();
+        }
+        if (this.jobSearch) {
+            await this.jobSearch.close();
         }
         if (this.jobParser) {
             await this.jobParser.close();

@@ -1,0 +1,53 @@
+{
+  "keywords": [
+    "Junior Backend Developer",
+    "Junior Software Developer",
+    "Junior Full Stack Developer",
+    "Software Developer",
+    "Backend Developer",
+    "Fachinformatiker Anwendungsentwicklung",
+    "Junior Java Developer",
+    "QA Engineer",
+    "Software Tester"
+  ],
+  "location": "Hamburg",
+  "filters": {
+    "experienceLevel": ["junior", "entry-level", "mid"],
+    "remoteOptions": ["onsite", "hybrid", "remote"],
+    "employmentType": ["full-time", "permanent"],
+    "minMatchScore": 50
+  },
+  "excludeKeywords": [
+    "Senior",
+    "Lead",
+    "Principal",
+    "Architect",
+    "PhD",
+    "Promotion",
+    "Studium erforderlich"
+  ],
+  "portals": {
+    "stepstone": {
+      "enabled": true,
+      "maxResults": 20
+    },
+    "indeed": {
+      "enabled": true,
+      "maxResults": 20
+    },
+    "get-in-it": {
+      "enabled": true,
+      "maxResults": 20
+    },
+    "it-jobs": {
+      "enabled": true,
+      "maxResults": 20
+    }
+  },
+  "notes": {
+    "description": "Suchkriterien für automatische Stellensuche",
+    "targetProfile": "Junior/Mid-Level Developer mit FIAE-Abschluss, QA-Erfahrung, Skills: Java, JavaScript, Python, MySQL",
+    "currentPosition": "QA Engineer bei Hosenso",
+    "targetSalary": "38.000 - 50.000 EUR/Jahr"
+  }
+}
