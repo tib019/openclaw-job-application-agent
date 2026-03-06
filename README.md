@@ -160,7 +160,7 @@ Dieses Projekt ist eine private Initiative zur Vertiefung meiner Kenntnisse in d
 
 **Tobias Heiko Buß**
 
-*   📧 Email: [THBuss@outlook.de](mailto:THBuss@outlook.de)
+*   📧 Email: [tobias.buss.dev@gmail.com](mailto:tobias.buss.dev@gmail.com)
 *   🐙 GitHub: [@tibo47-161](https://github.com/tibo47-161)
 *   📍 Hamburg, Deutschland
 
