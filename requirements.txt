@@ -2,7 +2,7 @@
 python-telegram-bot==20.7
 
 # HTTP Client
-requests==2.31.0
+requests>=2.32.4
 
 # Configuration
 python-dotenv==1.0.0
