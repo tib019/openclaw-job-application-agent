@@ -1,4 +1,4 @@
-# Sprint 2: LLM-Steuerung via Telegram - Abgeschlossen ✅
+# Sprint 2: LLM-Steuerung via Telegram - Abgeschlossen
 
 **Version:** 1.2.0  
 **Datum:** 07. Februar 2026  
@@ -14,7 +14,7 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 
 ## Was wurde implementiert?
 
-### 1. Datensammlung für ML-Modell ✅
+### 1. Datensammlung für ML-Modell
 
 **ApplicationQueue erweitert:**
 - `features` Feld für ML-Training-Features
@@ -42,7 +42,7 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 
 ---
 
-### 2. Erweiterte API-Endpoints ✅
+### 2. Erweiterte API-Endpoints
 
 **Neue Batch-Operationen:**
 
@@ -62,7 +62,7 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 
 ---
 
-### 3. LLM Function Calling Service ✅
+### 3. LLM Function Calling Service
 
 **PromptService.js:**
 - Verarbeitet natürliche Sprache via OpenAI GPT-4.1-mini
@@ -80,7 +80,7 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 
 ---
 
-### 4. `/prompt`-Befehl im Telegram Bot ✅
+### 4. `/prompt`-Befehl im Telegram Bot
 
 **Syntax:**
 ```
@@ -109,46 +109,46 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 ## Workflow
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    Telegram Bot                         │
-│  User: "/prompt lehne alle mit score unter 60 ab"      │
-└─────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────┐
-│                     Agent API                           │
-│  POST /api/prompt/process                               │
-└─────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────┐
-│                  PromptService                          │
-│  - Sendet Prompt an OpenAI GPT-4.1-mini                 │
-│  - LLM analysiert und wählt Funktion                    │
-│  - Function Call: rejectBatch({ maxScore: 59 })        │
-└─────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────┐
-│                     Agent API                           │
-│  POST /api/queue/reject-batch                           │
-│  Body: { filter: { maxScore: 59 } }                    │
-└─────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────┐
-│                 ApplicationQueue                        │
-│  - Filtert Bewerbungen mit Score ≤59                    │
-│  - Setzt Status auf REJECTED                            │
-│  - Setzt decision = 'rejected'                          │
-│  - Speichert Queue                                      │
-└─────────────────────────────────────────────────────────┘
-                           │
-                           ▼
-┌─────────────────────────────────────────────────────────┐
-│                    Telegram Bot                         │
-│  "🚫 5 Bewerbungen abgelehnt!"                          │
-└─────────────────────────────────────────────────────────┘
+
+ Telegram Bot
+ User: "/prompt lehne alle mit score unter 60 ab"
+
+
+
+
+ Agent API
+ POST /api/prompt/process
+
+
+
+
+ PromptService
+ - Sendet Prompt an OpenAI GPT-4.1-mini
+ - LLM analysiert und wählt Funktion
+ - Function Call: rejectBatch({ maxScore: 59 })
+
+
+
+
+ Agent API
+ POST /api/queue/reject-batch
+ Body: { filter: { maxScore: 59 } }
+
+
+
+
+ ApplicationQueue
+ - Filtert Bewerbungen mit Score ≤59
+ - Setzt Status auf REJECTED
+ - Setzt decision = 'rejected'
+ - Speichert Queue
+
+
+
+
+ Telegram Bot
+ " 5 Bewerbungen abgelehnt!"
+
 ```
 
 ---
@@ -156,19 +156,19 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 ## Vorteile
 
 ### 1. Maximale Flexibilität
-- ✅ **Natürliche Sprache** statt fester Befehle
-- ✅ **Komplexe Anweisungen** in einem Befehl
-- ✅ **Spontane Aktionen** ohne Menü-Navigation
+- **Natürliche Sprache** statt fester Befehle
+- **Komplexe Anweisungen** in einem Befehl
+- **Spontane Aktionen** ohne Menü-Navigation
 
 ### 2. Effizienz
-- ✅ **Batch-Operationen** mit einem Befehl
-- ✅ **Intelligente Filterung** durch LLM
-- ✅ **Keine Wiederholung** von Befehlen
+- **Batch-Operationen** mit einem Befehl
+- **Intelligente Filterung** durch LLM
+- **Keine Wiederholung** von Befehlen
 
 ### 3. Zukunftssicherheit
-- ✅ **Datensammlung** für ML-Modell läuft passiv
-- ✅ **Erweiterbar** um neue Funktionen
-- ✅ **Lernfähig** (LLM kann neue Muster erkennen)
+- **Datensammlung** für ML-Modell läuft passiv
+- **Erweiterbar** um neue Funktionen
+- **Lernfähig** (LLM kann neue Muster erkennen)
 
 ---
 
@@ -188,7 +188,7 @@ Sprint 2 erweitert den Job Application Agent um **LLM-gesteuerte Steuerung** via
 ```
 User: /prompt zeige mir alle bewerbungen
 
-Bot: 📋 15 Bewerbungen gefunden:
+Bot: 15 Bewerbungen gefunden:
 
 #1 - Test GmbH - Backend Developer (Score: 85)
 #2 - Example AG - Full Stack Developer (Score: 72)
@@ -197,16 +197,16 @@ Bot: 📋 15 Bewerbungen gefunden:
 
 User: /prompt lehne alle mit score unter 60 ab
 
-Bot: 🚫 3 Bewerbungen abgelehnt!
+Bot: 3 Bewerbungen abgelehnt!
 
 User: /prompt genehmige alle mit score über 75
 
-Bot: ✅ 5 Bewerbungen genehmigt!
+Bot: 5 Bewerbungen genehmigt!
 
 User: /prompt sende alle genehmigten
 
-Bot: ✅ 5 Bewerbungen versendet!
-❌ 0 fehlgeschlagen.
+Bot: 5 Bewerbungen versendet!
+ 0 fehlgeschlagen.
 ```
 
 ---
@@ -294,13 +294,13 @@ Wenn genügend Trainingsdaten gesammelt wurden (>100 Entscheidungen):
 
 Sprint 2 bringt **maximale Flexibilität** mit **minimalem Aufwand**:
 
-✅ **LLM-Steuerung** via Telegram  
-✅ **Batch-Operationen** für Effizienz  
-✅ **Datensammlung** für zukünftiges ML-Modell  
-✅ **Erweiterte API** für komplexe Aktionen  
-✅ **Intelligente Verarbeitung** durch Function Calling  
+ **LLM-Steuerung** via Telegram
+ **Batch-Operationen** für Effizienz
+ **Datensammlung** für zukünftiges ML-Modell
+ **Erweiterte API** für komplexe Aktionen
+ **Intelligente Verarbeitung** durch Function Calling
 
-**Von "feste Befehle" zu "natürliche Sprache" in einem Sprint!** 🚀
+**Von "feste Befehle" zu "natürliche Sprache" in einem Sprint!**
 
 ---
 

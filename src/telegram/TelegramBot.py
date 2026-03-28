@@ -68,9 +68,7 @@ class JobApplicationBot:
         self.application.add_handler(CommandHandler("stats", self.cmd_stats))
         self.application.add_handler(CommandHandler("help", self.cmd_help))
         self.application.add_handler(CommandHandler("prompt", self.cmd_prompt))
-        self.application.add_handler(CommandHandler("repos", self.cmd_repos))
-        self.application.add_handler(CommandHandler("github", self.cmd_repos))
-
+        
         # Callback query handler for inline buttons
         self.application.add_handler(CallbackQueryHandler(self.handle_callback))
 
@@ -325,10 +323,6 @@ Nutze /list pending um ausstehende Bewerbungen zu sehen.
 **Versand:**
 /send - Alle freigegebenen Bewerbungen versenden
 
-**GitHub Repos:**
-/repos - Alle GitHub-Repos anzeigen
-/repos <tech> - Repos nach Technologie filtern (z.B. `/repos python`)
-
 **Sonstiges:**
 /help - Diese Hilfe anzeigen
 
@@ -336,7 +330,6 @@ Nutze /list pending um ausstehende Bewerbungen zu sehen.
 `/list pending` - Zeige ausstehende Bewerbungen
 `/view 5` - Zeige Details zu Bewerbung #5
 `/approve 5` - Gebe Bewerbung #5 frei
-`/repos python` - Zeige alle Python-Repos
 """
         await update.message.reply_text(help_text, parse_mode='Markdown')
 
@@ -481,76 +474,9 @@ Nutze /list pending um ausstehende Bewerbungen zu sehen.
                 "Bitte versuche es erneut oder nutze die Standard-Befehle."
             )
 
-    async def cmd_repos(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Show all analyzed GitHub repositories, optionally filtered by technology"""
-        filter_arg = context.args[0] if context.args else None
-
-        try:
-            url = f'{AGENT_API_URL}/api/github/repos'
-            params = {'filter': filter_arg} if filter_arg else {}
-            response = requests.get(url, params=params, timeout=30)
-
-            if response.status_code != 200:
-                await update.message.reply_text(
-                    f"❌ Fehler beim Abrufen der Repos (HTTP {response.status_code})."
-                )
-                return
-
-            data = response.json()
-            repos = data.get('repos', [])
-            total = data.get('total', 0)
-            fetched_at = (data.get('fetchedAt') or '')[:10]
-
-            if total == 0:
-                if filter_arg:
-                    await update.message.reply_text(
-                        f"🔍 Keine Repos mit \"{filter_arg}\" gefunden."
-                    )
-                else:
-                    await update.message.reply_text("📭 Keine GitHub-Repositories gefunden.")
-                return
-
-            if filter_arg:
-                header = f"🔍 *Repos mit \"{filter_arg}\" ({total} gefunden):*\n\n"
-            else:
-                header = f"🐙 *GitHub Repositories ({total} gesamt)*\n📅 Stand: {fetched_at}\n\n"
-
-            lines = []
-            for repo in repos[:15]:
-                stars = f"⭐ {repo['stars']}" if repo['stars'] > 0 else ""
-                lang = repo.get('language') or ''
-                techs = ', '.join(repo.get('technologies', [])[:4])
-                tech_line = f"   🔧 {lang}" + (f" | {techs}" if techs else "")
-                desc = f"   _{repo['description'][:60]}_\n" if repo.get('description') else ""
-                lines.append(
-                    f"*{repo['name']}* {stars}\n"
-                    f"{tech_line}\n"
-                    f"{desc}"
-                    f"   🔗 {repo['url']}"
-                )
-
-            body = "\n\n".join(lines)
-            if total > 15:
-                body += f"\n\n_... und {total - 15} weitere_"
-
-            body += f"\n\nNutze `/repos <technologie>` zum Filtern, z.B. `/repos python`"
-
-            text = header + body
-            # Telegram limit: 4096 chars
-            if len(text) > 4096:
-                text = text[:4090] + "…"
-
-            await update.message.reply_text(text, parse_mode='Markdown')
-
-        except requests.exceptions.Timeout:
-            await update.message.reply_text("⏱️ Zeitüberschreitung beim Abrufen der Repos.")
-        except Exception as e:
-            logger.error(f"Error in cmd_repos: {e}")
-            await update.message.reply_text("❌ Fehler beim Abrufen der GitHub-Repositories.")
-
     def run(self):
         """Start the bot"""
-        logger.info("🤖 Starting Telegram Bot...")
+ logger.info("Starting Telegram Bot...")
         self.application.run_polling()
 
 

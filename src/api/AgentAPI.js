@@ -28,7 +28,6 @@ class AgentAPI {
         this.app = express();
         this.queue = null;
         this.emailSender = null;
-        this.githubService = null;
 
         // Middleware
         this.app.use(express.json());
@@ -50,15 +49,7 @@ class AgentAPI {
         this.emailSender = new EmailSenderSkill(this.config.email);
         await this.emailSender.initialize();
 
-        // Initialize GitHub service
-        const GitHubService = require('../services/GitHubService');
-        this.githubService = new GitHubService({
-            githubToken: process.env.GITHUB_TOKEN,
-            githubUsername: process.env.GITHUB_USERNAME
-        });
-        await this.githubService.initialize();
-
-        console.log('✅ Agent API initialized');
+ console.log('Agent API initialized');
     }
 
     /**
@@ -87,20 +78,16 @@ class AgentAPI {
         
         // ML training data export
         this.app.get('/api/ml/export-training-data', this._handleExportTrainingData.bind(this));
-
+        
         // Prompt processing (LLM Function Calling)
         this.app.post('/api/prompt/process', this._handleProcessPrompt.bind(this));
-
-        // GitHub repository analysis
-        this.app.get('/api/github/repos', this._handleGetRepos.bind(this));
-        this.app.post('/api/github/refresh', this._handleRefreshRepos.bind(this));
     }
 
     /**
      * Middleware: Log all requests
      */
     _logRequest(req, res, next) {
-        console.log(`📡 ${req.method} ${req.path}`);
+ console.log(`${req.method} ${req.path}`);
         next();
     }
 
@@ -123,7 +110,7 @@ class AgentAPI {
             const stats = this.queue.getStats();
             res.json(stats);
         } catch (error) {
-            console.error('❌ Error getting stats:', error);
+ console.error('Error getting stats:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -149,7 +136,7 @@ class AgentAPI {
                 success_rate: successRate
             });
         } catch (error) {
-            console.error('❌ Error getting detailed stats:', error);
+ console.error('Error getting detailed stats:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -163,7 +150,7 @@ class AgentAPI {
             const applications = this.queue.getByStatus(status);
             res.json(applications);
         } catch (error) {
-            console.error('❌ Error listing applications:', error);
+ console.error('Error listing applications:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -182,7 +169,7 @@ class AgentAPI {
 
             res.json(application);
         } catch (error) {
-            console.error('❌ Error getting application:', error);
+ console.error('Error getting application:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -201,7 +188,7 @@ class AgentAPI {
 
             res.json({ success: true, id });
         } catch (error) {
-            console.error('❌ Error approving application:', error);
+ console.error('Error approving application:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -214,7 +201,7 @@ class AgentAPI {
             const count = await this.queue.approveAll();
             res.json({ success: true, count });
         } catch (error) {
-            console.error('❌ Error approving all:', error);
+ console.error('Error approving all:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -233,7 +220,7 @@ class AgentAPI {
 
             res.json({ success: true, id });
         } catch (error) {
-            console.error('❌ Error rejecting application:', error);
+ console.error('Error rejecting application:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -247,7 +234,7 @@ class AgentAPI {
             let sent = 0;
             let failed = 0;
 
-            console.log(`📤 Sending ${approved.length} approved applications...`);
+ console.log(`Sending ${approved.length} approved applications...`);
 
             for (const app of approved) {
                 try {
@@ -257,20 +244,20 @@ class AgentAPI {
                     if (result.success) {
                         await this.queue.markAsSent(app.id, result);
                         sent++;
-                        console.log(`✅ Sent application #${app.id}`);
+ console.log(`Sent application #${app.id}`);
                     } else {
                         await this.queue.markAsFailed(app.id, result.error);
                         failed++;
-                        console.error(`❌ Failed to send application #${app.id}: ${result.error}`);
+ console.error(`Failed to send application #${app.id}: ${result.error}`);
                     }
                 } catch (error) {
                     await this.queue.markAsFailed(app.id, error.message);
                     failed++;
-                    console.error(`❌ Error sending application #${app.id}:`, error);
+ console.error(`Error sending application #${app.id}:`, error);
                 }
             }
 
-            console.log(`📊 Send complete: ${sent} sent, ${failed} failed`);
+ console.log(`Send complete: ${sent} sent, ${failed} failed`);
 
             res.json({
                 success: true,
@@ -279,7 +266,7 @@ class AgentAPI {
                 total: approved.length
             });
         } catch (error) {
-            console.error('❌ Error in send-all:', error);
+ console.error('Error in send-all:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     }
@@ -291,9 +278,36 @@ class AgentAPI {
         await this.initialize();
 
         this.app.listen(port, '0.0.0.0', () => {
-            console.log(`🚀 Agent API listening on port ${port}`);
+ console.log(`Agent API listening on port ${port}`);
         });
     }
+}
+
+module.exports = AgentAPI;
+
+// Start server if run directly
+if (require.main === module) {
+    const config = {
+        email: {
+            smtp: {
+                host: process.env.SMTP_HOST,
+                port: parseInt(process.env.SMTP_PORT) || 587,
+                secure: process.env.SMTP_SECURE === 'true',
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS
+                }
+            },
+            from: {
+                name: process.env.EMAIL_FROM_NAME || 'Applicant',
+                address: process.env.EMAIL_FROM_ADDRESS
+            }
+        }
+    };
+
+    const api = new AgentAPI(config);
+    api.start(3000);
+}
 
     /**
      * Handle: POST /api/queue/reject-batch
@@ -345,7 +359,7 @@ class AgentAPI {
                 message: `Rejected ${rejectedCount} applications`
             });
         } catch (error) {
-            console.error('❌ Error in reject-batch:', error);
+ console.error('Error in reject-batch:', error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -399,7 +413,7 @@ class AgentAPI {
                 message: `Approved ${approvedCount} applications`
             });
         } catch (error) {
-            console.error('❌ Error in approve-batch:', error);
+ console.error('Error in approve-batch:', error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -441,7 +455,7 @@ class AgentAPI {
                 applications
             });
         } catch (error) {
-            console.error('❌ Error in list-filtered:', error);
+ console.error('Error in list-filtered:', error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -469,7 +483,7 @@ class AgentAPI {
                 data: trainingData
             });
         } catch (error) {
-            console.error('❌ Error in export-training-data:', error);
+ console.error('Error in export-training-data:', error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -500,110 +514,7 @@ class AgentAPI {
 
             res.json(result);
         } catch (error) {
-            console.error('❌ Error in process-prompt:', error);
+ console.error('Error in process-prompt:', error);
             res.status(500).json({ error: error.message });
         }
     }
-
-    /**
-     * GET /api/github/repos[?filter=<technology>]
-     * Returns all analyzed GitHub repositories, optionally filtered by technology.
-     */
-    async _handleGetRepos(req, res) {
-        try {
-            if (!this.githubService) {
-                return res.status(503).json({ error: 'GitHub service not available. Check GITHUB_TOKEN and GITHUB_USERNAME.' });
-            }
-
-            let repos = this.githubService.getAllRepositories();
-
-            const filter = req.query.filter ? req.query.filter.toLowerCase() : null;
-            if (filter) {
-                repos = repos.filter(repo => {
-                    const inTech = repo.technologies.some(t => t.toLowerCase().includes(filter));
-                    const inLang = repo.languages.some(l => l.toLowerCase().includes(filter));
-                    const inTopics = repo.topics.some(t => t.toLowerCase().includes(filter));
-                    const inPrimary = (repo.language || '').toLowerCase().includes(filter);
-                    return inTech || inLang || inTopics || inPrimary;
-                });
-            }
-
-            repos = repos
-                .sort((a, b) => b.stars - a.stars)
-                .map(r => ({
-                    name: r.name,
-                    description: r.description,
-                    url: r.url,
-                    language: r.language,
-                    languages: r.languages,
-                    technologies: r.technologies,
-                    topics: r.topics,
-                    stars: r.stars,
-                    forks: r.forks,
-                    updatedAt: r.updatedAt
-                }));
-
-            res.json({
-                success: true,
-                total: repos.length,
-                filter: filter || null,
-                fetchedAt: this.githubService.cache ? this.githubService.cache.fetchedAt : null,
-                repos
-            });
-        } catch (error) {
-            console.error('❌ Error in get-repos:', error);
-            res.status(500).json({ error: error.message });
-        }
-    }
-
-    /**
-     * POST /api/github/refresh
-     * Forces a full re-fetch and re-analysis of all GitHub repositories.
-     */
-    async _handleRefreshRepos(req, res) {
-        try {
-            if (!this.githubService) {
-                return res.status(503).json({ error: 'GitHub service not available. Check GITHUB_TOKEN and GITHUB_USERNAME.' });
-            }
-
-            await this.githubService.refreshCache();
-            const count = this.githubService.getAllRepositories().length;
-
-            res.json({
-                success: true,
-                count,
-                message: `${count} Repositories erfolgreich analysiert`,
-                fetchedAt: this.githubService.cache.fetchedAt
-            });
-        } catch (error) {
-            console.error('❌ Error in refresh-repos:', error);
-            res.status(500).json({ error: error.message });
-        }
-    }
-}
-
-module.exports = AgentAPI;
-
-// Start server if run directly
-if (require.main === module) {
-    const config = {
-        email: {
-            smtp: {
-                host: process.env.SMTP_HOST,
-                port: parseInt(process.env.SMTP_PORT) || 587,
-                secure: process.env.SMTP_SECURE === 'true',
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASS
-                }
-            },
-            from: {
-                name: process.env.EMAIL_FROM_NAME || 'Applicant',
-                address: process.env.EMAIL_FROM_ADDRESS
-            }
-        }
-    };
-
-    const api = new AgentAPI(config);
-    api.start(3000);
-}

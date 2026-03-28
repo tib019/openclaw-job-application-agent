@@ -41,9 +41,9 @@ class EmailSenderSkill {
         // Verify connection
         try {
             await this.transporter.verify();
-            console.log('✅ SMTP connection established');
+ console.log('SMTP connection established');
         } catch (error) {
-            console.error('❌ SMTP connection failed:', error);
+ console.error('SMTP connection failed:', error);
             throw error;
         }
     }
@@ -55,7 +55,7 @@ class EmailSenderSkill {
      * @returns {Object} Result with success status and metadata
      */
     async sendApplication(application) {
-        console.log(`📧 Sending application to ${application.company}...`);
+ console.log(`Sending application to ${application.company}...`);
 
         try {
             // Determine recipient email
@@ -86,7 +86,7 @@ class EmailSenderSkill {
                 attachments: attachments
             });
 
-            console.log(`✅ Application sent to ${application.company}: ${info.messageId}`);
+ console.log(`Application sent to ${application.company}: ${info.messageId}`);
 
             return {
                 success: true,
@@ -96,7 +96,7 @@ class EmailSenderSkill {
             };
 
         } catch (error) {
-            console.error(`❌ Failed to send application to ${application.company}:`, error);
+ console.error(`Failed to send application to ${application.company}:`, error);
             return {
                 success: false,
                 error: error.message
@@ -170,11 +170,11 @@ class EmailSenderSkill {
                 });
             }
 
-            console.log(`📎 Loaded ${attachments.length} attachments`);
+ console.log(`Loaded ${attachments.length} attachments`);
             return attachments;
 
         } catch (error) {
-            console.error('❌ Error loading attachments:', error);
+ console.error('Error loading attachments:', error);
             throw new Error(`Failed to load attachments: ${error.message}`);
         }
     }
@@ -256,7 +256,7 @@ ${this.config.from.name}`;
     async close() {
         if (this.transporter) {
             this.transporter.close();
-            console.log('✅ SMTP connection closed');
+ console.log('SMTP connection closed');
         }
     }
 }

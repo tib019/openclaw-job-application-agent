@@ -1,14 +1,14 @@
-# MVP Complete! 🎉
+# MVP Complete!
 
 **Datum:** 07. Februar 2026  
 **Version:** 1.0.0  
-**Status:** ✅ MVP fertiggestellt
+**Status:** MVP fertiggestellt
 
 ---
 
 ## Was wurde implementiert?
 
-### ✅ Core Components (100%)
+### Core Components (100%)
 
 #### 1. ApplicationQueue System
 - Vollständiges Lifecycle-Management (PENDING → APPROVED → SENT)
@@ -60,7 +60,7 @@
 
 ---
 
-### ✅ Infrastructure (100%)
+### Infrastructure (100%)
 
 #### Docker-Compose Setup
 - 3 Services (agent-service, telegram-bridge, browser-service)
@@ -75,7 +75,7 @@
 
 ---
 
-### ✅ Documentation (100%)
+### Documentation (100%)
 
 1. **README.md** - Projekt-Übersicht
 2. **ARCHITECTURE.md** - System-Architektur
@@ -94,115 +94,115 @@
 ## Vollständiger Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Agent Main Loop                         │
-│                   (läuft alle 4 Stunden)                    │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  1. EmailReaderSkill                                        │
-│     - Prüft E-Mail-Posteingang                              │
-│     - Extrahiert Job-URLs von StepStone, LinkedIn, Indeed  │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  2. JobParserSkill                                          │
-│     - Öffnet Job-URL im Browser (Selenium)                 │
-│     - Extrahiert Stellenanzeige                             │
-│     - LLM analysiert: Skills, Gehalt, Remote, etc.         │
-│     - Berechnet Match-Score (0-100)                         │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  3. Filterung                                               │
-│     - Match-Score ≥ 50?                                     │
-│     - Bewerbungsmethode: E-Mail oder LinkedIn Easy Apply?  │
-│     - Noch nicht in Queue?                                  │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  4. DocumentGeneratorSkill                                  │
-│     - Analysiert GitHub-Repositories                        │
-│     - Wählt bestes Projekt für diese Stelle                │
-│     - Generiert einzigartiges Anschreiben (LLM)            │
-│     - Passt Lebenslauf an (Reordering + Highlighting)      │
-│     - Speichert PDFs in ~/Bewerbungen/DATUM_FIRMA/         │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  5. ApplicationQueue                                        │
-│     - Fügt Bewerbung hinzu (Status: PENDING_REVIEW)        │
-│     - Persistiert in application_queue.json                 │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  6. Telegram-Benachrichtigung                               │
-│     - "🎉 X neue Bewerbungen erstellt!"                     │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  7. DU prüfst via Telegram                                  │
-│     - /list pending → Zeigt alle ausstehenden Bewerbungen  │
-│     - /view 5 → Zeigt Details zu Bewerbung #5              │
-│     - /approve 5 → Gibt Bewerbung #5 frei                  │
-│     - /approveall → Gibt alle frei                          │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  8. DU triggerst Versand                                    │
-│     - /send → "Sicher? X Bewerbungen werden versendet"     │
-│     - Bestätigung via Inline-Button                         │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  9. EmailSenderSkill                                        │
-│     - Versendet alle freigegebenen Bewerbungen per E-Mail  │
-│     - Anhänge: Anschreiben.pdf + Lebenslauf.pdf            │
-│     - Markiert als SENT oder FAILED                         │
-└─────────────────────────────────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│  10. Tracking & Statistiken                                 │
-│      - /stats → Zeigt Erfolgsrate, Sent/Failed, etc.       │
-└─────────────────────────────────────────────────────────────┘
+
+ Agent Main Loop
+ (läuft alle 4 Stunden)
+
+
+
+
+ 1. EmailReaderSkill
+ - Prüft E-Mail-Posteingang
+ - Extrahiert Job-URLs von StepStone, LinkedIn, Indeed
+
+
+
+
+ 2. JobParserSkill
+ - Öffnet Job-URL im Browser (Selenium)
+ - Extrahiert Stellenanzeige
+ - LLM analysiert: Skills, Gehalt, Remote, etc.
+ - Berechnet Match-Score (0-100)
+
+
+
+
+ 3. Filterung
+ - Match-Score ≥ 50?
+ - Bewerbungsmethode: E-Mail oder LinkedIn Easy Apply?
+ - Noch nicht in Queue?
+
+
+
+
+ 4. DocumentGeneratorSkill
+ - Analysiert GitHub-Repositories
+ - Wählt bestes Projekt für diese Stelle
+ - Generiert einzigartiges Anschreiben (LLM)
+ - Passt Lebenslauf an (Reordering + Highlighting)
+ - Speichert PDFs in ~/Bewerbungen/DATUM_FIRMA/
+
+
+
+
+ 5. ApplicationQueue
+ - Fügt Bewerbung hinzu (Status: PENDING_REVIEW)
+ - Persistiert in application_queue.json
+
+
+
+
+ 6. Telegram-Benachrichtigung
+ - " X neue Bewerbungen erstellt!"
+
+
+
+
+ 7. DU prüfst via Telegram
+ - /list pending → Zeigt alle ausstehenden Bewerbungen
+ - /view 5 → Zeigt Details zu Bewerbung #5
+ - /approve 5 → Gibt Bewerbung #5 frei
+ - /approveall → Gibt alle frei
+
+
+
+
+ 8. DU triggerst Versand
+ - /send → "Sicher? X Bewerbungen werden versendet"
+ - Bestätigung via Inline-Button
+
+
+
+
+ 9. EmailSenderSkill
+ - Versendet alle freigegebenen Bewerbungen per E-Mail
+ - Anhänge: Anschreiben.pdf + Lebenslauf.pdf
+ - Markiert als SENT oder FAILED
+
+
+
+
+ 10. Tracking & Statistiken
+ - /stats → Zeigt Erfolgsrate, Sent/Failed, etc.
+
 ```
 
 ---
 
 ## Technische Highlights
 
-### 🧠 Intelligenz
+### Intelligenz
 
 1. **GitHub-Analyse:** Wählt automatisch das beste Projekt aus allen Repos
 2. **Match-Scoring:** Bewertet jede Stelle (0-100) basierend auf deinem Profil
 3. **Dynamische Anschreiben:** Jedes Anschreiben ist einzigartig und LLM-generiert
 4. **Adaptive Lebensläufe:** Skills werden nach Relevanz neu sortiert
 
-### 🔒 Sicherheit
+### Sicherheit
 
 1. **Docker-Isolation:** Agent läuft in Container, kein direkter Host-Zugriff
 2. **Read-Only Master-Dokumente:** Schützt deine Vorlagen
 3. **Credentials-Trennung:** Separate Datei, nicht im Git
 4. **Human-in-the-Loop:** Du behältst die Kontrolle (Freigabe erforderlich)
 
-### 🚀 Autonomie
+### Autonomie
 
 1. **Periodische Ausführung:** Alle 4 Stunden automatisch
 2. **Telegram-Benachrichtigungen:** Du wirst informiert
 3. **Batch-Versand:** Alle freigegebenen auf einmal
 4. **Graceful Shutdown:** Sauberes Beenden bei SIGINT/SIGTERM
 
-### 📊 Tracking
+### Tracking
 
 1. **Vollständige Metadaten:** Jede Bewerbung mit metadata.json
 2. **Status-Tracking:** PENDING → APPROVED → SENT
@@ -277,11 +277,11 @@
 Das MVP ist **vollständig funktionsfähig** und bereit für den Einsatz!
 
 **Was funktioniert:**
-- ✅ Automatische Stellensuche via E-Mail-Alerts
-- ✅ Intelligente Analyse und Filterung
-- ✅ Dynamische Dokumentenerstellung
-- ✅ Telegram-Steuerung
-- ✅ Batch-Versand per E-Mail
+- Automatische Stellensuche via E-Mail-Alerts
+- Intelligente Analyse und Filterung
+- Dynamische Dokumentenerstellung
+- Telegram-Steuerung
+- Batch-Versand per E-Mail
 
 **Was du tun musst:**
 1. Setup durchführen (siehe SETUP_GUIDE.md)
@@ -294,7 +294,7 @@ Das MVP ist **vollständig funktionsfähig** und bereit für den Einsatz!
 - Ohne Agent: ~30 Minuten pro Bewerbung
 - Mit Agent: ~2 Minuten pro Bewerbung (nur Prüfung + Freigabe)
 
-**Bei 100 Bewerbungen:** ~48 Stunden gespart! 🚀
+**Bei 100 Bewerbungen:** ~48 Stunden gespart!
 
 ---
 

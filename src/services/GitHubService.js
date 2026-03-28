@@ -35,7 +35,7 @@ class GitHubService {
      * Initialize the service and load cache
      */
     async initialize() {
-        console.log(`🔧 Initializing GitHub Service for user: ${this.username}`);
+ console.log(`Initializing GitHub Service for user: ${this.username}`);
         
         // Try to load cache
         await this._loadCache();
@@ -45,14 +45,14 @@ class GitHubService {
             await this.refreshCache();
         }
         
-        console.log(`✅ GitHub Service initialized with ${this.cache.repositories.length} repositories`);
+ console.log(`GitHub Service initialized with ${this.cache.repositories.length} repositories`);
     }
 
     /**
      * Refresh the repository cache
      */
     async refreshCache() {
-        console.log('🔄 Refreshing GitHub repository cache...');
+ console.log('Refreshing GitHub repository cache...');
         
         try {
             // Fetch all repositories
@@ -75,9 +75,9 @@ class GitHubService {
             // Save cache to file
             await this._saveCache();
             
-            console.log(`✅ Cache refreshed: ${analyzedRepos.length} repositories analyzed`);
+ console.log(`Cache refreshed: ${analyzedRepos.length} repositories analyzed`);
         } catch (error) {
-            console.error('❌ Error refreshing cache:', error.message);
+ console.error('Error refreshing cache:', error.message);
             throw error;
         }
     }
@@ -97,7 +97,7 @@ class GitHubService {
             await this.initialize();
         }
         
-        console.log(`🔍 Finding matching projects for: ${jobRequirements.position}`);
+ console.log(`Finding matching projects for: ${jobRequirements.position}`);
         
         const { skills = [], position = '', description = '' } = jobRequirements;
         
@@ -112,7 +112,7 @@ class GitHubService {
             .sort((a, b) => b.matchScore - a.matchScore)
             .slice(0, limit);
         
-        console.log(`✅ Found ${topProjects.length} matching projects (scores: ${topProjects.map(p => p.matchScore).join(', ')})`);
+ console.log(`Found ${topProjects.length} matching projects (scores: ${topProjects.map(p => p.matchScore).join(', ')})`);
         
         return topProjects;
     }
@@ -157,7 +157,7 @@ class GitHubService {
      * Analyze a single repository
      */
     async _analyzeRepository(repo) {
-        console.log(`  📦 Analyzing: ${repo.name}`);
+ console.log(`Analyzing: ${repo.name}`);
         
         // Fetch README
         let readme = '';
@@ -325,9 +325,9 @@ class GitHubService {
             const data = await fs.readFile(cachePath, 'utf8');
             this.cache = JSON.parse(data);
             this.cacheTimestamp = new Date(this.cache.fetchedAt).getTime();
-            console.log(`📦 Loaded cache from ${this.cache.fetchedAt}`);
+ console.log(`Loaded cache from ${this.cache.fetchedAt}`);
         } catch (error) {
-            console.log('📦 No cache found, will fetch fresh data');
+ console.log('No cache found, will fetch fresh data');
             this.cache = null;
         }
     }
@@ -339,9 +339,9 @@ class GitHubService {
         try {
             const cachePath = path.join('/app/data', 'github_cache.json');
             await fs.writeFile(cachePath, JSON.stringify(this.cache, null, 2), 'utf8');
-            console.log('💾 Cache saved to file');
+ console.log('Cache saved to file');
         } catch (error) {
-            console.error('❌ Error saving cache:', error.message);
+ console.error('Error saving cache:', error.message);
         }
     }
 

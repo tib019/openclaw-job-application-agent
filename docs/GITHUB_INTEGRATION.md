@@ -48,13 +48,13 @@ Stellenanzeige: "Backend Developer - Java, Spring, MySQL"
 
 ```
 Projekt: automated-trading-system
-- Sprachen: Java ✅ (+10)
-- Technologien: Spring, MySQL ✅ (+20)
-- Topics: backend, api ✅ (+10)
-- README: "REST API with Spring Boot" ✅ (+5)
-- Position: backend ✅ (+5)
-- Update: vor 15 Tagen ✅ (+5)
-- Stars: 3 ✅ (+1)
+- Sprachen: Java (+10)
+- Technologien: Spring, MySQL (+20)
+- Topics: backend, api (+10)
+- README: "REST API with Spring Boot" (+5)
+- Position: backend (+5)
+- Update: vor 15 Tagen (+5)
+- Stars: 3 (+1)
 ---
 Total Score: 56/100
 ```
@@ -111,14 +111,14 @@ Job Sourcing
     ↓
 Job Parsing
     ↓
-┌─────────────────────────────────────┐
-│   GitHub Integration (NEU!)         │
-│                                     │
-│  1. Lade alle Repositories          │
-│  2. Analysiere jedes Projekt        │
-│  3. Berechne Match-Score            │
-│  4. Wähle Top 3 Projekte            │
-└─────────────────────────────────────┘
+
+ GitHub Integration (NEU!)
+
+ 1. Lade alle Repositories
+ 2. Analysiere jedes Projekt
+ 3. Berechne Match-Score
+ 4. Wähle Top 3 Projekte
+
     ↓
 Document Generation
     ↓
@@ -195,19 +195,19 @@ Application Queue
 ## Vorteile
 
 ### 1. Authentizität
-- ✅ **Echte Projekte** statt generischer Aussagen
-- ✅ **Konkrete Beispiele** für deine Fähigkeiten
-- ✅ **Verifizierbarer Code** auf GitHub
+- **Echte Projekte** statt generischer Aussagen
+- **Konkrete Beispiele** für deine Fähigkeiten
+- **Verifizierbarer Code** auf GitHub
 
 ### 2. Relevanz
-- ✅ **Automatisches Matching** zu Stellenanforderungen
-- ✅ **Intelligente Auswahl** basierend auf Score
-- ✅ **Dynamische Anpassung** für jede Bewerbung
+- **Automatisches Matching** zu Stellenanforderungen
+- **Intelligente Auswahl** basierend auf Score
+- **Dynamische Anpassung** für jede Bewerbung
 
 ### 3. Effizienz
-- ✅ **Kein manuelles Auswählen** von Projekten
-- ✅ **Automatische Analyse** aller Repos
-- ✅ **24h-Caching** für Performance
+- **Kein manuelles Auswählen** von Projekten
+- **Automatische Analyse** aller Repos
+- **24h-Caching** für Performance
 
 ---
 
@@ -289,7 +289,7 @@ await githubService.refreshCache();
 
 ## Zukünftige Erweiterungen
 
-### Phase 1 (aktuell): ✅
+### Phase 1 (aktuell):
 - Automatische Repository-Analyse
 - Intelligentes Matching
 - Top 3 Projekt-Auswahl
@@ -310,14 +310,14 @@ await githubService.refreshCache();
 
 Die GitHub-Integration macht deine Bewerbungen **authentischer, relevanter und überzeugender**:
 
-✅ **Automatische Analyse** aller Repositories  
-✅ **Intelligentes Matching** zu Stellenanforderungen  
-✅ **Top 3 Projekte** pro Bewerbung  
-✅ **Konkrete Beispiele** im Anschreiben  
-✅ **24h-Caching** für Performance  
-✅ **Konfigurierbar** via User Profile  
+ **Automatische Analyse** aller Repositories
+ **Intelligentes Matching** zu Stellenanforderungen
+ **Top 3 Projekte** pro Bewerbung
+ **Konkrete Beispiele** im Anschreiben
+ **24h-Caching** für Performance
+ **Konfigurierbar** via User Profile
 
-**Von "Ich kann Java" zu "Hier ist mein Java-Projekt mit 75% Match zu Ihren Anforderungen"!** 🚀
+**Von "Ich kann Java" zu "Hier ist mein Java-Projekt mit 75% Match zu Ihren Anforderungen"!**
 
 ---
 

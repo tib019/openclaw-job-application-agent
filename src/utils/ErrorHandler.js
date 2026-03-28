@@ -62,8 +62,8 @@ class ErrorHandler {
                     ? retryDelay * Math.pow(2, attempt)
                     : retryDelay;
 
-                console.warn(`⚠️  Attempt ${attempt + 1}/${maxRetries + 1} failed: ${error.message}`);
-                console.warn(`   Retrying in ${delay}ms...`);
+ console.warn(`️ Attempt ${attempt + 1}/${maxRetries + 1} failed: ${error.message}`);
+                console.warn(`Retrying in ${delay}ms...`);
 
                 await this.sleep(delay);
             }
@@ -109,7 +109,7 @@ class ErrorHandler {
                 this.logError(error, { function: fn.name, args });
                 
                 if (options.fallback) {
-                    console.warn(`⚠️  Using fallback for ${fn.name}`);
+ console.warn(`️ Using fallback for ${fn.name}`);
                     return options.fallback;
                 }
                 
@@ -141,9 +141,9 @@ class ErrorHandler {
         this.errorLog.push(errorEntry);
 
         if (this.config.logErrors) {
-            console.error('❌ Error:', error.message);
+ console.error('Error:', error.message);
             if (context && Object.keys(context).length > 0) {
-                console.error('   Context:', JSON.stringify(context, null, 2));
+                console.error('Context:', JSON.stringify(context, null, 2));
             }
         }
 

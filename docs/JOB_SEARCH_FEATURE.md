@@ -26,10 +26,10 @@ Agent sucht aktiv auf Portalen + E-Mail-Alerts → Proaktiv + Reaktiv
 
 | Portal | URL | Status | Max. Ergebnisse |
 |:-------|:----|:-------|:----------------|
-| **StepStone** | stepstone.de | ✅ Aktiv | 20 |
-| **Indeed** | indeed.de | ✅ Aktiv | 20 |
-| **get-in-it.de** | get-in-it.de | ✅ Aktiv | 20 |
-| **it-jobs.de** | it-jobs.de | ✅ Aktiv | 20 |
+| **StepStone** | stepstone.de | Aktiv | 20 |
+| **Indeed** | indeed.de | Aktiv | 20 |
+| **get-in-it.de** | get-in-it.de | Aktiv | 20 |
+| **it-jobs.de** | it-jobs.de | Aktiv | 20 |
 
 **Gesamt:** Bis zu 80 neue Stellen pro Durchlauf
 
@@ -164,19 +164,19 @@ Alle 4 Stunden:
 ## Vorteile
 
 ### 1. Maximale Abdeckung
-- ✅ E-Mail-Alerts (reaktiv)
-- ✅ Portal-Suche (proaktiv)
-- ✅ Bis zu 80+ neue Stellen pro Durchlauf
+- E-Mail-Alerts (reaktiv)
+- Portal-Suche (proaktiv)
+- Bis zu 80+ neue Stellen pro Durchlauf
 
 ### 2. Unabhängigkeit
-- ✅ Nicht abhängig von Job-Alert-Setup
-- ✅ Findet auch Stellen ohne Alert-System
-- ✅ Deckt mehrere Portale gleichzeitig ab
+- Nicht abhängig von Job-Alert-Setup
+- Findet auch Stellen ohne Alert-System
+- Deckt mehrere Portale gleichzeitig ab
 
 ### 3. Aktualität
-- ✅ Alle 4 Stunden frische Suche
-- ✅ Findet neue Stellen sofort
-- ✅ Keine verpassten Gelegenheiten
+- Alle 4 Stunden frische Suche
+- Findet neue Stellen sofort
+- Keine verpassten Gelegenheiten
 
 ---
 
@@ -278,21 +278,21 @@ const { Builder, By } = require('selenium-webdriver');
 Der JobSearchSkill loggt ausführlich:
 
 ```
-🔍 Starting job search across all portals...
-🔍 Searching stepstone...
-📋 Found 25 job elements on StepStone
-✅ Found 20 jobs on stepstone
-🔍 Searching indeed...
-📋 Found 30 job elements on Indeed
-✅ Found 20 jobs on indeed
-🔍 Searching get-in-it...
-📋 Found 15 job elements on get-in-it.de
-✅ Found 15 jobs on get-in-it
-🔍 Searching it-jobs...
-📋 Found 18 job elements on it-jobs.de
-✅ Found 18 jobs on it-jobs
-✅ Total jobs found: 73
-✅ Total unique jobs: 68 (5 duplicates removed)
+ Starting job search across all portals...
+ Searching stepstone...
+ Found 25 job elements on StepStone
+ Found 20 jobs on stepstone
+ Searching indeed...
+ Found 30 job elements on Indeed
+ Found 20 jobs on indeed
+ Searching get-in-it...
+ Found 15 job elements on get-in-it.de
+ Found 15 jobs on get-in-it
+ Searching it-jobs...
+ Found 18 job elements on it-jobs.de
+ Found 18 jobs on it-jobs
+ Total jobs found: 73
+ Total unique jobs: 68 (5 duplicates removed)
 ```
 
 ---
@@ -322,16 +322,16 @@ Der JobSearchSkill loggt ausführlich:
 Der **JobSearchSkill** macht den Agenten **deutlich autonomer**:
 
 **Vorher:**
-- ⏳ Wartet auf E-Mail-Alerts
-- 📧 ~5-10 neue Stellen pro Tag
+- Wartet auf E-Mail-Alerts
+- ~5-10 neue Stellen pro Tag
 
 **Jetzt:**
-- 🚀 Aktive Suche alle 4 Stunden
-- 📊 ~30-80 neue Stellen pro Durchlauf
-- 🎯 Maximale Marktabdeckung
+- Aktive Suche alle 4 Stunden
+- ~30-80 neue Stellen pro Durchlauf
+- Maximale Marktabdeckung
 
 **Zeitersparnis bleibt gleich:** ~28 Minuten pro Bewerbung  
-**Stellenabdeckung:** +500% 🚀
+**Stellenabdeckung:** +500%
 
 ---
 

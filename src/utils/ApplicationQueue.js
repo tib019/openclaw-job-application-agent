@@ -28,10 +28,10 @@ class ApplicationQueue {
         try {
             const data = await fs.readFile(this.queueFilePath, 'utf8');
             this.queue = JSON.parse(data);
-            console.log(`✅ Loaded ${this.queue.length} applications from queue`);
+ console.log(`Loaded ${this.queue.length} applications from queue`);
         } catch (error) {
             if (error.code === 'ENOENT') {
-                console.log('📋 No existing queue found, starting fresh');
+ console.log('No existing queue found, starting fresh');
                 this.queue = [];
                 await this.save();
             } else {
@@ -84,7 +84,7 @@ class ApplicationQueue {
         this.queue.push(newApplication);
         await this.save();
 
-        console.log(`➕ Added application #${id}: ${application.company} - ${application.position}`);
+ console.log(`Added application #${id}: ${application.company} - ${application.position}`);
         return id;
     }
 
@@ -119,7 +119,7 @@ class ApplicationQueue {
     async updateStatus(id, newStatus, additionalData = {}) {
         const app = this.get(id);
         if (!app) {
-            console.error(`❌ Application #${id} not found`);
+ console.error(`Application #${id} not found`);
             return false;
         }
 
@@ -128,7 +128,7 @@ class ApplicationQueue {
         Object.assign(app, additionalData);
 
         await this.save();
-        console.log(`✏️  Updated application #${id} to status: ${newStatus}`);
+ console.log(`️ Updated application #${id} to status: ${newStatus}`);
         return true;
     }
 
@@ -157,7 +157,7 @@ class ApplicationQueue {
             }
         }
 
-        console.log(`✅ Approved ${count} applications`);
+ console.log(`Approved ${count} applications`);
         return count;
     }
 

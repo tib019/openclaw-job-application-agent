@@ -16,7 +16,7 @@ Initialisiert den Bot und zeigt eine Willkommensnachricht mit allen verfügbaren
 
 **Antwort:**
 ```
-👋 Willkommen beim Job Application Agent!
+ Willkommen beim Job Application Agent!
 
 Ich helfe dir, automatisch nach Jobs zu suchen und Bewerbungen vorzubereiten.
 
@@ -45,19 +45,19 @@ Zeigt alle Bewerbungen im Status `PENDING_REVIEW` an.
 
 **Antwort:**
 ```
-📋 Wartende Bewerbungen (5):
+ Wartende Bewerbungen (5):
 
 ID: 1
-📍 Firma: TechCorp GmbH
-💼 Position: Junior Backend Developer
-🔗 Link: https://stepstone.de/job/12345
-📅 Gefunden: 07.02.2026 14:30
+ Firma: TechCorp GmbH
+ Position: Junior Backend Developer
+ Link: https://stepstone.de/job/12345
+ Gefunden: 07.02.2026 14:30
 
 ID: 2
-📍 Firma: StartupX
-💼 Position: Full Stack Developer
-🔗 Link: https://linkedin.com/jobs/view/67890
-📅 Gefunden: 07.02.2026 15:45
+ Firma: StartupX
+ Position: Full Stack Developer
+ Link: https://linkedin.com/jobs/view/67890
+ Gefunden: 07.02.2026 15:45
 
 [...]
 
@@ -76,15 +76,15 @@ Zeigt detaillierte Informationen zu einer spezifischen Bewerbung.
 
 **Antwort:**
 ```
-📄 Bewerbung #1
+ Bewerbung #1
 
-📍 Firma: TechCorp GmbH
-💼 Position: Junior Backend Developer
-🌐 Website: https://techcorp.de
-🔗 Stellenanzeige: https://stepstone.de/job/12345
-📧 Bewerbungskanal: E-Mail (jobs@techcorp.de)
+ Firma: TechCorp GmbH
+ Position: Junior Backend Developer
+ Website: https://techcorp.de
+ Stellenanzeige: https://stepstone.de/job/12345
+ Bewerbungskanal: E-Mail (jobs@techcorp.de)
 
-📝 Generiertes Anschreiben (Auszug):
+ Generiertes Anschreiben (Auszug):
 ---
 Sehr geehrte Damen und Herren,
 
@@ -110,7 +110,7 @@ Genehmigt eine einzelne Bewerbung und verschiebt sie in den Status `APPROVED`.
 
 **Antwort:**
 ```
-✅ Bewerbung #1 (TechCorp GmbH) wurde genehmigt.
+ Bewerbung #1 (TechCorp GmbH) wurde genehmigt.
 
 Status: APPROVED
 Nutze /send um alle genehmigten Bewerbungen zu versenden.
@@ -128,7 +128,7 @@ Genehmigt alle Bewerbungen im Status `PENDING_REVIEW` auf einmal.
 
 **Antwort:**
 ```
-✅ 5 Bewerbungen wurden genehmigt:
+ 5 Bewerbungen wurden genehmigt:
 
 1. TechCorp GmbH - Junior Backend Developer
 2. StartupX - Full Stack Developer
@@ -151,7 +151,7 @@ Verwirft eine Bewerbung und entfernt sie aus der Warteschlange.
 
 **Antwort:**
 ```
-🗑️ Bewerbung #3 (InnovateLab) wurde verworfen.
+️ Bewerbung #3 (InnovateLab) wurde verworfen.
 ```
 
 ---
@@ -166,13 +166,13 @@ Verwirft eine Bewerbung und entfernt sie aus der Warteschlange.
 
 **Antwort:**
 ```
-🚀 Versende 5 genehmigte Bewerbungen...
+ Versende 5 genehmigte Bewerbungen...
 
-✅ 1/5: TechCorp GmbH - E-Mail gesendet
-✅ 2/5: StartupX - LinkedIn Easy Apply erfolgreich
-✅ 3/5: CloudSystems - E-Mail gesendet
-⚠️ 4/5: DataDriven GmbH - Fehler beim Versand (CAPTCHA)
-✅ 5/5: DevHouse - E-Mail gesendet
+ 1/5: TechCorp GmbH - E-Mail gesendet
+ 2/5: StartupX - LinkedIn Easy Apply erfolgreich
+ 3/5: CloudSystems - E-Mail gesendet
+️ 4/5: DataDriven GmbH - Fehler beim Versand (CAPTCHA)
+ 5/5: DevHouse - E-Mail gesendet
 
 Ergebnis: 4 erfolgreich, 1 fehlgeschlagen
 
@@ -193,23 +193,23 @@ Zeigt eine Übersicht über alle Bewerbungsaktivitäten.
 
 **Antwort:**
 ```
-📊 Bewerbungs-Statistiken
+ Bewerbungs-Statistiken
 
-📅 Zeitraum: Letzte 30 Tage
+ Zeitraum: Letzte 30 Tage
 
-📤 Gesendete Bewerbungen: 42
-📧 Per E-Mail: 28
-💼 Per LinkedIn: 12
-🌐 Per ATS: 2
+ Gesendete Bewerbungen: 42
+ Per E-Mail: 28
+ Per LinkedIn: 12
+ Per ATS: 2
 
-📬 Antworten erhalten: 8 (19%)
-✅ Positive Antworten: 3
-❌ Absagen: 5
+ Antworten erhalten: 8 (19%)
+ Positive Antworten: 3
+ Absagen: 5
 
-⏳ Wartend auf Antwort: 34
-📆 Durchschnittliche Antwortzeit: 6 Tage
+ Wartend auf Antwort: 34
+ Durchschnittliche Antwortzeit: 6 Tage
 
-🔥 Top 3 gefragte Skills:
+ Top 3 gefragte Skills:
 1. Java (32 Stellen)
 2. JavaScript (28 Stellen)
 3. Docker (18 Stellen)
@@ -246,25 +246,25 @@ Der Bot sendet dir automatisch Nachrichten in folgenden Situationen:
 
 1. **Neue Bewerbungen bereit:**
    ```
-   🔔 5 neue Bewerbungen sind bereit zur Überprüfung!
+ 5 neue Bewerbungen sind bereit zur Überprüfung!
    
    Nutze /status um sie anzusehen.
    ```
 
 2. **Wöchentliches Reporting:**
    ```
-   📊 Wöchentliche Zusammenfassung (01.02 - 07.02.2026)
+ Wöchentliche Zusammenfassung (01.02 - 07.02.2026)
    
-   📤 15 Bewerbungen gesendet
-   📬 3 Antworten erhalten
-   ⏳ 12 noch offen
+ 15 Bewerbungen gesendet
+ 3 Antworten erhalten
+ 12 noch offen
    
    Details: /stats
    ```
 
 3. **Follow-up bereit:**
    ```
-   📮 3 Follow-up-E-Mails wurden vorbereitet für Bewerbungen ohne Antwort.
+ 3 Follow-up-E-Mails wurden vorbereitet für Bewerbungen ohne Antwort.
    
    Nutze /status um sie zu überprüfen.
    ```

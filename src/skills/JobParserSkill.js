@@ -45,7 +45,7 @@ class JobParserSkill {
             .usingServer(this.config.browserServiceUrl || 'http://browser-service:4444')
             .build();
 
-        console.log('✅ Selenium WebDriver initialized');
+ console.log('Selenium WebDriver initialized');
     }
 
     /**
@@ -56,7 +56,7 @@ class JobParserSkill {
      * @returns {Object} Parsed job data
      */
     async parseJob(url, source) {
-        console.log(`🔍 Parsing job from ${source}: ${url}`);
+ console.log(`Parsing job from ${source}: ${url}`);
 
         try {
             await this.driver.get(url);
@@ -88,11 +88,11 @@ class JobParserSkill {
             // Enrich with LLM-based analysis
             jobData = await this.enrichWithLLM(jobData, html);
 
-            console.log(`✅ Successfully parsed job: ${jobData.company} - ${jobData.position}`);
+ console.log(`Successfully parsed job: ${jobData.company} - ${jobData.position}`);
             return jobData;
 
         } catch (error) {
-            console.error(`❌ Error parsing job from ${url}:`, error.message);
+ console.error(`Error parsing job from ${url}:`, error.message);
             throw error;
         }
     }
@@ -235,7 +235,7 @@ Focus on technical skills and IT-related requirements. Be concise.`;
             return { ...jobData, ...enrichedData };
 
         } catch (error) {
-            console.error('⚠️  LLM enrichment failed:', error.message);
+ console.error('️ LLM enrichment failed:', error.message);
             return jobData;
         }
     }
@@ -279,7 +279,7 @@ Focus on technical skills and IT-related requirements. Be concise.`;
     async close() {
         if (this.driver) {
             await this.driver.quit();
-            console.log('✅ Selenium WebDriver closed');
+ console.log('Selenium WebDriver closed');
         }
     }
 }

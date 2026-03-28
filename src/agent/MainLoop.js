@@ -39,7 +39,7 @@ class AgentMainLoop {
      * Initialize all skills and queue
      */
     async initialize() {
-        console.log('🚀 Initializing Agent Main Loop...');
+ console.log('Initializing Agent Main Loop...');
 
         // Initialize queue
         this.queue = new ApplicationQueue('/app/data/application_queue.json');
@@ -70,7 +70,7 @@ class AgentMainLoop {
         this.documentGenerator = new DocumentGeneratorSkill(this.config);
         await this.documentGenerator.initialize();
 
-        console.log('✅ Agent Main Loop initialized');
+ console.log('Agent Main Loop initialized');
     }
 
     /**
@@ -78,7 +78,7 @@ class AgentMainLoop {
      */
     async runOnce() {
         if (this.isRunning) {
-            console.log('⏳ Agent is already running, skipping this iteration');
+ console.log('Agent is already running, skipping this iteration');
             return;
         }
 
@@ -86,57 +86,57 @@ class AgentMainLoop {
         const startTime = Date.now();
 
         try {
-            console.log('🔄 Starting agent iteration...');
+ console.log('Starting agent iteration...');
 
             // Step 1: Check for new job alert emails
-            console.log('📧 Step 1: Checking for new job alerts...');
+ console.log('Step 1: Checking for new job alerts...');
             const emailJobs = await this.emailReader.checkForNewEmails();
-            console.log(`✅ Found ${emailJobs.length} new job postings from emails`);
+ console.log(`Found ${emailJobs.length} new job postings from emails`);
 
             // Step 2: Actively search job portals
-            console.log('🔍 Step 2: Actively searching job portals...');
+ console.log('Step 2: Actively searching job portals...');
             const searchCriteria = this.config.searchCriteria || {
                 keywords: ['Junior Backend Developer', 'Software Developer', 'Fachinformatiker Anwendungsentwicklung'],
                 location: 'Hamburg'
             };
             const portalJobs = await this.jobSearch.searchAll(searchCriteria);
-            console.log(`✅ Found ${portalJobs.length} new job postings from portals`);
+ console.log(`Found ${portalJobs.length} new job postings from portals`);
 
             // Combine and deduplicate
             const allJobs = [...emailJobs, ...portalJobs];
             const jobPostings = this.jobSearch.removeDuplicates(allJobs);
-            console.log(`✅ Total unique jobs: ${jobPostings.length}`);
+ console.log(`Total unique jobs: ${jobPostings.length}`);
 
             if (jobPostings.length === 0) {
-                console.log('📭 No new jobs found, ending iteration');
+ console.log('No new jobs found, ending iteration');
                 return;
             }
 
             // Step 3: Parse each job posting
-            console.log('🔍 Step 3: Parsing job postings...');
+ console.log('Step 3: Parsing job postings...');
             const parsedJobs = [];
             for (const job of jobPostings) {
                 try {
                     const parsed = await this.jobParser.parseJob(job.url, job.source);
                     parsedJobs.push(parsed);
                 } catch (error) {
-                    console.error(`❌ Failed to parse job ${job.url}:`, error.message);
+ console.error(`Failed to parse job ${job.url}:`, error.message);
                 }
             }
-            console.log(`✅ Successfully parsed ${parsedJobs.length} jobs`);
+ console.log(`Successfully parsed ${parsedJobs.length} jobs`);
 
             // Step 4: Filter jobs
-            console.log('🎯 Step 4: Filtering jobs...');
+ console.log('Step 4: Filtering jobs...');
             const filteredJobs = this._filterJobs(parsedJobs);
-            console.log(`✅ ${filteredJobs.length} jobs passed filters`);
+ console.log(`${filteredJobs.length} jobs passed filters`);
 
             if (filteredJobs.length === 0) {
-                console.log('📭 No jobs passed filters, ending iteration');
+ console.log('No jobs passed filters, ending iteration');
                 return;
             }
 
             // Step 5: Generate application documents
-            console.log('📝 Step 5: Generating application documents...');
+ console.log('Step 5: Generating application documents...');
             let generatedCount = 0;
             for (const job of filteredJobs) {
                 try {
@@ -150,13 +150,13 @@ class AgentMainLoop {
                     });
 
                     generatedCount++;
-                    console.log(`✅ Generated application for ${job.company} - ${job.position}`);
+ console.log(`Generated application for ${job.company} - ${job.position}`);
                 } catch (error) {
-                    console.error(`❌ Failed to generate application for ${job.company}:`, error.message);
+ console.error(`Failed to generate application for ${job.company}:`, error.message);
                 }
             }
 
-            console.log(`✅ Generated ${generatedCount} applications`);
+ console.log(`Generated ${generatedCount} applications`);
 
             // Step 6: Send Telegram notification
             if (generatedCount > 0) {
@@ -164,10 +164,10 @@ class AgentMainLoop {
             }
 
             const duration = ((Date.now() - startTime) / 1000).toFixed(2);
-            console.log(`✅ Agent iteration complete in ${duration}s`);
+ console.log(`Agent iteration complete in ${duration}s`);
 
         } catch (error) {
-            console.error('❌ Error in agent main loop:', error);
+ console.error('Error in agent main loop:', error);
         } finally {
             this.isRunning = false;
         }
@@ -231,12 +231,12 @@ class AgentMainLoop {
             );
 
             if (response.ok) {
-                console.log('✅ Telegram notification sent');
+ console.log('Telegram notification sent');
             } else {
-                console.error('❌ Failed to send Telegram notification:', await response.text());
+ console.error('Failed to send Telegram notification:', await response.text());
             }
         } catch (error) {
-            console.error('❌ Error sending Telegram notification:', error);
+ console.error('Error sending Telegram notification:', error);
         }
     }
 
@@ -244,7 +244,7 @@ class AgentMainLoop {
      * Start the periodic loop
      */
     async start(intervalHours = 4) {
-        console.log(`🚀 Starting agent with ${intervalHours}h interval...`);
+ console.log(`Starting agent with ${intervalHours}h interval...`);
 
         // Run immediately
         await this.runOnce();
@@ -255,7 +255,7 @@ class AgentMainLoop {
             this.runOnce();
         }, intervalMs);
 
-        console.log(`✅ Agent started, next run in ${intervalHours} hours`);
+ console.log(`Agent started, next run in ${intervalHours} hours`);
     }
 
     /**
@@ -265,7 +265,7 @@ class AgentMainLoop {
         if (this.intervalId) {
             clearInterval(this.intervalId);
             this.intervalId = null;
-            console.log('🛑 Agent stopped');
+ console.log('Agent stopped');
         }
     }
 
@@ -285,7 +285,7 @@ class AgentMainLoop {
             await this.jobParser.close();
         }
 
-        console.log('✅ Agent cleanup complete');
+ console.log('Agent cleanup complete');
     }
 }
 
@@ -311,13 +311,13 @@ if (require.main === module) {
     
     // Handle graceful shutdown
     process.on('SIGINT', async () => {
-        console.log('\n🛑 Received SIGINT, shutting down gracefully...');
+ console.log('\n Received SIGINT, shutting down gracefully...');
         await agent.cleanup();
         process.exit(0);
     });
 
     process.on('SIGTERM', async () => {
-        console.log('\n🛑 Received SIGTERM, shutting down gracefully...');
+ console.log('\n Received SIGTERM, shutting down gracefully...');
         await agent.cleanup();
         process.exit(0);
     });
@@ -327,7 +327,7 @@ if (require.main === module) {
         const intervalHours = parseInt(process.env.AGENT_INTERVAL_HOURS) || 4;
         agent.start(intervalHours);
     }).catch(error => {
-        console.error('❌ Failed to start agent:', error);
+ console.error('Failed to start agent:', error);
         process.exit(1);
     });
 }

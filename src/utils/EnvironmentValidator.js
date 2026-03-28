@@ -20,7 +20,7 @@ class EnvironmentValidator {
      * Validate all requirements
      */
     async validate() {
-        console.log('🔍 Validating environment...\n');
+ console.log('Validating environment...\n');
 
         await this.validateNodeVersion();
         await this.validateRequiredEnvVars();
@@ -35,7 +35,7 @@ class EnvironmentValidator {
             throw new Error(`Environment validation failed with ${this.errors.length} error(s)`);
         }
 
-        console.log('\n✅ Environment validation passed!\n');
+ console.log('\n Environment validation passed!\n');
         return true;
     }
 
@@ -49,7 +49,7 @@ class EnvironmentValidator {
         if (currentVersion < requiredVersion) {
             this.errors.push(`Node.js version ${requiredVersion}+ required, found ${currentVersion}`);
         } else {
-            console.log(`✅ Node.js version: ${process.version}`);
+ console.log(`Node.js version: ${process.version}`);
         }
     }
 
@@ -71,7 +71,7 @@ class EnvironmentValidator {
                 this.errors.push(`Missing required environment variable: ${envVar}`);
             } else {
                 const maskedValue = this._maskValue(process.env[envVar]);
-                console.log(`✅ ${envVar}: ${maskedValue}`);
+ console.log(`${envVar}: ${maskedValue}`);
             }
         }
     }
@@ -92,7 +92,7 @@ class EnvironmentValidator {
                 this.warnings.push(`Optional environment variable not set: ${envVar}`);
             } else {
                 const maskedValue = this._maskValue(process.env[envVar]);
-                console.log(`✅ ${envVar}: ${maskedValue}`);
+ console.log(`${envVar}: ${maskedValue}`);
             }
         }
     }
@@ -111,12 +111,12 @@ class EnvironmentValidator {
         for (const dir of directories) {
             try {
                 await fs.access(dir);
-                console.log(`✅ Directory exists: ${dir}`);
+ console.log(`Directory exists: ${dir}`);
             } catch (error) {
                 this.warnings.push(`Directory missing: ${dir} (will be created)`);
                 try {
                     await fs.mkdir(dir, { recursive: true });
-                    console.log(`✅ Created directory: ${dir}`);
+ console.log(`Created directory: ${dir}`);
                 } catch (createError) {
                     this.errors.push(`Failed to create directory: ${dir}`);
                 }
@@ -151,7 +151,7 @@ class EnvironmentValidator {
                 const content = await fs.readFile(filePath, 'utf8');
                 JSON.parse(content);
                 
-                console.log(`✅ Config file valid: ${filePath}`);
+ console.log(`Config file valid: ${filePath}`);
             } catch (error) {
                 if (required) {
                     this.errors.push(`Required config file missing or invalid: ${filePath}`);
@@ -177,7 +177,7 @@ class EnvironmentValidator {
         for (const dep of dependencies) {
             try {
                 require.resolve(dep);
-                console.log(`✅ Dependency installed: ${dep}`);
+ console.log(`Dependency installed: ${dep}`);
             } catch (error) {
                 this.errors.push(`Missing dependency: ${dep}`);
             }
@@ -188,22 +188,22 @@ class EnvironmentValidator {
      * Print validation results
      */
     printResults() {
-        console.log('\n📊 Validation Summary:\n');
+ console.log('\n Validation Summary:\n');
 
         if (this.errors.length > 0) {
-            console.log('❌ Errors:');
-            this.errors.forEach(error => console.log(`   - ${error}`));
+ console.log('Errors:');
+            this.errors.forEach(error => console.log(`- ${error}`));
             console.log('');
         }
 
         if (this.warnings.length > 0) {
-            console.log('⚠️  Warnings:');
-            this.warnings.forEach(warning => console.log(`   - ${warning}`));
+ console.log('️ Warnings:');
+            this.warnings.forEach(warning => console.log(`- ${warning}`));
             console.log('');
         }
 
         if (this.errors.length === 0 && this.warnings.length === 0) {
-            console.log('✅ No issues found!');
+ console.log('No issues found!');
         }
     }
 

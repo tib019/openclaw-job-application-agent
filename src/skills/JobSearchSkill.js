@@ -44,7 +44,7 @@ class JobSearchSkill {
             .usingServer(this.config.browserServiceUrl || 'http://browser-service:4444')
             .build();
 
-        console.log('✅ JobSearchSkill WebDriver initialized');
+ console.log('JobSearchSkill WebDriver initialized');
     }
 
     /**
@@ -54,7 +54,7 @@ class JobSearchSkill {
      * @returns {Array} Array of job postings
      */
     async searchAll(criteria) {
-        console.log('🔍 Starting job search across all portals...');
+ console.log('Starting job search across all portals...');
         
         const allJobs = [];
 
@@ -68,16 +68,16 @@ class JobSearchSkill {
 
         for (const portal of portals) {
             try {
-                console.log(`🔍 Searching ${portal.name}...`);
+ console.log(`Searching ${portal.name}...`);
                 const jobs = await portal.method(criteria);
                 allJobs.push(...jobs);
-                console.log(`✅ Found ${jobs.length} jobs on ${portal.name}`);
+ console.log(`Found ${jobs.length} jobs on ${portal.name}`);
             } catch (error) {
-                console.error(`❌ Error searching ${portal.name}:`, error.message);
+ console.error(`Error searching ${portal.name}:`, error.message);
             }
         }
 
-        console.log(`✅ Total jobs found: ${allJobs.length}`);
+ console.log(`Total jobs found: ${allJobs.length}`);
         return allJobs;
     }
 
@@ -101,7 +101,7 @@ class JobSearchSkill {
                 By.css('article[data-at="job-item"]')
             );
 
-            console.log(`📋 Found ${jobElements.length} job elements on StepStone`);
+ console.log(`Found ${jobElements.length} job elements on StepStone`);
 
             // Extract job URLs (limit to first 20)
             for (let i = 0; i < Math.min(jobElements.length, 20); i++) {
@@ -118,12 +118,12 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
-                    console.error(`⚠️  Error extracting job ${i}:`, error.message);
+ console.error(`️ Error extracting job ${i}:`, error.message);
                 }
             }
 
         } catch (error) {
-            console.error('❌ StepStone search failed:', error.message);
+ console.error('StepStone search failed:', error.message);
         }
 
         return jobs;
@@ -149,7 +149,7 @@ class JobSearchSkill {
                 By.css('div.job_seen_beacon')
             );
 
-            console.log(`📋 Found ${jobElements.length} job elements on Indeed`);
+ console.log(`Found ${jobElements.length} job elements on Indeed`);
 
             // Extract job URLs (limit to first 20)
             for (let i = 0; i < Math.min(jobElements.length, 20); i++) {
@@ -170,12 +170,12 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
-                    console.error(`⚠️  Error extracting job ${i}:`, error.message);
+ console.error(`️ Error extracting job ${i}:`, error.message);
                 }
             }
 
         } catch (error) {
-            console.error('❌ Indeed search failed:', error.message);
+ console.error('Indeed search failed:', error.message);
         }
 
         return jobs;
@@ -201,7 +201,7 @@ class JobSearchSkill {
                 By.css('div.job-item, article.job-listing, div[class*="job"]')
             );
 
-            console.log(`📋 Found ${jobElements.length} job elements on get-in-it.de`);
+ console.log(`Found ${jobElements.length} job elements on get-in-it.de`);
 
             // Extract job URLs (limit to first 20)
             for (let i = 0; i < Math.min(jobElements.length, 20); i++) {
@@ -222,12 +222,12 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
-                    console.error(`⚠️  Error extracting job ${i}:`, error.message);
+ console.error(`️ Error extracting job ${i}:`, error.message);
                 }
             }
 
         } catch (error) {
-            console.error('❌ get-in-it.de search failed:', error.message);
+ console.error('get-in-it.de search failed:', error.message);
         }
 
         return jobs;
@@ -253,7 +253,7 @@ class JobSearchSkill {
                 By.css('div.job-listing, article[class*="job"], div[data-job-id]')
             );
 
-            console.log(`📋 Found ${jobElements.length} job elements on it-jobs.de`);
+ console.log(`Found ${jobElements.length} job elements on it-jobs.de`);
 
             // Extract job URLs (limit to first 20)
             for (let i = 0; i < Math.min(jobElements.length, 20); i++) {
@@ -274,12 +274,12 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
-                    console.error(`⚠️  Error extracting job ${i}:`, error.message);
+ console.error(`️ Error extracting job ${i}:`, error.message);
                 }
             }
 
         } catch (error) {
-            console.error('❌ it-jobs.de search failed:', error.message);
+ console.error('it-jobs.de search failed:', error.message);
         }
 
         return jobs;
@@ -305,7 +305,7 @@ class JobSearchSkill {
     async close() {
         if (this.driver) {
             await this.driver.quit();
-            console.log('✅ JobSearchSkill WebDriver closed');
+ console.log('JobSearchSkill WebDriver closed');
         }
     }
 }

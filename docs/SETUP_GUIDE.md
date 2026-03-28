@@ -14,11 +14,11 @@
 - **Git**
 
 ### Accounts & Credentials
-- ✅ Dedizierte E-Mail-Adresse für Bewerbungen (Gmail, Outlook, etc.)
-- ✅ Telegram Bot Token (von @BotFather)
-- ✅ Telegram Chat ID (deine persönliche Chat ID)
-- ✅ GitHub Token (für Repository-Analyse)
-- ✅ OpenAI API Key (für LLM-Features)
+- Dedizierte E-Mail-Adresse für Bewerbungen (Gmail, Outlook, etc.)
+- Telegram Bot Token (von @BotFather)
+- Telegram Chat ID (deine persönliche Chat ID)
+- GitHub Token (für Repository-Analyse)
+- OpenAI API Key (für LLM-Features)
 
 ---
 
@@ -317,7 +317,7 @@ node src/agent/MainLoop.js
 
 ## Sicherheitshinweise
 
-### ✅ Best Practices
+### Best Practices
 
 1. **Dedizierte E-Mail:** Nutze eine separate E-Mail nur für Bewerbungen
 2. **App-Passwörter:** Nutze App-Passwörter statt echten Passwörtern
@@ -325,7 +325,7 @@ node src/agent/MainLoop.js
 4. **Regelmäßige Backups:** Sichere `~/Bewerbungen` regelmäßig
 5. **Logs prüfen:** Überwache die Logs auf Fehler
 
-### ⚠️ Risiken
+### ️ Risiken
 
 1. **E-Mail-Credentials:** Agent hat Zugriff auf deine E-Mail
 2. **Automatischer Versand:** Bewerbungen werden automatisch versendet (nach Freigabe)
@@ -344,4 +344,4 @@ Nach erfolgreichem Setup:
 
 ---
 
-**Viel Erfolg mit deinem automatisierten Bewerbungsagenten!** 🚀
+**Viel Erfolg mit deinem automatisierten Bewerbungsagenten!**

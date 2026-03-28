@@ -39,12 +39,12 @@ class EmailReaderSkill {
 
         return new Promise((resolve, reject) => {
             this.imap.once('ready', () => {
-                console.log('✅ IMAP connection established');
+ console.log('IMAP connection established');
                 resolve();
             });
 
             this.imap.once('error', (err) => {
-                console.error('❌ IMAP connection error:', err);
+ console.error('IMAP connection error:', err);
                 reject(err);
             });
 
@@ -82,12 +82,12 @@ class EmailReaderSkill {
                     }
 
                     if (results.length === 0) {
-                        console.log('📭 No new job alert emails found');
+ console.log('No new job alert emails found');
                         resolve([]);
                         return;
                     }
 
-                    console.log(`📬 Found ${results.length} new job alert emails`);
+ console.log(`Found ${results.length} new job alert emails`);
 
                     const fetch = this.imap.fetch(results, { bodies: '' });
                     const jobPostings = [];
@@ -96,7 +96,7 @@ class EmailReaderSkill {
                         msg.on('body', (stream, info) => {
                             simpleParser(stream, async (err, parsed) => {
                                 if (err) {
-                                    console.error(`❌ Error parsing email ${seqno}:`, err);
+ console.error(`Error parsing email ${seqno}:`, err);
                                     return;
                                 }
 
@@ -104,7 +104,7 @@ class EmailReaderSkill {
                                     const jobs = await this.extractJobsFromEmail(parsed);
                                     jobPostings.push(...jobs);
                                 } catch (error) {
-                                    console.error(`❌ Error extracting jobs from email ${seqno}:`, error);
+ console.error(`Error extracting jobs from email ${seqno}:`, error);
                                 }
                             });
                         });
@@ -115,7 +115,7 @@ class EmailReaderSkill {
                     });
 
                     fetch.once('end', () => {
-                        console.log(`✅ Extracted ${jobPostings.length} job postings from emails`);
+ console.log(`Extracted ${jobPostings.length} job postings from emails`);
                         resolve(jobPostings);
                     });
                 });
@@ -139,7 +139,7 @@ class EmailReaderSkill {
         else if (from.includes('linkedin')) platform = 'linkedin';
         else if (from.includes('indeed')) platform = 'indeed';
 
-        console.log(`📧 Processing email from ${platform}: ${email.subject}`);
+ console.log(`Processing email from ${platform}: ${email.subject}`);
 
         // Extract job URLs and details based on platform
         const html = email.html || email.textAsHtml || '';
@@ -270,7 +270,7 @@ class EmailReaderSkill {
     async close() {
         if (this.imap) {
             this.imap.end();
-            console.log('✅ IMAP connection closed');
+ console.log('IMAP connection closed');
         }
     }
 }

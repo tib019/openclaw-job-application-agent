@@ -12,49 +12,49 @@ Der **OpenClaw Job Application Agent** wird als **Multi-Container-System** mit D
 Das System besteht aus drei Haupt-Services, die über ein internes Docker-Netzwerk kommunizieren.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Docker Host (Dein PC)                    │
-│                                                             │
-│  ┌───────────────────────────────────────────────────────┐ │
-│  │           Docker Network: job-agent-network           │ │
-│  │                                                       │ │
-│  │  ┌──────────────────┐     ┌──────────────────┐      │ │
-│  │  │  agent-service   │◄────┤telegram-bridge   │      │ │
-│  │  │  (OpenClaw Core) │     │  (Python Bot)    │      │ │
-│  │  │                  │     │                  │      │ │
-│  │  │ • Skills         │     │ • Telegram API   │      │ │
-│  │  │ • Memory         │     │ • Command Parser │      │ │
-│  │  │ • Queue Manager  │     └──────────────────┘      │ │
-│  │  │                  │              ▲                 │ │
-│  │  │                  │              │                 │ │
-│  │  │                  │              │ Telegram        │ │
-│  │  │                  │              │ Messages        │ │
-│  │  │                  │              │                 │ │
-│  │  └────────┬─────────┘              │                 │ │
-│  │           │                        │                 │ │
-│  │           │ Remote WebDriver       │                 │ │
-│  │           ▼                        │                 │ │
-│  │  ┌──────────────────┐              │                 │ │
-│  │  │ browser-service  │              │                 │ │
-│  │  │ (Selenium Chrome)│              │                 │ │
-│  │  │                  │              │                 │ │
-│  │  │ • LinkedIn       │              │                 │ │
-│  │  │ • Job Portals    │              │                 │ │
-│  │  └──────────────────┘              │                 │ │
-│  │                                    │                 │ │
-│  └────────────────────────────────────┼─────────────────┘ │
-│                                       │                   │
-│  ┌────────────────────────────────────┼─────────────────┐ │
-│  │         Volumes (Persistenz)       │                 │ │
-│  │                                    │                 │ │
-│  │  • ./data        → Bewerbungen     │                 │ │
-│  │  • ./logs        → Log-Dateien     │                 │ │
-│  │  • ./config      → Konfiguration   │                 │ │
-│  └────────────────────────────────────┼─────────────────┘ │
-│                                       │                   │
-└───────────────────────────────────────┼───────────────────┘
-                                        │
-                                        ▼
+
+ Docker Host (Dein PC)
+
+
+ Docker Network: job-agent-network
+
+
+ agent-service telegram-bridge
+ (OpenClaw Core) (Python Bot)
+
+ • Skills • Telegram API
+ • Memory • Command Parser
+ • Queue Manager
+
+
+ Telegram
+ Messages
+
+
+
+ Remote WebDriver
+
+
+ browser-service
+ (Selenium Chrome)
+
+ • LinkedIn
+ • Job Portals
+
+
+
+
+
+ Volumes (Persistenz)
+
+ •./data → Bewerbungen
+ •./logs → Log-Dateien
+ •./config → Konfiguration
+
+
+
+
+
                                   Internet
                                 (Telegram API)
 ```
@@ -133,7 +133,7 @@ Das System besteht aus drei Haupt-Services, die über ein internes Docker-Netzwe
     -   `LinkedInApplierSkill`: Verbindet sich mit `http://browser-service:4444`, steuert den Browser und führt die Bewerbung durch.
 6.  **Agent-Service** aktualisiert den Status der Bewerbungen auf `SENT` und protokolliert das Ergebnis im Memory.
 7.  **Agent-Service** sendet eine Response an den Telegram-Bridge: `{"success": true, "sent": 5, "failed": 0}`.
-8.  **Telegram-Bridge** formatiert die Antwort und sendet sie an den Benutzer: `"🚀 5 Bewerbungen erfolgreich versendet!"`.
+8. **Telegram-Bridge** formatiert die Antwort und sendet sie an den Benutzer: `" 5 Bewerbungen erfolgreich versendet!"`.
 
 ## 5. Docker-Compose-Konfiguration (Entwurf)
 

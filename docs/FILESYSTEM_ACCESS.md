@@ -124,45 +124,45 @@ Mit freundlichen Grüßen,
 
 ### Was der Agent NICHT darf:
 
-- ❌ Auf Bereiche außerhalb der gemappten Volumes zugreifen
-- ❌ Master-Dokumente überschreiben (read-only Mount)
-- ❌ Dateien löschen ohne explizite Freigabe
-- ❌ Persönliche Daten außerhalb des Bewerbungskontexts lesen
+- Auf Bereiche außerhalb der gemappten Volumes zugreifen
+- Master-Dokumente überschreiben (read-only Mount)
+- Dateien löschen ohne explizite Freigabe
+- Persönliche Daten außerhalb des Bewerbungskontexts lesen
 
 ### Was der Agent darf:
 
-- ✅ Bewerbungen im `~/Bewerbungen`-Ordner erstellen
-- ✅ Master-Dokumente lesen und daraus lernen
-- ✅ GitHub-Repos analysieren (für Projekt-Auswahl)
-- ✅ Stellenanzeigen aus `~/Downloads` lesen
+- Bewerbungen im `~/Bewerbungen`-Ordner erstellen
+- Master-Dokumente lesen und daraus lernen
+- GitHub-Repos analysieren (für Projekt-Auswahl)
+- Stellenanzeigen aus `~/Downloads` lesen
 
 ## 5. Ordnerstruktur: Best Practice
 
 ```
 ~/Bewerbungen/
-├── 2026-02-07_TechCorp_Junior_Backend_Developer/
-│   ├── anschreiben.pdf
-│   ├── lebenslauf.pdf
-│   ├── stellenanzeige.pdf
-│   ├── metadata.json
-│   └── logs.txt
-├── 2026-02-08_StartupX_Full_Stack_Developer/
-│   ├── anschreiben.pdf
-│   ├── lebenslauf.pdf
-│   ├── stellenanzeige.pdf
-│   └── metadata.json
-└── ...
+ 2026-02-07_TechCorp_Junior_Backend_Developer/
+ anschreiben.pdf
+ lebenslauf.pdf
+ stellenanzeige.pdf
+ metadata.json
+ logs.txt
+ 2026-02-08_StartupX_Full_Stack_Developer/
+ anschreiben.pdf
+ lebenslauf.pdf
+ stellenanzeige.pdf
+ metadata.json
+...
 
 ~/Dokumente/Bewerbung/
-├── Lebenslauf_Master.md
-├── Zeugnisse/
-│   ├── Python_Zertifikat.pdf
-│   ├── Scrum_Foundation.pdf
-│   └── Praktikumszeugnis_Argo_Aviation.pdf
-└── Templates/
-    ├── anschreiben_modern.md
-    ├── anschreiben_formal.md
-    └── lebenslauf_template.tex
+ Lebenslauf_Master.md
+ Zeugnisse/
+ Python_Zertifikat.pdf
+ Scrum_Foundation.pdf
+ Praktikumszeugnis_Argo_Aviation.pdf
+ Templates/
+ anschreiben_modern.md
+ anschreiben_formal.md
+ lebenslauf_template.tex
 ```
 
 Diese Struktur ermöglicht maximale Flexibilität und Nachvollziehbarkeit.

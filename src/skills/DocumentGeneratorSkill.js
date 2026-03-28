@@ -45,7 +45,7 @@ class DocumentGeneratorSkill {
         });
         await this.githubService.initialize();
         
-        console.log(`✅ Loaded user profile: ${this.userProfile.personal?.name || this.userProfile.name}`);
+ console.log(`Loaded user profile: ${this.userProfile.personal?.name || this.userProfile.name}`);
     }
 
     /**
@@ -55,7 +55,7 @@ class DocumentGeneratorSkill {
      * @returns {Object} Generated documents and metadata
      */
     async generateApplication(jobData) {
-        console.log(`📝 Generating application for: ${jobData.company} - ${jobData.position}`);
+ console.log(`Generating application for: ${jobData.company} - ${jobData.position}`);
 
         try {
             // Step 1: Analyze GitHub repos and select best project
@@ -73,7 +73,7 @@ class DocumentGeneratorSkill {
             await this.saveResume(resume, outputDir);
             await this.saveMetadata(jobData, bestProject, outputDir);
 
-            console.log(`✅ Application package generated in: ${outputDir}`);
+ console.log(`Application package generated in: ${outputDir}`);
 
             return {
                 coverLetterPath: path.join(outputDir, 'anschreiben.pdf'),
@@ -83,7 +83,7 @@ class DocumentGeneratorSkill {
             };
 
         } catch (error) {
-            console.error(`❌ Error generating application:`, error);
+ console.error(`Error generating application:`, error);
             throw error;
         }
     }
@@ -92,7 +92,7 @@ class DocumentGeneratorSkill {
      * Analyze GitHub repositories and select best project for this job
      */
     async selectBestGitHubProject(jobData) {
-        console.log('🔍 Analyzing GitHub repositories...');
+ console.log('Analyzing GitHub repositories...');
 
         try {
             // Use GitHubService to find matching projects
@@ -110,7 +110,7 @@ class DocumentGeneratorSkill {
             );
 
             if (matchingProjects.length === 0) {
-                console.warn('⚠️  No matching projects found, using fallback');
+ console.warn('️ No matching projects found, using fallback');
                 return {
                     name: 'automated-trading-system',
                     reason: 'Fallback project - demonstrates coding skills',
@@ -123,7 +123,7 @@ class DocumentGeneratorSkill {
             // Return the best matching project
             const bestProject = matchingProjects[0];
             
-            console.log(`✅ Selected project: ${bestProject.name} (Score: ${bestProject.matchScore})`);
+ console.log(`Selected project: ${bestProject.name} (Score: ${bestProject.matchScore})`);
 
             return {
                 name: bestProject.name,
@@ -142,7 +142,7 @@ class DocumentGeneratorSkill {
             };
 
         } catch (error) {
-            console.error('⚠️  GitHub analysis failed:', error.message);
+ console.error('️ GitHub analysis failed:', error.message);
             return {
                 name: 'automated-trading-system',
                 reason: 'Fallback project - error during analysis',
@@ -157,7 +157,7 @@ class DocumentGeneratorSkill {
      * Generate customized cover letter
      */
     async generateCoverLetter(jobData, bestProject) {
-        console.log('✍️  Generating cover letter...');
+ console.log('️ Generating cover letter...');
 
         const prompt = `Write a professional German cover letter (Anschreiben) for this job application.
 
@@ -217,7 +217,7 @@ Return ONLY the cover letter text in Markdown format with proper structure:
      * Generate customized resume
      */
     async generateResume(jobData) {
-        console.log('📄 Generating resume...');
+ console.log('Generating resume...');
 
         // Read master resume template
         const masterResumePath = '/host/dokumente/Lebenslauf_Master.md';
@@ -226,7 +226,7 @@ Return ONLY the cover letter text in Markdown format with proper structure:
         try {
             masterResume = await fs.readFile(masterResumePath, 'utf8');
         } catch (error) {
-            console.warn('⚠️  Master resume not found, using default template');
+ console.warn('️ Master resume not found, using default template');
             masterResume = this.getDefaultResumeTemplate();
         }
 
@@ -275,7 +275,7 @@ Return the customized resume in Markdown.`;
         const folderPath = path.join('/host/bewerbungen', folderName);
 
         await fs.mkdir(folderPath, { recursive: true });
-        console.log(`📁 Created folder: ${folderPath}`);
+ console.log(`Created folder: ${folderPath}`);
 
         return folderPath;
     }
@@ -300,7 +300,7 @@ Return the customized resume in Markdown.`;
         doc.end();
 
         await new Promise(resolve => stream.on('finish', resolve));
-        console.log(`✅ Saved cover letter: ${pdfPath}`);
+ console.log(`Saved cover letter: ${pdfPath}`);
     }
 
     /**
@@ -323,7 +323,7 @@ Return the customized resume in Markdown.`;
         doc.end();
 
         await new Promise(resolve => stream.on('finish', resolve));
-        console.log(`✅ Saved resume: ${pdfPath}`);
+ console.log(`Saved resume: ${pdfPath}`);
     }
 
     /**
@@ -342,7 +342,7 @@ Return the customized resume in Markdown.`;
 
         const metadataPath = path.join(outputDir, 'metadata.json');
         await fs.writeFile(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
-        console.log(`✅ Saved metadata: ${metadataPath}`);
+ console.log(`Saved metadata: ${metadataPath}`);
     }
 
     /**

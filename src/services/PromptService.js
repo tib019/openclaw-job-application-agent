@@ -27,7 +27,7 @@ class PromptService {
      * @returns {Object} Result of the action
      */
     async processPrompt(prompt) {
-        console.log(`🤖 Processing prompt: "${prompt}"`);
+ console.log(`Processing prompt: "${prompt}"`);
 
         try {
             // Call OpenAI with function calling
@@ -54,7 +54,7 @@ class PromptService {
                 const functionName = message.function_call.name;
                 const functionArgs = JSON.parse(message.function_call.arguments);
 
-                console.log(`📞 Function call: ${functionName}`, functionArgs);
+ console.log(`Function call: ${functionName}`, functionArgs);
 
                 // Execute the function
                 const result = await this._executeFunction(functionName, functionArgs);
@@ -73,7 +73,7 @@ class PromptService {
                 };
             }
         } catch (error) {
-            console.error('❌ Error processing prompt:', error);
+ console.error('Error processing prompt:', error);
             return {
                 success: false,
                 error: error.message
@@ -284,7 +284,7 @@ Be helpful and confirm actions clearly.`;
 
             return response.data;
         } catch (error) {
-            console.error(`❌ Error executing function ${functionName}:`, error.message);
+ console.error(`Error executing function ${functionName}:`, error.message);
             throw error;
         }
     }
