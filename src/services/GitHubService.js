@@ -210,15 +210,17 @@ class GitHubService {
      * Calculate match score between repository and job requirements
      */
     _calculateMatchScore(repo, requiredSkills, position, description) {
+        if (!repo) return 0;
+
         let score = 0;
-        
+
         // Normalize inputs
-        const requiredSkillsLower = requiredSkills.map(s => s.toLowerCase());
-        const positionLower = position.toLowerCase();
-        const descriptionLower = description.toLowerCase();
-        
+        const requiredSkillsLower = (requiredSkills || []).map(s => s.toLowerCase());
+        const positionLower = (position || '').toLowerCase();
+        const descriptionLower = (description || '').toLowerCase();
+
         // 1. Language match (30 points max)
-        const repoLanguages = [repo.language, ...repo.languages].map(l => l.toLowerCase());
+        const repoLanguages = [repo.language || '', ...(repo.languages || [])].map(l => l.toLowerCase());
         const languageMatches = requiredSkillsLower.filter(skill => 
             repoLanguages.some(lang => lang.includes(skill) || skill.includes(lang))
         );
@@ -226,22 +228,22 @@ class GitHubService {
         
         // 2. Technology match (30 points max)
         const techMatches = requiredSkillsLower.filter(skill =>
-            repo.technologies.some(tech => 
+            (repo.technologies || []).some(tech =>
                 tech.toLowerCase().includes(skill) || skill.includes(tech.toLowerCase())
             )
         );
         score += Math.min(techMatches.length * 10, 30);
-        
+
         // 3. Topics match (20 points max)
         const topicMatches = requiredSkillsLower.filter(skill =>
-            repo.topics.some(topic => 
+            (repo.topics || []).some(topic =>
                 topic.toLowerCase().includes(skill) || skill.includes(topic.toLowerCase())
             )
         );
         score += Math.min(topicMatches.length * 10, 20);
-        
+
         // 4. Description/README relevance (10 points max)
-        const repoText = `${repo.description} ${repo.readme}`.toLowerCase();
+        const repoText = `${repo.description || ''} ${repo.readme || ''}`.toLowerCase();
         const keywordMatches = requiredSkillsLower.filter(skill => repoText.includes(skill));
         score += Math.min(keywordMatches.length * 2, 10);
         

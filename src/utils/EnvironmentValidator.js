@@ -197,7 +197,7 @@ class EnvironmentValidator {
         }
 
         if (this.warnings.length > 0) {
- console.log('️ Warnings:');
+ console.log(' Warnings:');
             this.warnings.forEach(warning => console.log(`- ${warning}`));
             console.log('');
         }

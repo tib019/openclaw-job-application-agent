@@ -235,7 +235,7 @@ Focus on technical skills and IT-related requirements. Be concise.`;
             return { ...jobData, ...enrichedData };
 
         } catch (error) {
- console.error('️ LLM enrichment failed:', error.message);
+ console.error(' LLM enrichment failed:', error.message);
             return jobData;
         }
     }

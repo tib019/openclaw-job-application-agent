@@ -12,10 +12,10 @@ const OpenAI = require('openai');
 const axios = require('axios');
 
 class PromptService {
-    constructor(config) {
+    constructor(config = {}) {
         this.config = config;
         this.openai = new OpenAI({
-            apiKey: config.openaiApiKey
+            apiKey: config.openaiApiKey || process.env.OPENAI_API_KEY
         });
         this.apiBaseUrl = config.apiBaseUrl || 'http://localhost:3000';
     }

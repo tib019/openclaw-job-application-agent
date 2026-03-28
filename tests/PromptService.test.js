@@ -1,9 +1,31 @@
 /**
  * Unit Tests for PromptService
- * 
- * @author Manus AI
- * @date 2026-02-07
  */
+
+// Mock openai — processPrompt relies on LLM; we test the surrounding logic
+jest.mock('openai', () => {
+    const mockCreate = jest.fn().mockResolvedValue({
+        choices: [{
+            message: {
+                tool_calls: [{
+                    function: {
+                        name: 'listApplicationsFiltered',
+                        arguments: JSON.stringify({ minScore: 70 })
+                    }
+                }]
+            }
+        }]
+    });
+    return jest.fn().mockImplementation(() => ({
+        chat: { completions: { create: mockCreate } }
+    }));
+});
+
+// Mock axios so _executeFunction doesn't make real HTTP calls
+jest.mock('axios', () => ({
+    get: jest.fn().mockResolvedValue({ data: { applications: [], count: 0 } }),
+    post: jest.fn().mockResolvedValue({ data: { success: true } })
+}));
 
 const PromptService = require('../src/services/PromptService');
 
@@ -11,182 +33,74 @@ describe('PromptService', () => {
     let service;
 
     beforeEach(() => {
-        service = new PromptService();
+        service = new PromptService({ openaiApiKey: 'test-key', apiBaseUrl: 'http://localhost:3000' });
     });
 
-    describe('parsePrompt', () => {
-        it('should identify list_applications intent', () => {
-            const prompts = [
-                'zeige alle bewerbungen',
-                'liste alle jobs',
-                'welche bewerbungen habe ich'
-            ];
-
-            prompts.forEach(prompt => {
-                const result = service.parsePrompt(prompt);
-                expect(result.intent).toBe('list_applications');
-            });
+    describe('constructor', () => {
+        it('should instantiate without config', () => {
+            expect(() => new PromptService()).not.toThrow();
         });
 
-        it('should identify approve_applications intent', () => {
-            const prompts = [
-                'genehmige alle bewerbungen',
-                'approve alle',
-                'alle freigeben'
-            ];
-
-            prompts.forEach(prompt => {
-                const result = service.parsePrompt(prompt);
-                expect(result.intent).toBe('approve_applications');
-            });
-        });
-
-        it('should identify reject_applications intent', () => {
-            const prompts = [
-                'lehne alle ab',
-                'reject alle',
-                'alle ablehnen'
-            ];
-
-            prompts.forEach(prompt => {
-                const result = service.parsePrompt(prompt);
-                expect(result.intent).toBe('reject_applications');
-            });
-        });
-
-        it('should identify send_applications intent', () => {
-            const prompts = [
-                'sende alle bewerbungen',
-                'send all',
-                'versende alles'
-            ];
-
-            prompts.forEach(prompt => {
-                const result = service.parsePrompt(prompt);
-                expect(result.intent).toBe('send_applications');
-            });
-        });
-
-        it('should extract score filter', () => {
-            const prompt = 'zeige alle bewerbungen mit score über 70';
-            
-            const result = service.parsePrompt(prompt);
-            
-            expect(result.filters.minScore).toBe(70);
-        });
-
-        it('should extract remote filter', () => {
-            const prompt = 'genehmige alle remote jobs';
-            
-            const result = service.parsePrompt(prompt);
-            
-            expect(result.filters.remote).toBe(true);
-        });
-
-        it('should extract company filter', () => {
-            const prompt = 'zeige bewerbungen bei Google';
-            
-            const result = service.parsePrompt(prompt);
-            
-            expect(result.filters.company).toContain('google');
-        });
-
-        it('should handle complex prompts with multiple filters', () => {
-            const prompt = 'genehmige alle remote jobs mit score über 75';
-            
-            const result = service.parsePrompt(prompt);
-            
-            expect(result.intent).toBe('approve_applications');
-            expect(result.filters.remote).toBe(true);
-            expect(result.filters.minScore).toBe(75);
-        });
-
-        it('should return unknown intent for unclear prompts', () => {
-            const prompt = 'was ist das wetter heute';
-            
-            const result = service.parsePrompt(prompt);
-            
-            expect(result.intent).toBe('unknown');
+        it('should instantiate with partial config', () => {
+            expect(() => new PromptService({ apiBaseUrl: 'http://localhost:3000' })).not.toThrow();
         });
     });
 
-    describe('buildFunctionCall', () => {
-        it('should build list function call', () => {
-            const parsed = {
-                intent: 'list_applications',
-                filters: { minScore: 70 }
-            };
-
-            const functionCall = service.buildFunctionCall(parsed);
-
-            expect(functionCall.name).toBe('list_applications');
-            expect(functionCall.arguments.filters.minScore).toBe(70);
+    describe('_getSystemPrompt', () => {
+        it('should return a non-empty string', () => {
+            const prompt = service._getSystemPrompt();
+            expect(typeof prompt).toBe('string');
+            expect(prompt.length).toBeGreaterThan(0);
         });
 
-        it('should build approve function call', () => {
-            const parsed = {
-                intent: 'approve_applications',
-                filters: { remote: true }
-            };
-
-            const functionCall = service.buildFunctionCall(parsed);
-
-            expect(functionCall.name).toBe('approve_applications');
-            expect(functionCall.arguments.filters.remote).toBe(true);
-        });
-
-        it('should build reject function call', () => {
-            const parsed = {
-                intent: 'reject_applications',
-                filters: { maxScore: 50 }
-            };
-
-            const functionCall = service.buildFunctionCall(parsed);
-
-            expect(functionCall.name).toBe('reject_applications');
-            expect(functionCall.arguments.filters.maxScore).toBe(50);
-        });
-
-        it('should build send function call', () => {
-            const parsed = {
-                intent: 'send_applications',
-                filters: {}
-            };
-
-            const functionCall = service.buildFunctionCall(parsed);
-
-            expect(functionCall.name).toBe('send_applications');
-        });
-
-        it('should return null for unknown intent', () => {
-            const parsed = {
-                intent: 'unknown',
-                filters: {}
-            };
-
-            const functionCall = service.buildFunctionCall(parsed);
-
-            expect(functionCall).toBeNull();
+        it('should mention available actions', () => {
+            const prompt = service._getSystemPrompt();
+            expect(prompt).toMatch(/list|approve|reject|send/i);
         });
     });
 
-    describe('error handling', () => {
-        it('should handle empty prompt', () => {
-            expect(() => service.parsePrompt('')).not.toThrow();
+    describe('_getFunctionDefinitions', () => {
+        it('should return an array of function definitions', () => {
+            const defs = service._getFunctionDefinitions();
+            expect(Array.isArray(defs)).toBe(true);
+            expect(defs.length).toBeGreaterThan(0);
         });
 
-        it('should handle null prompt', () => {
-            expect(() => service.parsePrompt(null)).not.toThrow();
+        it('each definition should have name, description and parameters', () => {
+            const defs = service._getFunctionDefinitions();
+            for (const def of defs) {
+                expect(def).toHaveProperty('name');
+                expect(def).toHaveProperty('description');
+                expect(def).toHaveProperty('parameters');
+            }
         });
 
-        it('should handle very long prompts', () => {
-            const longPrompt = 'a'.repeat(10000);
-            expect(() => service.parsePrompt(longPrompt)).not.toThrow();
+        it('should include listApplicationsFiltered', () => {
+            const defs = service._getFunctionDefinitions();
+            const names = defs.map(d => d.name);
+            expect(names).toContain('listApplicationsFiltered');
         });
 
-        it('should handle special characters', () => {
-            const prompt = 'zeige alle bewerbungen mit score > 70 & remote = true';
-            expect(() => service.parsePrompt(prompt)).not.toThrow();
+        it('should include approveBatch and rejectBatch', () => {
+            const defs = service._getFunctionDefinitions();
+            const names = defs.map(d => d.name);
+            expect(names).toContain('approveBatch');
+            expect(names).toContain('rejectBatch');
+        });
+    });
+
+    describe('processPrompt', () => {
+        it('should return a result object', async () => {
+            const result = await service.processPrompt('zeige alle bewerbungen');
+            expect(result).toBeDefined();
+        });
+
+        it('should handle empty prompt gracefully', async () => {
+            await expect(service.processPrompt('')).resolves.toBeDefined();
+        });
+
+        it('should handle null prompt gracefully', async () => {
+            await expect(service.processPrompt(null)).resolves.toBeDefined();
         });
     });
 });

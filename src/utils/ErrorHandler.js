@@ -62,7 +62,7 @@ class ErrorHandler {
                     ? retryDelay * Math.pow(2, attempt)
                     : retryDelay;
 
- console.warn(`️ Attempt ${attempt + 1}/${maxRetries + 1} failed: ${error.message}`);
+ console.warn(` Attempt ${attempt + 1}/${maxRetries + 1} failed: ${error.message}`);
                 console.warn(`Retrying in ${delay}ms...`);
 
                 await this.sleep(delay);
@@ -109,7 +109,7 @@ class ErrorHandler {
                 this.logError(error, { function: fn.name, args });
                 
                 if (options.fallback) {
- console.warn(`️ Using fallback for ${fn.name}`);
+ console.warn(` Using fallback for ${fn.name}`);
                     return options.fallback;
                 }
                 

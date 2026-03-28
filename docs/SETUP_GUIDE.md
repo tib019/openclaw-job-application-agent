@@ -325,7 +325,7 @@ node src/agent/MainLoop.js
 4. **Regelmäßige Backups:** Sichere `~/Bewerbungen` regelmäßig
 5. **Logs prüfen:** Überwache die Logs auf Fehler
 
-### ️ Risiken
+###  Risiken
 
 1. **E-Mail-Credentials:** Agent hat Zugriff auf deine E-Mail
 2. **Automatischer Versand:** Bewerbungen werden automatisch versendet (nach Freigabe)

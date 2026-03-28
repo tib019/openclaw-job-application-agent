@@ -42,7 +42,7 @@ Ein autonomer Agent, der:
 * **Umfassendes Monitoring** mit Health Checks und strukturiertem Logging
 * **Production-Ready** mit 90+ Unit Tests und robustem Error Handling
 
-## ️ Technologie-Stack
+##  Technologie-Stack
 
 | Kategorie | Technologie |
 |:----------|:------------|
@@ -117,7 +117,7 @@ Die vollständige Anleitung befindet sich im **[Production Deployment Guide](doc
 
 ### Messbare Ergebnisse
 
-*   ⏱️ **~95% Zeitersparnis** pro Bewerbung (ca. 28 von 30 Minuten)
+*   ⏱ **~95% Zeitersparnis** pro Bewerbung (ca. 28 von 30 Minuten)
 * **5x mehr Bewerbungen** durch autonome Suche
 * **100% individuelle Anschreiben** durch LLM-Generierung
 * **Erhöhte Relevanz** durch GitHub-Integration
@@ -170,4 +170,4 @@ Besonderer Dank gilt der **GFN Hamburg** für die fundierte Ausbildung zum Fachi
 
  **Wenn dir dieses Projekt gefällt, lass gerne einen Stern da!**
 
-_Entwickelt mit ️ in Hamburg_
+_Entwickelt mit  in Hamburg_

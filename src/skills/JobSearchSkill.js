@@ -118,7 +118,7 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
- console.error(`️ Error extracting job ${i}:`, error.message);
+ console.error(` Error extracting job ${i}:`, error.message);
                 }
             }
 
@@ -170,7 +170,7 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
- console.error(`️ Error extracting job ${i}:`, error.message);
+ console.error(` Error extracting job ${i}:`, error.message);
                 }
             }
 
@@ -222,7 +222,7 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
- console.error(`️ Error extracting job ${i}:`, error.message);
+ console.error(` Error extracting job ${i}:`, error.message);
                 }
             }
 
@@ -274,7 +274,7 @@ class JobSearchSkill {
                         });
                     }
                 } catch (error) {
- console.error(`️ Error extracting job ${i}:`, error.message);
+ console.error(` Error extracting job ${i}:`, error.message);
                 }
             }
 

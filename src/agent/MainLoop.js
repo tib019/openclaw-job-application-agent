@@ -180,27 +180,27 @@ class AgentMainLoop {
         return jobs.filter(job => {
             // Filter 1: Match score must be >= 50
             if (job.matchScore && job.matchScore < 50) {
-                console.log(`⏭️  Skipping ${job.company} - Low match score: ${job.matchScore}`);
+                console.log(`⏭  Skipping ${job.company} - Low match score: ${job.matchScore}`);
                 return false;
             }
 
             // Filter 2: Must have email or LinkedIn Easy Apply
             const validMethods = ['email', 'linkedin_easy_apply'];
             if (!validMethods.includes(job.applicationMethod)) {
-                console.log(`⏭️  Skipping ${job.company} - Unsupported application method: ${job.applicationMethod}`);
+                console.log(`⏭  Skipping ${job.company} - Unsupported application method: ${job.applicationMethod}`);
                 return false;
             }
 
             // Filter 3: Must have company and position
             if (!job.company || !job.position) {
-                console.log(`⏭️  Skipping job - Missing company or position`);
+                console.log(`⏭  Skipping job - Missing company or position`);
                 return false;
             }
 
             // Filter 4: Check if already in queue
             const existing = this.queue.findByUrl(job.url);
             if (existing) {
-                console.log(`⏭️  Skipping ${job.company} - Already in queue`);
+                console.log(`⏭  Skipping ${job.company} - Already in queue`);
                 return false;
             }
 

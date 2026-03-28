@@ -464,7 +464,7 @@ Nutze /list pending um ausstehende Bewerbungen zu sehen.
         
         except requests.exceptions.Timeout:
             await update.message.reply_text(
-                "⏱️ Zeitüberschreitung. Die Anfrage dauert zu lange.\n"
+                "⏱ Zeitüberschreitung. Die Anfrage dauert zu lange.\n"
                 "Bitte versuche es mit einer einfacheren Anweisung."
             )
         except Exception as e:

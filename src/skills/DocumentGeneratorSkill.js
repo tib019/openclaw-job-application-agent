@@ -110,7 +110,7 @@ class DocumentGeneratorSkill {
             );
 
             if (matchingProjects.length === 0) {
- console.warn('️ No matching projects found, using fallback');
+ console.warn(' No matching projects found, using fallback');
                 return {
                     name: 'automated-trading-system',
                     reason: 'Fallback project - demonstrates coding skills',
@@ -142,7 +142,7 @@ class DocumentGeneratorSkill {
             };
 
         } catch (error) {
- console.error('️ GitHub analysis failed:', error.message);
+ console.error(' GitHub analysis failed:', error.message);
             return {
                 name: 'automated-trading-system',
                 reason: 'Fallback project - error during analysis',
@@ -157,7 +157,7 @@ class DocumentGeneratorSkill {
      * Generate customized cover letter
      */
     async generateCoverLetter(jobData, bestProject) {
- console.log('️ Generating cover letter...');
+ console.log(' Generating cover letter...');
 
         const prompt = `Write a professional German cover letter (Anschreiben) for this job application.
 
@@ -226,7 +226,7 @@ Return ONLY the cover letter text in Markdown format with proper structure:
         try {
             masterResume = await fs.readFile(masterResumePath, 'utf8');
         } catch (error) {
- console.warn('️ Master resume not found, using default template');
+ console.warn(' Master resume not found, using default template');
             masterResume = this.getDefaultResumeTemplate();
         }
 

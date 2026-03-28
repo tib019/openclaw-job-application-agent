@@ -128,7 +128,7 @@ class ApplicationQueue {
         Object.assign(app, additionalData);
 
         await this.save();
- console.log(`️ Updated application #${id} to status: ${newStatus}`);
+ console.log(` Updated application #${id} to status: ${newStatus}`);
         return true;
     }
 

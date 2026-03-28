@@ -151,7 +151,7 @@ Verwirft eine Bewerbung und entfernt sie aus der Warteschlange.
 
 **Antwort:**
 ```
-️ Bewerbung #3 (InnovateLab) wurde verworfen.
+ Bewerbung #3 (InnovateLab) wurde verworfen.
 ```
 
 ---
@@ -171,7 +171,7 @@ Verwirft eine Bewerbung und entfernt sie aus der Warteschlange.
  1/5: TechCorp GmbH - E-Mail gesendet
  2/5: StartupX - LinkedIn Easy Apply erfolgreich
  3/5: CloudSystems - E-Mail gesendet
-️ 4/5: DataDriven GmbH - Fehler beim Versand (CAPTCHA)
+ 4/5: DataDriven GmbH - Fehler beim Versand (CAPTCHA)
  5/5: DevHouse - E-Mail gesendet
 
 Ergebnis: 4 erfolgreich, 1 fehlgeschlagen
