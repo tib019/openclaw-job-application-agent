@@ -1,0 +1,467 @@
+[
+  {
+    "id": "USA",
+    "name": "USA",
+    "fullName": "Vereinigte Staaten von Amerika",
+    "capitalCity": "Washington D.C.",
+    "population": 282000000,
+    "flagColor": "#3C3B6E",
+    "mapX": 0.08, "mapY": 0.28, "mapW": 0.14, "mapH": 0.14,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Liberaler Kapitalismus (Clinton/Bush/Obama-Ära)",
+      "mechanics": {
+        "marketFreedom": 80, "partyControl": 10, "repression": 15,
+        "elections": 90, "pressFreedom": 80, "religiousInfluence": 20,
+        "corruptionLevel": 30, "militaryInfluence": 35, "nationalism": 40
+      }
+    },
+    "alignment": { "usInfluence": 100, "chinaInfluence": 10, "russiaInfluence": 5, "euInfluence": 70, "autonomy": 20 },
+    "economy": {
+      "gdpBillions": 10290, "gdpPerCapitaUSD": 36450, "industryLevel": 80,
+      "resourceLevel": 55, "tradeOpenness": 70, "militarySpendPct": 3,
+      "stabilityIndex": 0.95, "growthRateAnnual": 3.2
+    },
+    "military": {
+      "armyStrength": 90, "navyStrength": 100, "airStrength": 100,
+      "intelligenceRating": 95, "cyberCapability": 90,
+      "nuclearCapable": true, "nuclearWarheads": 5500,
+      "guerrillaCapability": 40, "propagandaReach": 90, "proxyWarfare": 85
+    },
+    "stabilityPoints": 85, "legitimacy": 80
+  },
+  {
+    "id": "RUS",
+    "name": "Russland",
+    "fullName": "Russische Föderation",
+    "capitalCity": "Moskau",
+    "population": 145000000,
+    "flagColor": "#CC0000",
+    "mapX": 0.55, "mapY": 0.18, "mapW": 0.20, "mapH": 0.16,
+    "politics": {
+      "family": "NATIONALIST_AUTHORITARIANISM",
+      "nationalAdaptation": "Putinismus (Managed Democracy / Siloviki-Staat)",
+      "mechanics": {
+        "marketFreedom": 45, "partyControl": 70, "repression": 60,
+        "elections": 30, "pressFreedom": 25, "religiousInfluence": 30,
+        "corruptionLevel": 75, "militaryInfluence": 65, "nationalism": 75
+      }
+    },
+    "alignment": { "usInfluence": 15, "chinaInfluence": 35, "russiaInfluence": 100, "euInfluence": 20, "autonomy": 70 },
+    "economy": {
+      "gdpBillions": 260, "gdpPerCapitaUSD": 1775, "industryLevel": 60,
+      "resourceLevel": 95, "tradeOpenness": 50, "militarySpendPct": 4,
+      "stabilityIndex": 0.80, "growthRateAnnual": 5.0
+    },
+    "military": {
+      "armyStrength": 85, "navyStrength": 65, "airStrength": 80,
+      "intelligenceRating": 90, "cyberCapability": 80,
+      "nuclearCapable": true, "nuclearWarheads": 6255,
+      "guerrillaCapability": 50, "propagandaReach": 75, "proxyWarfare": 80
+    },
+    "stabilityPoints": 65, "legitimacy": 60
+  },
+  {
+    "id": "CHN",
+    "name": "China",
+    "fullName": "Volksrepublik China",
+    "capitalCity": "Peking",
+    "population": 1267000000,
+    "flagColor": "#DE2910",
+    "mapX": 0.68, "mapY": 0.30, "mapW": 0.13, "mapH": 0.13,
+    "politics": {
+      "family": "MARKET_SOCIALISM",
+      "nationalAdaptation": "Dengismus (Sozialismus chinesischer Prägung — Jiang-Ära 2000)",
+      "mechanics": {
+        "marketFreedom": 55, "partyControl": 90, "repression": 70,
+        "elections": 5, "pressFreedom": 10, "religiousInfluence": 5,
+        "corruptionLevel": 60, "militaryInfluence": 40, "nationalism": 65
+      }
+    },
+    "alignment": { "usInfluence": 25, "chinaInfluence": 100, "russiaInfluence": 30, "euInfluence": 20, "autonomy": 80 },
+    "economy": {
+      "gdpBillions": 1211, "gdpPerCapitaUSD": 959, "industryLevel": 75,
+      "resourceLevel": 60, "tradeOpenness": 65, "militarySpendPct": 2,
+      "stabilityIndex": 0.92, "growthRateAnnual": 8.5
+    },
+    "military": {
+      "armyStrength": 80, "navyStrength": 55, "airStrength": 65,
+      "intelligenceRating": 80, "cyberCapability": 75,
+      "nuclearCapable": true, "nuclearWarheads": 290,
+      "guerrillaCapability": 30, "propagandaReach": 60, "proxyWarfare": 55
+    },
+    "stabilityPoints": 80, "legitimacy": 75
+  },
+  {
+    "id": "DEU",
+    "name": "Deutschland",
+    "fullName": "Bundesrepublik Deutschland",
+    "capitalCity": "Berlin",
+    "population": 82000000,
+    "flagColor": "#000000",
+    "mapX": 0.46, "mapY": 0.24, "mapW": 0.04, "mapH": 0.05,
+    "politics": {
+      "family": "SOCIAL_DEMOCRACY",
+      "nationalAdaptation": "Soziale Marktwirtschaft (SPD/CDU-Konsens)",
+      "mechanics": {
+        "marketFreedom": 70, "partyControl": 5, "repression": 5,
+        "elections": 95, "pressFreedom": 95, "religiousInfluence": 10,
+        "corruptionLevel": 10, "militaryInfluence": 5, "nationalism": 15
+      }
+    },
+    "alignment": { "usInfluence": 75, "chinaInfluence": 25, "russiaInfluence": 30, "euInfluence": 95, "autonomy": 30 },
+    "economy": {
+      "gdpBillions": 1950, "gdpPerCapitaUSD": 23800, "industryLevel": 90,
+      "resourceLevel": 20, "tradeOpenness": 90, "militarySpendPct": 1,
+      "stabilityIndex": 0.97, "growthRateAnnual": 2.9
+    },
+    "military": {
+      "armyStrength": 60, "navyStrength": 40, "airStrength": 55,
+      "intelligenceRating": 65, "cyberCapability": 60,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 10, "propagandaReach": 55, "proxyWarfare": 20
+    },
+    "stabilityPoints": 90, "legitimacy": 85
+  },
+  {
+    "id": "GBR",
+    "name": "Großbritannien",
+    "fullName": "Vereinigtes Königreich Großbritannien und Nordirland",
+    "capitalCity": "London",
+    "population": 59000000,
+    "flagColor": "#012169",
+    "mapX": 0.42, "mapY": 0.21, "mapW": 0.03, "mapH": 0.04,
+    "politics": {
+      "family": "REPRESENTATIVE_MONARCHY",
+      "nationalAdaptation": "Parlamentarische Monarchie (Blair-Ära)",
+      "mechanics": {
+        "marketFreedom": 78, "partyControl": 5, "repression": 8,
+        "elections": 92, "pressFreedom": 88, "religiousInfluence": 12,
+        "corruptionLevel": 15, "militaryInfluence": 10, "nationalism": 30
+      }
+    },
+    "alignment": { "usInfluence": 90, "chinaInfluence": 20, "russiaInfluence": 10, "euInfluence": 80, "autonomy": 25 },
+    "economy": {
+      "gdpBillions": 1640, "gdpPerCapitaUSD": 27800, "industryLevel": 72,
+      "resourceLevel": 30, "tradeOpenness": 85, "militarySpendPct": 2,
+      "stabilityIndex": 0.95, "growthRateAnnual": 3.0
+    },
+    "military": {
+      "armyStrength": 70, "navyStrength": 75, "airStrength": 72,
+      "intelligenceRating": 88, "cyberCapability": 75,
+      "nuclearCapable": true, "nuclearWarheads": 225,
+      "guerrillaCapability": 20, "propagandaReach": 80, "proxyWarfare": 60
+    },
+    "stabilityPoints": 88, "legitimacy": 82
+  },
+  {
+    "id": "FRA",
+    "name": "Frankreich",
+    "fullName": "Französische Republik",
+    "capitalCity": "Paris",
+    "population": 61000000,
+    "flagColor": "#0055A4",
+    "mapX": 0.44, "mapY": 0.26, "mapW": 0.04, "mapH": 0.05,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Gaullismus / Semipräsidentielle Republik",
+      "mechanics": {
+        "marketFreedom": 65, "partyControl": 8, "repression": 10,
+        "elections": 90, "pressFreedom": 85, "religiousInfluence": 8,
+        "corruptionLevel": 25, "militaryInfluence": 15, "nationalism": 35
+      }
+    },
+    "alignment": { "usInfluence": 70, "chinaInfluence": 20, "russiaInfluence": 15, "euInfluence": 90, "autonomy": 45 },
+    "economy": {
+      "gdpBillions": 1350, "gdpPerCapitaUSD": 22100, "industryLevel": 75,
+      "resourceLevel": 25, "tradeOpenness": 78, "militarySpendPct": 2,
+      "stabilityIndex": 0.93, "growthRateAnnual": 3.5
+    },
+    "military": {
+      "armyStrength": 72, "navyStrength": 70, "airStrength": 70,
+      "intelligenceRating": 80, "cyberCapability": 65,
+      "nuclearCapable": true, "nuclearWarheads": 290,
+      "guerrillaCapability": 25, "propagandaReach": 70, "proxyWarfare": 55
+    },
+    "stabilityPoints": 82, "legitimacy": 75
+  },
+  {
+    "id": "IND",
+    "name": "Indien",
+    "fullName": "Republik Indien",
+    "capitalCity": "Neu-Delhi",
+    "population": 1016000000,
+    "flagColor": "#FF9933",
+    "mapX": 0.62, "mapY": 0.35, "mapW": 0.08, "mapH": 0.10,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Nehruianische Demokratie / Non-Alignment-Tradition",
+      "mechanics": {
+        "marketFreedom": 55, "partyControl": 10, "repression": 25,
+        "elections": 82, "pressFreedom": 65, "religiousInfluence": 35,
+        "corruptionLevel": 55, "militaryInfluence": 20, "nationalism": 50
+      }
+    },
+    "alignment": { "usInfluence": 40, "chinaInfluence": 20, "russiaInfluence": 55, "euInfluence": 30, "autonomy": 85 },
+    "economy": {
+      "gdpBillions": 478, "gdpPerCapitaUSD": 447, "industryLevel": 50,
+      "resourceLevel": 45, "tradeOpenness": 55, "militarySpendPct": 2,
+      "stabilityIndex": 0.85, "growthRateAnnual": 5.4
+    },
+    "military": {
+      "armyStrength": 75, "navyStrength": 50, "airStrength": 60,
+      "intelligenceRating": 65, "cyberCapability": 55,
+      "nuclearCapable": true, "nuclearWarheads": 70,
+      "guerrillaCapability": 35, "propagandaReach": 40, "proxyWarfare": 30
+    },
+    "stabilityPoints": 70, "legitimacy": 72
+  },
+  {
+    "id": "BRA",
+    "name": "Brasilien",
+    "fullName": "Föderative Republik Brasilien",
+    "capitalCity": "Brasília",
+    "population": 170000000,
+    "flagColor": "#009C3B",
+    "mapX": 0.22, "mapY": 0.52, "mapW": 0.09, "mapH": 0.12,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Präsidentieller Föderalismus / Lula-Ära",
+      "mechanics": {
+        "marketFreedom": 58, "partyControl": 12, "repression": 20,
+        "elections": 80, "pressFreedom": 70, "religiousInfluence": 20,
+        "corruptionLevel": 60, "militaryInfluence": 20, "nationalism": 35
+      }
+    },
+    "alignment": { "usInfluence": 45, "chinaInfluence": 35, "russiaInfluence": 20, "euInfluence": 40, "autonomy": 70 },
+    "economy": {
+      "gdpBillions": 655, "gdpPerCapitaUSD": 3757, "industryLevel": 55,
+      "resourceLevel": 70, "tradeOpenness": 50, "militarySpendPct": 2,
+      "stabilityIndex": 0.82, "growthRateAnnual": 4.4
+    },
+    "military": {
+      "armyStrength": 55, "navyStrength": 45, "airStrength": 45,
+      "intelligenceRating": 45, "cyberCapability": 35,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 20, "propagandaReach": 30, "proxyWarfare": 15
+    },
+    "stabilityPoints": 68, "legitimacy": 65
+  },
+  {
+    "id": "IRN",
+    "name": "Iran",
+    "fullName": "Islamische Republik Iran",
+    "capitalCity": "Teheran",
+    "population": 65000000,
+    "flagColor": "#239F40",
+    "mapX": 0.57, "mapY": 0.33, "mapW": 0.05, "mapH": 0.06,
+    "politics": {
+      "family": "ISLAMIC_REPUBLIC",
+      "nationalAdaptation": "Velayat-e Faqih (Herrschaft des Rechtsgelehrten / Khamenei)",
+      "mechanics": {
+        "marketFreedom": 35, "partyControl": 75, "repression": 72,
+        "elections": 25, "pressFreedom": 15, "religiousInfluence": 95,
+        "corruptionLevel": 65, "militaryInfluence": 55, "nationalism": 70
+      }
+    },
+    "alignment": { "usInfluence": 0, "chinaInfluence": 40, "russiaInfluence": 45, "euInfluence": 5, "autonomy": 80 },
+    "economy": {
+      "gdpBillions": 100, "gdpPerCapitaUSD": 1540, "industryLevel": 45,
+      "resourceLevel": 90, "tradeOpenness": 30, "militarySpendPct": 3,
+      "stabilityIndex": 0.72, "growthRateAnnual": 3.5
+    },
+    "military": {
+      "armyStrength": 65, "navyStrength": 45, "airStrength": 50,
+      "intelligenceRating": 70, "cyberCapability": 60,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 70, "propagandaReach": 60, "proxyWarfare": 90
+    },
+    "stabilityPoints": 60, "legitimacy": 55
+  },
+  {
+    "id": "SAU",
+    "name": "Saudi-Arabien",
+    "fullName": "Königreich Saudi-Arabien",
+    "capitalCity": "Riad",
+    "population": 21000000,
+    "flagColor": "#006C35",
+    "mapX": 0.55, "mapY": 0.36, "mapW": 0.04, "mapH": 0.05,
+    "politics": {
+      "family": "THEOCRACY",
+      "nationalAdaptation": "Absolute Monarchie / Wahhabismus",
+      "mechanics": {
+        "marketFreedom": 50, "partyControl": 85, "repression": 75,
+        "elections": 0, "pressFreedom": 10, "religiousInfluence": 100,
+        "corruptionLevel": 55, "militaryInfluence": 30, "nationalism": 50
+      }
+    },
+    "alignment": { "usInfluence": 75, "chinaInfluence": 30, "russiaInfluence": 20, "euInfluence": 40, "autonomy": 50 },
+    "economy": {
+      "gdpBillions": 188, "gdpPerCapitaUSD": 8680, "industryLevel": 40,
+      "resourceLevel": 100, "tradeOpenness": 60, "militarySpendPct": 8,
+      "stabilityIndex": 0.88, "growthRateAnnual": 4.9
+    },
+    "military": {
+      "armyStrength": 55, "navyStrength": 40, "airStrength": 58,
+      "intelligenceRating": 55, "cyberCapability": 45,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 20, "propagandaReach": 50, "proxyWarfare": 65
+    },
+    "stabilityPoints": 72, "legitimacy": 68
+  },
+  {
+    "id": "ISR",
+    "name": "Israel",
+    "fullName": "Staat Israel",
+    "capitalCity": "Jerusalem",
+    "population": 6300000,
+    "flagColor": "#0038B8",
+    "mapX": 0.52, "mapY": 0.32, "mapW": 0.02, "mapH": 0.02,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Parlamentarische Demokratie / Sicherheitsstaat",
+      "mechanics": {
+        "marketFreedom": 72, "partyControl": 8, "repression": 30,
+        "elections": 85, "pressFreedom": 75, "religiousInfluence": 40,
+        "corruptionLevel": 30, "militaryInfluence": 40, "nationalism": 60
+      }
+    },
+    "alignment": { "usInfluence": 95, "chinaInfluence": 15, "russiaInfluence": 20, "euInfluence": 50, "autonomy": 45 },
+    "economy": {
+      "gdpBillions": 126, "gdpPerCapitaUSD": 20000, "industryLevel": 78,
+      "resourceLevel": 15, "tradeOpenness": 75, "militarySpendPct": 7,
+      "stabilityIndex": 0.88, "growthRateAnnual": 4.5
+    },
+    "military": {
+      "armyStrength": 78, "navyStrength": 50, "airStrength": 80,
+      "intelligenceRating": 95, "cyberCapability": 90,
+      "nuclearCapable": true, "nuclearWarheads": 90,
+      "guerrillaCapability": 40, "propagandaReach": 60, "proxyWarfare": 50
+    },
+    "stabilityPoints": 70, "legitimacy": 65
+  },
+  {
+    "id": "TUR",
+    "name": "Türkei",
+    "fullName": "Republik Türkei",
+    "capitalCity": "Ankara",
+    "population": 67000000,
+    "flagColor": "#E30A17",
+    "mapX": 0.51, "mapY": 0.28, "mapW": 0.04, "mapH": 0.04,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "Kemalismus / Laizistische Republik (pre-Erdogan 2000)",
+      "mechanics": {
+        "marketFreedom": 60, "partyControl": 20, "repression": 35,
+        "elections": 75, "pressFreedom": 55, "religiousInfluence": 25,
+        "corruptionLevel": 45, "militaryInfluence": 55, "nationalism": 60
+      }
+    },
+    "alignment": { "usInfluence": 65, "chinaInfluence": 15, "russiaInfluence": 25, "euInfluence": 60, "autonomy": 50 },
+    "economy": {
+      "gdpBillions": 266, "gdpPerCapitaUSD": 3967, "industryLevel": 58,
+      "resourceLevel": 20, "tradeOpenness": 60, "militarySpendPct": 3,
+      "stabilityIndex": 0.78, "growthRateAnnual": 5.5
+    },
+    "military": {
+      "armyStrength": 72, "navyStrength": 55, "airStrength": 65,
+      "intelligenceRating": 65, "cyberCapability": 50,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 45, "propagandaReach": 50, "proxyWarfare": 55
+    },
+    "stabilityPoints": 65, "legitimacy": 62
+  },
+  {
+    "id": "PRK",
+    "name": "Nordkorea",
+    "fullName": "Demokratische Volksrepublik Korea",
+    "capitalCity": "Pjöngjang",
+    "population": 22000000,
+    "flagColor": "#024FA2",
+    "mapX": 0.76, "mapY": 0.27, "mapW": 0.02, "mapH": 0.03,
+    "politics": {
+      "family": "JUCHE",
+      "nationalAdaptation": "Juche / Songun (Militär-zuerst) — Kim Jong-il",
+      "mechanics": {
+        "marketFreedom": 5, "partyControl": 100, "repression": 100,
+        "elections": 0, "pressFreedom": 0, "religiousInfluence": 10,
+        "corruptionLevel": 40, "militaryInfluence": 95, "nationalism": 100
+      }
+    },
+    "alignment": { "usInfluence": 0, "chinaInfluence": 50, "russiaInfluence": 30, "euInfluence": 0, "autonomy": 90 },
+    "economy": {
+      "gdpBillions": 8, "gdpPerCapitaUSD": 380, "industryLevel": 20,
+      "resourceLevel": 30, "tradeOpenness": 5, "militarySpendPct": 22,
+      "stabilityIndex": 0.60, "growthRateAnnual": -1.0
+    },
+    "military": {
+      "armyStrength": 60, "navyStrength": 25, "airStrength": 30,
+      "intelligenceRating": 50, "cyberCapability": 55,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 70, "propagandaReach": 10, "proxyWarfare": 10
+    },
+    "stabilityPoints": 50, "legitimacy": 40
+  },
+  {
+    "id": "VEN",
+    "name": "Venezuela",
+    "fullName": "Bolivarische Republik Venezuela",
+    "capitalCity": "Caracas",
+    "population": 24000000,
+    "flagColor": "#CF142B",
+    "mapX": 0.22, "mapY": 0.42, "mapW": 0.04, "mapH": 0.04,
+    "politics": {
+      "family": "BOLIVARIAN_SOCIALISM",
+      "nationalAdaptation": "Chavismus / Sozialismus des 21. Jahrhunderts",
+      "mechanics": {
+        "marketFreedom": 30, "partyControl": 65, "repression": 50,
+        "elections": 50, "pressFreedom": 35, "religiousInfluence": 20,
+        "corruptionLevel": 70, "militaryInfluence": 45, "nationalism": 65
+      }
+    },
+    "alignment": { "usInfluence": 10, "chinaInfluence": 40, "russiaInfluence": 50, "euInfluence": 10, "autonomy": 75 },
+    "economy": {
+      "gdpBillions": 117, "gdpPerCapitaUSD": 4784, "industryLevel": 38,
+      "resourceLevel": 95, "tradeOpenness": 40, "militarySpendPct": 2,
+      "stabilityIndex": 0.70, "growthRateAnnual": 3.2
+    },
+    "military": {
+      "armyStrength": 45, "navyStrength": 30, "airStrength": 35,
+      "intelligenceRating": 40, "cyberCapability": 25,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 50, "propagandaReach": 40, "proxyWarfare": 40
+    },
+    "stabilityPoints": 58, "legitimacy": 62
+  },
+  {
+    "id": "ZAF",
+    "name": "Südafrika",
+    "fullName": "Republik Südafrika",
+    "capitalCity": "Pretoria",
+    "population": 44000000,
+    "flagColor": "#007A4D",
+    "mapX": 0.49, "mapY": 0.62, "mapW": 0.05, "mapH": 0.06,
+    "politics": {
+      "family": "LIBERAL_DEMOCRACY",
+      "nationalAdaptation": "ANC-Demokratie / Post-Apartheid Konsens",
+      "mechanics": {
+        "marketFreedom": 60, "partyControl": 25, "repression": 20,
+        "elections": 80, "pressFreedom": 72, "religiousInfluence": 15,
+        "corruptionLevel": 50, "militaryInfluence": 10, "nationalism": 30
+      }
+    },
+    "alignment": { "usInfluence": 40, "chinaInfluence": 40, "russiaInfluence": 25, "euInfluence": 45, "autonomy": 75 },
+    "economy": {
+      "gdpBillions": 133, "gdpPerCapitaUSD": 3021, "industryLevel": 50,
+      "resourceLevel": 80, "tradeOpenness": 60, "militarySpendPct": 1,
+      "stabilityIndex": 0.75, "growthRateAnnual": 3.5
+    },
+    "military": {
+      "armyStrength": 40, "navyStrength": 30, "airStrength": 35,
+      "intelligenceRating": 40, "cyberCapability": 30,
+      "nuclearCapable": false, "nuclearWarheads": 0,
+      "guerrillaCapability": 30, "propagandaReach": 35, "proxyWarfare": 20
+    },
+    "stabilityPoints": 62, "legitimacy": 65
+  }
+]

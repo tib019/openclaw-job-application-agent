@@ -1,0 +1,119 @@
+[
+  {
+    "id": "evt_911",
+    "title": "11. September 2001",
+    "description": "Al-Qaida-Terroranschläge auf das World Trade Center und das Pentagon. Die USA stehen unter Schock. Der Krieg gegen den Terror beginnt.",
+    "targetCountryId": "USA",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2001, "triggerMonth": 9,
+    "options": [
+      {
+        "id": "opt_nato_article5",
+        "text": "NATO-Artikel 5 aktivieren — gemeinsame Verteidigung",
+        "effects": [
+          { "targetCountry": "USA",   "field": "alignment.us",       "delta": 10,  "description": "NATO schließt sich enger zusammen" },
+          { "targetCountry": "USA",   "field": "stability",          "delta": -15, "description": "Schockzustand in der Bevölkerung" },
+          { "targetCountry": "USA",   "field": "mechanics.militaryInfluence", "delta": 15, "description": "Militär gewinnt Einfluss" }
+        ]
+      },
+      {
+        "id": "opt_unilateral",
+        "text": "Unilateral handeln — eigene Vergeltung",
+        "effects": [
+          { "targetCountry": "USA",   "field": "alignment.eu",       "delta": -10, "description": "Europa besorgt über Unilateralismus" },
+          { "targetCountry": "USA",   "field": "stability",          "delta": -20, "description": "Gesellschaft im Kriegsmodus" },
+          { "targetCountry": "USA",   "field": "mechanics.nationalism", "delta": 20, "description": "Extremer Nationalismus" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_afghanistan_invasion",
+    "title": "Operation Enduring Freedom",
+    "description": "Die USA und ihre Verbündeten marschieren in Afghanistan ein, um die Taliban-Regierung zu stürzen und Al-Qaida zu zerschlagen.",
+    "targetCountryId": "USA",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2001, "triggerMonth": 10,
+    "options": [
+      {
+        "id": "opt_invade",
+        "text": "Afghanistan einmarschieren (historisch)",
+        "effects": [
+          { "targetCountry": "USA",   "field": "economy.gdpBillions", "delta": -50, "description": "Kriegskosten" },
+          { "targetCountry": "USA",   "field": "alignment.us",        "delta": 5,   "description": "NATO-Solidarität" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_iraq_wmd",
+    "title": "Irak-Krise: Massenvernichtungswaffen?",
+    "description": "Die Bush-Administration behauptet, der Irak besitze Massenvernichtungswaffen. Frankreich und Deutschland lehnen eine UN-Resolution für einen Angriff ab. Die transatlantische Allianz steht unter Druck.",
+    "targetCountryId": "USA",
+    "type": "DIPLOMATIC",
+    "isHistorical": true,
+    "triggerYear": 2003, "triggerMonth": 1,
+    "options": [
+      {
+        "id": "opt_invade_iraq",
+        "text": "Irak ohne UN-Mandat angreifen (Coalition of the Willing)",
+        "effects": [
+          { "targetCountry": "USA",   "field": "alignment.eu",       "delta": -20, "description": "Massiver Bruch mit Europa" },
+          { "targetCountry": "DEU",   "field": "alignment.us",       "delta": -15, "description": "Deutschland-USA Beziehungen beschädigt" },
+          { "targetCountry": "FRA",   "field": "alignment.us",       "delta": -15, "description": "Frankreich-USA Beziehungen beschädigt" },
+          { "targetCountry": "USA",   "field": "economy.gdpBillions", "delta": -150, "description": "Irak-Kriegskosten" }
+        ]
+      },
+      {
+        "id": "opt_wait_un",
+        "text": "UN-Inspektoren mehr Zeit geben",
+        "effects": [
+          { "targetCountry": "USA",   "field": "alignment.eu",       "delta": 10,  "description": "Europa erleichtert" },
+          { "targetCountry": "USA",   "field": "mechanics.nationalism", "delta": -5, "description": "Hardliner unzufrieden" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_putin_consolidation",
+    "title": "Putin konsolidiert Macht",
+    "description": "Präsident Putin baut systematisch die föderalen Strukturen um, stärkt die Siloviki und schwächt regionale Gouverneure. Russland bewegt sich von der Jelzin-Ära weg.",
+    "targetCountryId": "RUS",
+    "type": "POLITICAL",
+    "isHistorical": true,
+    "triggerYear": 2000, "triggerMonth": 6,
+    "options": [
+      {
+        "id": "opt_accept",
+        "text": "Machtkonsolidierung akzeptieren (historisch)",
+        "effects": [
+          { "targetCountry": "RUS",   "field": "mechanics.partyControl", "delta": 15, "description": "Stärkung der Exekutive" },
+          { "targetCountry": "RUS",   "field": "mechanics.elections",    "delta": -10, "description": "Wahlen werden weniger frei" },
+          { "targetCountry": "RUS",   "field": "stability",              "delta": 10,  "description": "Stabilität durch starkes Zentrum" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_china_wto",
+    "title": "China tritt der WTO bei",
+    "description": "Die Volksrepublik China wird offiziell Mitglied der Welthandelsorganisation. Dies markiert Chinas Integration in die globale Wirtschaft und leitet einen massiven Exportboom ein.",
+    "targetCountryId": "CHN",
+    "type": "ECONOMIC",
+    "isHistorical": true,
+    "triggerYear": 2001, "triggerMonth": 11,
+    "options": [
+      {
+        "id": "opt_join_wto",
+        "text": "WTO-Mitgliedschaft annehmen (historisch)",
+        "effects": [
+          { "targetCountry": "CHN",   "field": "economy.tradeOpenness",   "delta": 20,  "description": "Massive Öffnung des Außenhandels" },
+          { "targetCountry": "CHN",   "field": "economy.growthRateAnnual","delta": 2,   "description": "Exportboom beginnt" },
+          { "targetCountry": "CHN",   "field": "alignment.us",            "delta": 10,  "description": "Temporäre Annäherung an Westen" }
+        ]
+      }
+    ]
+  }
+]

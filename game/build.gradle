@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.badlogicgames.gdx:gdx-tools:1.12.1'
+    }
+}
+
+allprojects {
+    version = '0.1.0'
+    ext {
+        appName    = 'GeoStrategy 2000'
+        gdxVersion = '1.12.1'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+    }
+}
