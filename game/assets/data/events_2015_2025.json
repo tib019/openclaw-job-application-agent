@@ -1,0 +1,179 @@
+[
+  {
+    "id": "evt_paris_attacks",
+    "title": "Pariser Anschläge",
+    "description": "ISIS-Terroranschläge auf Paris: Bataclan, Stade de France, 130 Tote. Frankreich ruft den Ausnahmezustand aus. Europa ist erschüttert.",
+    "targetCountryId": "FRA",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2015, "triggerMonth": 11,
+    "options": [
+      {
+        "id": "opt_state_of_emergency",
+        "text": "Ausnahmezustand + Militärinterventionen in Syrien",
+        "effects": [
+          { "targetCountry": "FRA", "field": "mechanics.repression",      "delta": 12,  "description": "Ausnahmezustand" },
+          { "targetCountry": "FRA", "field": "economy.gdpBillions",       "delta": -30, "description": "Sicherheitskosten + Tourismusschwund" },
+          { "targetCountry": "FRA", "field": "mechanics.nationalism",     "delta": 15,  "description": "Le Pen-Effekt" }
+        ]
+      },
+      {
+        "id": "opt_measured_response",
+        "text": "Strafverfolgung statt Kriegslogik",
+        "effects": [
+          { "targetCountry": "FRA", "field": "mechanics.repression",      "delta": 5,   "description": "Moderate Sicherheitsmaßnahmen" },
+          { "targetCountry": "FRA", "field": "mechanics.nationalism",     "delta": 8,   "description": "Polarisierung bleibt" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_refugee_crisis",
+    "title": "Europäische Flüchtlingskrise",
+    "description": "Über 1 Million Flüchtlinge — hauptsächlich aus Syrien, Afghanistan, Irak — kommen 2015 nach Europa. Merkel öffnet die Grenzen. Rechtsextreme Parteien gewinnen überall.",
+    "targetCountryId": "DEU",
+    "type": "POLITICAL",
+    "isHistorical": true,
+    "triggerYear": 2015, "triggerMonth": 9,
+    "options": [
+      {
+        "id": "opt_open_borders",
+        "text": "'Wir schaffen das' — Grenzen offen lassen",
+        "effects": [
+          { "targetCountry": "DEU", "field": "mechanics.nationalism",     "delta": 15,  "description": "AfD-Aufstieg" },
+          { "targetCountry": "DEU", "field": "legitimacy",                "delta": -8,  "description": "Regierung verliert Zustimmung" },
+          { "targetCountry": "DEU", "field": "alignment.eu",              "delta": -5,  "description": "EU-Spannungen mit Osteuropa" }
+        ]
+      },
+      {
+        "id": "opt_close_borders",
+        "text": "Grenzen schließen, EU-Dublin-Abkommen durchsetzen",
+        "effects": [
+          { "targetCountry": "DEU", "field": "mechanics.nationalism",     "delta": 5,   "description": "Rechte weniger mobilisiert" },
+          { "targetCountry": "DEU", "field": "alignment.eu",              "delta": -10, "description": "EU-Recht gebrochen" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_trump_elected",
+    "title": "Donald Trump wird Präsident",
+    "description": "'America First.' Der Populist Trump schlägt Hillary Clinton und erschüttert die westliche Ordnung. NATO-Verpflichtungen werden in Frage gestellt, Handelsprotektionismus beginnt.",
+    "targetCountryId": "USA",
+    "type": "POLITICAL",
+    "isHistorical": true,
+    "triggerYear": 2017, "triggerMonth": 1,
+    "options": [
+      {
+        "id": "opt_america_first",
+        "text": "'America First' — Rückzug aus multilateralen Institutionen",
+        "effects": [
+          { "targetCountry": "USA", "field": "alignment.eu",              "delta": -20, "description": "Transatlantische Krise" },
+          { "targetCountry": "USA", "field": "mechanics.nationalism",     "delta": 20,  "description": "MAGA-Bewegung" },
+          { "targetCountry": "DEU", "field": "alignment.us",              "delta": -15, "description": "Europa sucht Eigenständigkeit" },
+          { "targetCountry": "RUS", "field": "alignment.us",              "delta": 10,  "description": "Russland-Sympathien im Weißen Haus" },
+          { "targetCountry": "CHN", "field": "economy.tradeOpenness",     "delta": -10, "description": "US-China Handelskrieg beginnt" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_covid_pandemic",
+    "title": "COVID-19 Pandemie",
+    "description": "Ein neuartiges Coronavirus aus Wuhan lähmt die Weltwirtschaft. Lockdowns, 7 Millionen offizielle Tote, reale Übersterblichkeit weit höher. Die Globalisierung kommt zum Stillstand.",
+    "targetCountryId": "CHN",
+    "type": "DISASTER",
+    "isHistorical": true,
+    "triggerYear": 2020, "triggerMonth": 3,
+    "options": [
+      {
+        "id": "opt_lockdown",
+        "text": "Nationale Lockdowns + internationale Koordination",
+        "effects": [
+          { "targetCountry": "CHN", "field": "economy.growthRateAnnual", "delta": -40, "description": "Wirtschaftsschock" },
+          { "targetCountry": "USA", "field": "economy.growthRateAnnual", "delta": -40, "description": "Rezession" },
+          { "targetCountry": "DEU", "field": "economy.growthRateAnnual", "delta": -35, "description": "Rezession" },
+          { "targetCountry": "BRA", "field": "stability",                "delta": -15, "description": "Bolsonaro-Chaos" },
+          { "targetCountry": "CHN", "field": "alignment.us",             "delta": -15, "description": "Schuldzuweisungen" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_ukraine_invasion",
+    "title": "Russland marschiert in die Ukraine ein",
+    "description": "Am 24. Februar 2022 beginnt Russland den größten Krieg in Europa seit 1945. NATO-Osterweiterung war der Auslöser. Die Welt steht am Scheideweg.",
+    "targetCountryId": "RUS",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2022, "triggerMonth": 2,
+    "options": [
+      {
+        "id": "opt_full_invasion",
+        "text": "Vollständige Invasion der Ukraine",
+        "effects": [
+          { "targetCountry": "RUS", "field": "alignment.us",              "delta": -40, "description": "Härteste westliche Sanktionen aller Zeiten" },
+          { "targetCountry": "RUS", "field": "alignment.eu",              "delta": -40, "description": "EU-Sanktionen, Energieembargo" },
+          { "targetCountry": "RUS", "field": "economy.gdpBillions",       "delta": -200, "description": "Sanktionen, SWIFT-Ausschluss" },
+          { "targetCountry": "RUS", "field": "mechanics.nationalism",     "delta": 10,  "description": "Kriegspropaganda" },
+          { "targetCountry": "DEU", "field": "military.armyStrength",     "delta": 10,  "description": "Zeitenwende: Rüstungsausgaben 2% BIP" },
+          { "targetCountry": "DEU", "field": "economy.gdpBillions",       "delta": -100, "description": "Energiekrise" },
+          { "targetCountry": "CHN", "field": "alignment.russia",          "delta": 15,  "description": "China kauft russisches Öl" },
+          { "targetCountry": "TUR", "field": "alignment.us",              "delta": -5,  "description": "Türkei als Vermittler" }
+        ]
+      },
+      {
+        "id": "opt_limited_operation",
+        "text": "Beschränkte Operation im Donbas",
+        "effects": [
+          { "targetCountry": "RUS", "field": "alignment.us",              "delta": -20, "description": "Sanktionen, aber moderater" },
+          { "targetCountry": "RUS", "field": "economy.gdpBillions",       "delta": -80, "description": "Partielle Sanktionen" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_israel_gaza_2023",
+    "title": "Hamas-Angriff und Gaza-Krieg",
+    "description": "Am 7. Oktober 2023 startet Hamas einen massiven Terrorangriff auf Israel. 1200 Israelis sterben. Israel antwortet mit einer Invasion Gazas. Die globale Polarisierung erreicht einen neuen Höhepunkt.",
+    "targetCountryId": "ISR",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2023, "triggerMonth": 10,
+    "options": [
+      {
+        "id": "opt_full_response",
+        "text": "Vollständige Militäroffensive in Gaza",
+        "effects": [
+          { "targetCountry": "ISR", "field": "alignment.eu",              "delta": -15, "description": "EU-Kritik an Zivilopfern" },
+          { "targetCountry": "ISR", "field": "alignment.us",              "delta": 5,   "description": "USA stützen Israel" },
+          { "targetCountry": "IRN", "field": "military.proxyWarfare",     "delta": 10,  "description": "Hisbollah, Houthi aktiviert" },
+          { "targetCountry": "SAU", "field": "alignment.us",              "delta": -10, "description": "Normalisierung mit Israel gestoppt" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_trump_2025_tariffs",
+    "title": "Trump 2025: Globalzölle und NATO-Krise",
+    "description": "Trump verhängt 25%-Zölle auf EU-Importe und stellt NATO-Schutz für Länder unter 5% BIP-Militärausgaben in Frage. Europa muss sich neu orientieren.",
+    "targetCountryId": "USA",
+    "type": "DIPLOMATIC",
+    "isHistorical": true,
+    "triggerYear": 2025, "triggerMonth": 3,
+    "options": [
+      {
+        "id": "opt_tariffs_nato",
+        "text": "Zölle + NATO-Druck (historisch)",
+        "effects": [
+          { "targetCountry": "USA", "field": "alignment.eu",              "delta": -30, "description": "Transatlantischer Bruch" },
+          { "targetCountry": "DEU", "field": "alignment.us",              "delta": -25, "description": "Deutschland sucht europäische Autonomie" },
+          { "targetCountry": "DEU", "field": "economy.gdpBillions",       "delta": -80, "description": "Zollverluste Exportwirtschaft" },
+          { "targetCountry": "FRA", "field": "alignment.us",              "delta": -20, "description": "Macron: europäische Verteidigung" },
+          { "targetCountry": "CHN", "field": "economy.tradeOpenness",     "delta": -15, "description": "Handelskrieg USA-China eskaliert" },
+          { "targetCountry": "RUS", "field": "alignment.us",              "delta": 10,  "description": "Mögliche Annäherung USA-Russland" }
+        ]
+      }
+    ]
+  }
+]

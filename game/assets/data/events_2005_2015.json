@@ -1,0 +1,208 @@
+[
+  {
+    "id": "evt_london_bombings",
+    "title": "Londoner U-Bahn-Anschläge",
+    "description": "Am 7. Juli 2005 erschüttern islamistische Selbstmordanschläge auf Londons Nahverkehr die britische Gesellschaft. 56 Tote, 700 Verletzte. Blair steht unter Druck.",
+    "targetCountryId": "GBR",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2005, "triggerMonth": 7,
+    "options": [
+      {
+        "id": "opt_security_crackdown",
+        "text": "Sicherheitsgesetze verschärfen (Anti-Terror-Maßnahmen)",
+        "effects": [
+          { "targetCountry": "GBR", "field": "mechanics.repression",     "delta": 8,   "description": "Mehr Überwachung" },
+          { "targetCountry": "GBR", "field": "mechanics.pressFreedom",   "delta": -5,  "description": "Presse unter Druck" },
+          { "targetCountry": "GBR", "field": "stability",                "delta": 5,   "description": "Staat zeigt Stärke" }
+        ]
+      },
+      {
+        "id": "opt_community_focus",
+        "text": "Community-Integration stärken statt Repression",
+        "effects": [
+          { "targetCountry": "GBR", "field": "mechanics.repression",     "delta": 2,   "description": "Moderate Sicherheitsmaßnahmen" },
+          { "targetCountry": "GBR", "field": "legitimacy",               "delta": 5,   "description": "Gesellschaft bleibt offen" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_iran_nuclear",
+    "title": "Iran nimmt Urananreicherung wieder auf",
+    "description": "Der Iran bricht das Pariser Abkommen und beginnt wieder mit der Urananreicherung. USA und EU drohen mit Sanktionen. Die Atomkrise eskaliert.",
+    "targetCountryId": "IRN",
+    "type": "DIPLOMATIC",
+    "isHistorical": true,
+    "triggerYear": 2006, "triggerMonth": 1,
+    "options": [
+      {
+        "id": "opt_continue_enrichment",
+        "text": "Urananreicherung fortsetzen — nationales Recht",
+        "effects": [
+          { "targetCountry": "IRN", "field": "alignment.us",            "delta": -15, "description": "USA verhängen Sanktionen" },
+          { "targetCountry": "IRN", "field": "alignment.eu",            "delta": -10, "description": "EU verhängt Sanktionen" },
+          { "targetCountry": "IRN", "field": "economy.gdpBillions",     "delta": -20, "description": "Sanktionsfolgen" },
+          { "targetCountry": "IRN", "field": "mechanics.nationalism",   "delta": 10,  "description": "Nationalismus steigt" }
+        ]
+      },
+      {
+        "id": "opt_negotiate",
+        "text": "Mit EU und USA verhandeln",
+        "effects": [
+          { "targetCountry": "IRN", "field": "alignment.eu",            "delta": 10, "description": "Diplomatische Öffnung" },
+          { "targetCountry": "IRN", "field": "mechanics.nationalism",   "delta": -5, "description": "Hardliner unzufrieden" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_financial_crisis_2008",
+    "title": "Globale Finanzkrise",
+    "description": "Der Zusammenbruch von Lehman Brothers löst die schlimmste Wirtschaftskrise seit 1929 aus. Globale Märkte kollabieren. Bankenrettungen in Billionenhöhe beginnen.",
+    "targetCountryId": "USA",
+    "type": "ECONOMIC",
+    "isHistorical": true,
+    "triggerYear": 2008, "triggerMonth": 9,
+    "options": [
+      {
+        "id": "opt_bailout",
+        "text": "Bankenrettungspaket (TARP — $700 Mrd)",
+        "effects": [
+          { "targetCountry": "USA", "field": "economy.gdpBillions",     "delta": -500, "description": "Krisenverlust + Staatsschulden" },
+          { "targetCountry": "USA", "field": "economy.growthRateAnnual","delta": -30,  "description": "Rezession" },
+          { "targetCountry": "USA", "field": "stability",               "delta": -10,  "description": "Öffentliche Wut" },
+          { "targetCountry": "DEU", "field": "economy.gdpBillions",     "delta": -200, "description": "Exporteinbruch" },
+          { "targetCountry": "GBR", "field": "economy.gdpBillions",     "delta": -150, "description": "Bankenkrise" },
+          { "targetCountry": "CHN", "field": "economy.growthRateAnnual","delta": -10,  "description": "Exportrückgang" }
+        ]
+      },
+      {
+        "id": "opt_no_bailout",
+        "text": "Markt sich selbst überlassen (libertäre Option)",
+        "effects": [
+          { "targetCountry": "USA", "field": "economy.gdpBillions",     "delta": -800, "description": "Kompletter Finanzsektor kollabiert" },
+          { "targetCountry": "USA", "field": "stability",               "delta": -25,  "description": "Gesellschaftliche Erschütterung" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_obama_elected",
+    "title": "Barack Obama wird Präsident",
+    "description": "Der erste afroamerikanische Präsident der USA wird gewählt. Hoffnungsvolle Stimmung, internationales Kapital kehrt zurück. 'Yes We Can.'",
+    "targetCountryId": "USA",
+    "type": "POLITICAL",
+    "isHistorical": true,
+    "triggerYear": 2009, "triggerMonth": 1,
+    "options": [
+      {
+        "id": "opt_obama_multilateral",
+        "text": "Multilateralismus und Diplomatie stärken",
+        "effects": [
+          { "targetCountry": "USA", "field": "alignment.eu",            "delta": 15,  "description": "Transatlantische Beziehungen verbessert" },
+          { "targetCountry": "USA", "field": "legitimacy",              "delta": 10,  "description": "Internationale Reputation steigt" },
+          { "targetCountry": "USA", "field": "mechanics.militaryInfluence", "delta": -5, "description": "Militär verliert Einfluss" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_arab_spring_tunisia",
+    "title": "Arabischer Frühling — Tunesien",
+    "description": "Die Selbstverbrennung von Mohammed Bouazizi entfacht eine Revolutionswelle. Ben Ali flieht. Die Welle erfasst Ägypten, Libyen, Syrien.",
+    "targetCountryId": "USA",
+    "type": "POLITICAL",
+    "isHistorical": true,
+    "triggerYear": 2011, "triggerMonth": 1,
+    "options": [
+      {
+        "id": "opt_support_democracy",
+        "text": "Demokratiebewegungen unterstützen",
+        "effects": [
+          { "targetCountry": "USA", "field": "alignment.us",            "delta": 5,   "description": "Regionale Sympathien" },
+          { "targetCountry": "SAU", "field": "alignment.us",            "delta": -10, "description": "Saudi-Arabien besorgt" },
+          { "targetCountry": "IRN", "field": "stability",               "delta": -5,  "description": "Iranische Opposition ermutigt" }
+        ]
+      },
+      {
+        "id": "opt_stability_first",
+        "text": "Bestehende Regime stützen (Stabilitätsinteresse)",
+        "effects": [
+          { "targetCountry": "USA", "field": "alignment.us",            "delta": -5,  "description": "Internationale Kritik" },
+          { "targetCountry": "SAU", "field": "alignment.us",            "delta": 5,   "description": "Saudis beruhigt" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_syria_civil_war",
+    "title": "Syrischer Bürgerkrieg beginnt",
+    "description": "Proteste gegen Assad eskalieren zum Bürgerkrieg. Russland und Iran stützen Assad. USA, Türkei, Golfstaaten unterstützen verschiedene Oppositionsgruppen. Eine humanitäre Katastrophe entfaltet sich.",
+    "targetCountryId": "RUS",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2011, "triggerMonth": 7,
+    "options": [
+      {
+        "id": "opt_support_assad",
+        "text": "Assad militärisch und diplomatisch unterstützen",
+        "effects": [
+          { "targetCountry": "RUS", "field": "alignment.us",            "delta": -10, "description": "Westliche Kritik" },
+          { "targetCountry": "RUS", "field": "military.proxyWarfare",   "delta": 10,  "description": "Proxy-Erfahrung" },
+          { "targetCountry": "IRN", "field": "alignment.russia",        "delta": 10,  "description": "Russland-Iran-Achse stärkt sich" }
+        ]
+      },
+      {
+        "id": "opt_stay_out",
+        "text": "Neutral bleiben",
+        "effects": [
+          { "targetCountry": "RUS", "field": "alignment.us",            "delta": 5,   "description": "Westen etwas besänftigt" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_crimea_annexation",
+    "title": "Russland annektiert die Krim",
+    "description": "Nach dem Euromaidan in der Ukraine annektiert Russland die Krim. Erster gewaltsamer Grenzwechsel in Europa seit 1945. Der Westen verhängt Sanktionen.",
+    "targetCountryId": "RUS",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2014, "triggerMonth": 3,
+    "options": [
+      {
+        "id": "opt_annex",
+        "text": "Krim annektieren (historisch)",
+        "effects": [
+          { "targetCountry": "RUS", "field": "alignment.us",            "delta": -25, "description": "Massive westliche Sanktionen" },
+          { "targetCountry": "RUS", "field": "alignment.eu",            "delta": -25, "description": "EU-Sanktionen" },
+          { "targetCountry": "RUS", "field": "economy.gdpBillions",     "delta": -80, "description": "Sanktionen und Kapitalflucht" },
+          { "targetCountry": "RUS", "field": "mechanics.nationalism",   "delta": 15,  "description": "Patriotismus-Welle im Inland" },
+          { "targetCountry": "RUS", "field": "legitimacy",              "delta": 15,  "description": "Putin-Popularität steigt" },
+          { "targetCountry": "DEU", "field": "alignment.us",            "delta": 5,   "description": "Deutschland nähert sich NATO an" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "evt_isis_caliphate",
+    "title": "ISIS ruft Kalifat aus",
+    "description": "Der Islamische Staat (ISIS/ISIL) kontrolliert große Teile des Irak und Syriens und ruft ein 'Kalifat' aus. Internationale Koalition formiert sich.",
+    "targetCountryId": "USA",
+    "type": "MILITARY",
+    "isHistorical": true,
+    "triggerYear": 2014, "triggerMonth": 6,
+    "options": [
+      {
+        "id": "opt_coalition",
+        "text": "Internationale Anti-ISIS-Koalition führen",
+        "effects": [
+          { "targetCountry": "USA", "field": "economy.gdpBillions",     "delta": -100, "description": "Militärkosten" },
+          { "targetCountry": "IRN", "field": "alignment.us",            "delta": 5,    "description": "Taktische Zusammenarbeit gegen ISIS" },
+          { "targetCountry": "TUR", "field": "stability",               "delta": -8,   "description": "Türkei unter Druck" }
+        ]
+      }
+    ]
+  }
+]

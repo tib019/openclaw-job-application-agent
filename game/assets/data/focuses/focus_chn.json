@@ -1,0 +1,96 @@
+{
+  "countryId": "CHN",
+  "nodes": [
+    {
+      "id": "chn_wto_integration",
+      "title": "WTO-Integration",
+      "description": "China nutzt den WTO-Beitritt für einen massiven Exportboom. Weltfabrik, Devisenaküumulation, Technologietransfer durch ausländische Investitionen.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 1, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.gdpBillions",       "delta": 500, "description": "Exportboom" },
+        { "targetCountry": "self", "field": "economy.tradeOpenness",     "delta": 15,  "description": "Globale Integration" },
+        { "targetCountry": "self", "field": "economy.industryLevel",     "delta": 10,  "description": "Weltfabrik" }
+      ]
+    },
+    {
+      "id": "chn_parteidisziplin",
+      "title": "Parteidisziplin stärken",
+      "description": "Die KPCh investiert in interne Kontrolle, Antikorruptionskampagnen und ideologische Ausbildung. Der Markt dient der Partei, nicht umgekehrt.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 0, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "mechanics.partyControl",    "delta": 10, "description": "Parteilinie durchgesetzt" },
+        { "targetCountry": "self", "field": "mechanics.corruptionLevel", "delta": -10, "description": "Anti-Korruption" },
+        { "targetCountry": "self", "field": "stability",                 "delta": 5,  "description": "Innere Stabilität" }
+      ]
+    },
+    {
+      "id": "chn_harmonische_gesellschaft",
+      "title": "Harmonische Gesellschaft (Hu Jintao)",
+      "description": "Hu Jintaos Konzept der 'Harmonischen Gesellschaft' kombiniert wirtschaftliches Wachstum mit sozialer Stabilität. Ungleichheit wird als Problem anerkannt.",
+      "daysToComplete": 70,
+      "prerequisites": ["chn_wto_integration"],
+      "gridX": 1, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "legitimacy",                "delta": 8,  "description": "Sozialer Frieden" },
+        { "targetCountry": "self", "field": "economy.growthRateAnnual",  "delta": 5,  "description": "Inlandsnachfrage steigt" }
+      ]
+    },
+    {
+      "id": "chn_bri",
+      "title": "Belt and Road Initiative",
+      "description": "Chinas gigantisches Infrastrukturprojekt verbindet Asien, Afrika und Europa durch Häfen, Straßen und Bahnen. Geopolitik durch Investitionen.",
+      "daysToComplete": 140,
+      "prerequisites": ["chn_harmonische_gesellschaft"],
+      "gridX": 2, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "military.proxyWarfare",     "delta": 15, "description": "Stützpunkte, Häfen weltweit" },
+        { "targetCountry": "self", "field": "alignment.china",           "delta": 10, "description": "Partner-Netzwerk" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",       "delta": 200, "description": "Auslandsinvestitionen" }
+      ]
+    },
+    {
+      "id": "chn_xi_neue_aera",
+      "title": "Xi Jinping: Neue Ära",
+      "description": "Xi Jinping konzentriert Macht wie kein Führer seit Mao. Amtszeitbegrenzung abgeschafft, Ideologie als Staatsdoktrin, 'China Dream'.",
+      "daysToComplete": 70,
+      "prerequisites": ["chn_parteidisziplin"],
+      "gridX": 0, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "mechanics.partyControl",    "delta": 15, "description": "Totale Parteihegemonie" },
+        { "targetCountry": "self", "field": "mechanics.repression",      "delta": 10, "description": "Xinjiang, HongKong" },
+        { "targetCountry": "self", "field": "stability",                 "delta": 8,  "description": "Kontrollierte Stabilität" },
+        { "targetCountry": "self", "field": "alignment.us",              "delta": -10, "description": "Systemkonflikt mit USA" }
+      ]
+    },
+    {
+      "id": "chn_technologieaufstieg",
+      "title": "Made in China 2025",
+      "description": "China will in 10 Schlüsseltechnologien zur Weltführerschaft aufsteigen: KI, Halbleiter, Robotik, Biotechnologie. Der Westen reagiert mit Exportkontrollen.",
+      "daysToComplete": 70,
+      "prerequisites": ["chn_xi_neue_aera"],
+      "gridX": 0, "gridY": 3,
+      "effects": [
+        { "targetCountry": "self", "field": "military.cyberCapability",  "delta": 15, "description": "Tech-Militarisierung" },
+        { "targetCountry": "self", "field": "economy.industryLevel",     "delta": 12, "description": "Technologiesektor" },
+        { "targetCountry": "self", "field": "alignment.us",              "delta": -10, "description": "Technologiekonflikt mit USA" }
+      ]
+    },
+    {
+      "id": "chn_taiwan_frage",
+      "title": "Taiwan-Frage verschärfen",
+      "description": "China erhöht den militärischen und politischen Druck auf Taiwan. Wiedervereinigung als historische Mission.",
+      "daysToComplete": 140,
+      "prerequisites": ["chn_bri", "chn_technologieaufstieg"],
+      "gridX": 1, "gridY": 4,
+      "effects": [
+        { "targetCountry": "self", "field": "military.navyStrength",     "delta": 15, "description": "Marine für Taiwan-Szenario" },
+        { "targetCountry": "self", "field": "military.airStrength",      "delta": 10, "description": "Luftüberlegenheit Straße von Taiwan" },
+        { "targetCountry": "self", "field": "alignment.us",              "delta": -20, "description": "USA erhöhen Taiwan-Unterstützung" }
+      ]
+    }
+  ]
+}

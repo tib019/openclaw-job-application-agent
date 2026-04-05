@@ -1,0 +1,95 @@
+{
+  "countryId": "USA",
+  "nodes": [
+    {
+      "id": "usa_war_on_terror",
+      "title": "Krieg gegen den Terror",
+      "description": "Die USA investieren massiv in Heimatsicherheit, Auslandseinsätze und Geheimdienstkapazitäten. Die Welt wird durch eine binäre Linse gesehen: mit uns oder gegen uns.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 1, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "military.intelligenceRating", "delta": 10, "description": "NSA, CIA ausgebaut" },
+        { "targetCountry": "self", "field": "military.armyStrength",       "delta": 5,  "description": "Kriegserfahrung" },
+        { "targetCountry": "self", "field": "mechanics.repression",        "delta": 10, "description": "Patriot Act" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",         "delta": -200, "description": "Kriegskosten Afghanistan+Irak" }
+      ]
+    },
+    {
+      "id": "usa_unipolar_moment",
+      "title": "Unipolarer Moment",
+      "description": "Die USA nutzen ihre einzigartige Machtposition um eine regelbasierte internationale Ordnung unter US-Führung zu festigen.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 0, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "military.proxyWarfare",    "delta": 10, "description": "Globale Präsenz" },
+        { "targetCountry": "self", "field": "alignment.us",             "delta": 5,  "description": "Allianzpflege" }
+      ]
+    },
+    {
+      "id": "usa_china_pivot",
+      "title": "Pivot to Asia",
+      "description": "Obama-Strategie: Verlagerung des Schwerpunkts nach Asien um Chinas Aufstieg einzudämmen. TPP, militärische Präsenz im Pazifik.",
+      "daysToComplete": 70,
+      "prerequisites": ["usa_unipolar_moment"],
+      "gridX": 0, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "military.navyStrength",    "delta": 10, "description": "Pazifik-Flotte gestärkt" },
+        { "targetCountry": "self", "field": "alignment.us",             "delta": 5,  "description": "Japan, Südkorea, Australien enger" },
+        { "targetCountry": "CHN", "field": "alignment.us",              "delta": -10, "description": "China fühlt Eindämmung" }
+      ]
+    },
+    {
+      "id": "usa_shale_revolution",
+      "title": "Schiefergas-Revolution",
+      "description": "Fracking macht die USA zum weltgrößten Öl- und Gasproduzenten. Energieunabhängigkeit — das geopolitische Machtgefüge verschiebt sich.",
+      "daysToComplete": 70,
+      "prerequisites": ["usa_war_on_terror"],
+      "gridX": 2, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.resourceLevel",    "delta": 25, "description": "Energieunabhängigkeit" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",      "delta": 300, "description": "Energiexporte" },
+        { "targetCountry": "RUS", "field": "economy.gdpBillions",       "delta": -100, "description": "Ölpreis fällt" }
+      ]
+    },
+    {
+      "id": "usa_tech_dominance",
+      "title": "Tech-Suprematie",
+      "description": "Silicon Valley, KI, Big Data, Halbleiter — die USA dominieren die digitale Wirtschaft des 21. Jahrhunderts.",
+      "daysToComplete": 70,
+      "prerequisites": ["usa_shale_revolution"],
+      "gridX": 2, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "military.cyberCapability",  "delta": 10, "description": "Cyberüberlegenheit" },
+        { "targetCountry": "self", "field": "economy.industryLevel",     "delta": 10, "description": "Tech-Sektor" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",       "delta": 500, "description": "Digitale Wirtschaft" }
+      ]
+    },
+    {
+      "id": "usa_america_first",
+      "title": "America First",
+      "description": "Rückzug aus multilateralen Institutionen, Protektionismus, bilaterale Deals. Die USA priorisieren kurzfristige nationale Interessen.",
+      "daysToComplete": 70,
+      "prerequisites": ["usa_unipolar_moment"],
+      "gridX": 0, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "mechanics.nationalism",     "delta": 20, "description": "Populismus" },
+        { "targetCountry": "self", "field": "alignment.eu",              "delta": -25, "description": "Transatlantische Krise" },
+        { "targetCountry": "self", "field": "economy.tradeOpenness",     "delta": -15, "description": "Protektionismus" }
+      ]
+    },
+    {
+      "id": "usa_infrastructure",
+      "title": "Build Back Better",
+      "description": "Massive Investitionen in Infrastruktur, Chips-Produktion (CHIPS Act), saubere Energie. Industriepolitik kehrt zurück.",
+      "daysToComplete": 70,
+      "prerequisites": ["usa_tech_dominance"],
+      "gridX": 3, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.industryLevel",    "delta": 8,  "description": "Reindustrialisierung" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",      "delta": 200, "description": "Fiskalprogramme" }
+      ]
+    }
+  ]
+}

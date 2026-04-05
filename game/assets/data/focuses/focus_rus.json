@@ -1,0 +1,94 @@
+{
+  "countryId": "RUS",
+  "nodes": [
+    {
+      "id": "rus_siloviki_staat",
+      "title": "Siloviki-Konsolidierung",
+      "description": "Putin stärkt die Geheimdienste und Sicherheitsapparat. Ex-KGB-Netzwerke übernehmen Schlüsselpositionen in Staat und Wirtschaft.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 1, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "military.intelligenceRating", "delta": 10, "description": "FSB/SVR gestärkt" },
+        { "targetCountry": "self", "field": "mechanics.partyControl",      "delta": 10, "description": "Exekutive stärker" },
+        { "targetCountry": "self", "field": "mechanics.repression",        "delta": 8,  "description": "Opposition unterdrückt" }
+      ]
+    },
+    {
+      "id": "rus_ressourcenrente",
+      "title": "Öl- und Gasstaat",
+      "description": "Russland nutzt hohe Rohstoffpreise für Staatseinnahmen. Gazprom und Rosneft als Instrumente der Außenpolitik.",
+      "daysToComplete": 70,
+      "prerequisites": ["rus_siloviki_staat"],
+      "gridX": 0, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.gdpBillions",       "delta": 200, "description": "Öleinnahmen" },
+        { "targetCountry": "self", "field": "economy.resourceLevel",     "delta": 5,   "description": "Exploration ausgebaut" },
+        { "targetCountry": "DEU",  "field": "alignment.russia",          "delta": 10,  "description": "Energieabhängigkeit" }
+      ]
+    },
+    {
+      "id": "rus_naher_ausland",
+      "title": "Nahes Ausland",
+      "description": "Russland beansprucht eine Einflusszone in den ehemaligen Sowjetstaaten. Kasachstan, Belarus, Ukraine — kein westliches Militär an russischen Grenzen.",
+      "daysToComplete": 70,
+      "prerequisites": ["rus_siloviki_staat"],
+      "gridX": 2, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "military.proxyWarfare",     "delta": 15, "description": "Proxies in Georgien, Moldau, Ukraine" },
+        { "targetCountry": "self", "field": "mechanics.nationalism",     "delta": 10, "description": "Panslavismus" }
+      ]
+    },
+    {
+      "id": "rus_georgien_krieg",
+      "title": "Krieg in Georgien (2008)",
+      "description": "Russland testet die NATO-Reaktion durch einen Krieg gegen Georgien. Südossetien wird anerkannt. Der Westen protestiert, handelt aber nicht.",
+      "daysToComplete": 70,
+      "prerequisites": ["rus_naher_ausland"],
+      "gridX": 3, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "military.armyStrength",     "delta": 5,  "description": "Kampferfahrung" },
+        { "targetCountry": "self", "field": "alignment.us",              "delta": -10, "description": "Westliche Kritik" }
+      ]
+    },
+    {
+      "id": "rus_modernisierung",
+      "title": "Medwedew: Modernisierung",
+      "description": "Präsident Medwedew versucht Russland zu modernisieren. Silicon Valley-Besuche, Skolkovo, Rechtsstaat-Rhetorik. Bleibt größtenteils Fassade.",
+      "daysToComplete": 70,
+      "prerequisites": ["rus_ressourcenrente"],
+      "gridX": 0, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.industryLevel",     "delta": 5,  "description": "Diversifizierungsversuch" },
+        { "targetCountry": "self", "field": "alignment.us",              "delta": 10, "description": "Reset-Politik Obama-Medwedew" },
+        { "targetCountry": "self", "field": "mechanics.corruptionLevel", "delta": -5, "description": "Leichte Verbesserung" }
+      ]
+    },
+    {
+      "id": "rus_propaganda_apparat",
+      "title": "RT und Desinformation",
+      "description": "Russland baut einen globalen Propagandaapparat auf: Russia Today, Trollfarmen, Wahleinmischung. Informationskrieg als Staatskonzept.",
+      "daysToComplete": 70,
+      "prerequisites": ["rus_siloviki_staat"],
+      "gridX": 1, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "military.propagandaReach",  "delta": 20, "description": "Globale Reichweite" },
+        { "targetCountry": "self", "field": "military.cyberCapability",  "delta": 10, "description": "Cyberoperationen" }
+      ]
+    },
+    {
+      "id": "rus_ukraine_krieg",
+      "title": "Große Vaterländische Mission",
+      "description": "Die vollständige Invasion der Ukraine 2022 als historische Konsequenz: Nato-Osterweiterung stoppen, russische Welt sichern.",
+      "daysToComplete": 140,
+      "prerequisites": ["rus_naher_ausland", "rus_propaganda_apparat"],
+      "gridX": 2, "gridY": 3,
+      "effects": [
+        { "targetCountry": "self", "field": "mechanics.nationalism",     "delta": 15, "description": "Kriegsmobilisierung" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",       "delta": -300, "description": "Sanktionen, Kriegskosten" },
+        { "targetCountry": "self", "field": "military.armyStrength",     "delta": -10, "description": "Verluste" },
+        { "targetCountry": "CHN", "field": "alignment.russia",           "delta": 15, "description": "China als Lebensader" }
+      ]
+    }
+  ]
+}

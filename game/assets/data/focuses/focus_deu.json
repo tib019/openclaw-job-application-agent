@@ -1,0 +1,93 @@
+{
+  "countryId": "DEU",
+  "nodes": [
+    {
+      "id": "deu_wirtschaftsreform",
+      "title": "Agenda 2010",
+      "description": "Schröders Arbeitsmarkt- und Sozialreformen modernisieren die deutsche Wirtschaft, aber polarisieren die Gesellschaft.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 2, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.growthRateAnnual", "delta": 5,  "description": "+0.5% Wachstum" },
+        { "targetCountry": "self", "field": "legitimacy",               "delta": -8, "description": "Sozialdemokratische Basis enttäuscht" }
+      ]
+    },
+    {
+      "id": "deu_exportstrategie",
+      "title": "Exportweltmeister",
+      "description": "Deutschland konsolidiert seine Rolle als führende Exportnation. Maschinenbau, Autos, Chemie — Made in Germany als globale Marke.",
+      "daysToComplete": 70,
+      "prerequisites": ["deu_wirtschaftsreform"],
+      "gridX": 2, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.gdpBillions",      "delta": 150, "description": "Exportboom" },
+        { "targetCountry": "self", "field": "economy.industryLevel",    "delta": 8,   "description": "Industriekapazität steigt" }
+      ]
+    },
+    {
+      "id": "deu_eu_vertiefung",
+      "title": "EU-Vertiefung",
+      "description": "Deutschland treibt die europäische Integration voran. Euro-Stabilisierung, Lissabon-Vertrag, Erweiterung nach Osten.",
+      "daysToComplete": 70,
+      "prerequisites": [],
+      "gridX": 0, "gridY": 0,
+      "effects": [
+        { "targetCountry": "self", "field": "alignment.eu",             "delta": 10,  "description": "EU-Führungsrolle gestärkt" },
+        { "targetCountry": "self", "field": "economy.tradeOpenness",    "delta": 8,   "description": "Binnenmarkt" }
+      ]
+    },
+    {
+      "id": "deu_ostpolitik_neu",
+      "title": "Neue Ostpolitik",
+      "description": "Deutschland baut Wirtschafts- und Energiebeziehungen zu Russland aus. Nordstream entsteht. Abhängigkeit als Friedensstrategie.",
+      "daysToComplete": 70,
+      "prerequisites": ["deu_eu_vertiefung"],
+      "gridX": 0, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "alignment.russia",         "delta": 15,  "description": "Russland-Abhängigkeit steigt" },
+        { "targetCountry": "self", "field": "economy.gdpBillions",      "delta": 60,  "description": "Billiges Gas" },
+        { "targetCountry": "self", "field": "economy.growthRateAnnual", "delta": 3,   "description": "Industrievorteil" }
+      ]
+    },
+    {
+      "id": "deu_zeitenwende",
+      "title": "Zeitenwende (post-2022)",
+      "description": "Der Ukraine-Krieg erzwingt eine historische Wende. 100 Mrd Sondervermögen Bundeswehr. Deutschland wird zur Militärmacht.",
+      "daysToComplete": 140,
+      "prerequisites": ["deu_eu_vertiefung"],
+      "gridX": 1, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "military.armyStrength",    "delta": 20,  "description": "Bundeswehr modernisiert" },
+        { "targetCountry": "self", "field": "military.airStrength",     "delta": 15,  "description": "F-35 Beschaffung" },
+        { "targetCountry": "self", "field": "alignment.us",             "delta": 10,  "description": "NATO-Commitment" },
+        { "targetCountry": "self", "field": "alignment.russia",         "delta": -20, "description": "Russland-Abkehr" }
+      ]
+    },
+    {
+      "id": "deu_energiewende",
+      "title": "Energiewende",
+      "description": "Deutschland beschleunigt den Ausstieg aus Kernkraft und Kohle. Erneuerbare werden massiv ausgebaut. Vorbild oder Risiko?",
+      "daysToComplete": 70,
+      "prerequisites": ["deu_wirtschaftsreform"],
+      "gridX": 3, "gridY": 1,
+      "effects": [
+        { "targetCountry": "self", "field": "economy.resourceLevel",    "delta": 10,  "description": "Energieunabhängigkeit steigt" },
+        { "targetCountry": "self", "field": "economy.industryLevel",    "delta": -5,  "description": "Kurzfristige Kosten" },
+        { "targetCountry": "self", "field": "alignment.eu",             "delta": 5,   "description": "Grüne Führungsrolle" }
+      ]
+    },
+    {
+      "id": "deu_digitalisierung",
+      "title": "Digitalstrategie",
+      "description": "Deutschland holt in Digitalisierung und KI auf. Förderprogramme für Start-ups, Glasfaserausbau, digitale Verwaltung.",
+      "daysToComplete": 70,
+      "prerequisites": ["deu_exportstrategie"],
+      "gridX": 2, "gridY": 2,
+      "effects": [
+        { "targetCountry": "self", "field": "military.cyberCapability",  "delta": 15,  "description": "Cyber-Kapazitäten" },
+        { "targetCountry": "self", "field": "economy.industryLevel",    "delta": 10,  "description": "Tech-Sektor wächst" }
+      ]
+    }
+  ]
+}
