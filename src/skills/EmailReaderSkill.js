@@ -34,7 +34,7 @@ class EmailReaderSkill {
             host: this.config.imapHost,
             port: this.config.imapPort || 993,
             tls: true,
-            tlsOptions: { rejectUnauthorized: false }
+            tlsOptions: { rejectUnauthorized: process.env.NODE_ENV !== 'development' }
         });
 
         return new Promise((resolve, reject) => {
