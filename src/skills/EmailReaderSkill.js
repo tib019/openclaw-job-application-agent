@@ -28,18 +28,33 @@ class EmailReaderSkill {
      * Initialize IMAP connection
      */
     async initialize() {
+        // Die Zertifikatspruefung ist an und laesst sich nur ueber eine eigens
+        // dafuer vorgesehene Variable abschalten. NODE_ENV taugt dafuer nicht:
+        // viele Werkzeuge setzen sie beilaeufig auf "development", und dann
+        // fiele die Pruefung unbemerkt aus — ueber diese Verbindung gehen
+        // Postfach-Zugangsdaten und der gesamte Mailinhalt.
+        const erlaubeSelbstsigniertesZertifikat =
+            process.env.IMAP_ALLOW_SELF_SIGNED === '1';
+
+        if (erlaubeSelbstsigniertesZertifikat) {
+            console.warn(
+                '[IMAP] TLS-Zertifikatspruefung ist per IMAP_ALLOW_SELF_SIGNED ' +
+                'abgeschaltet. Nur fuer lokale Testserver verwenden.'
+            );
+        }
+
         this.imap = new Imap({
             user: this.config.email,
             password: this.config.password,
             host: this.config.imapHost,
             port: this.config.imapPort || 993,
             tls: true,
-            tlsOptions: { rejectUnauthorized: process.env.NODE_ENV !== 'development' }
+            tlsOptions: { rejectUnauthorized: !erlaubeSelbstsigniertesZertifikat }
         });
 
         return new Promise((resolve, reject) => {
             this.imap.once('ready', () => {
- console.log('IMAP connection established');
+                console.log('IMAP connection established');
                 resolve();
             });
 
